@@ -19,12 +19,12 @@
 <meta property="og:image" content="https://leng521.top/assets/hello-world/path_1.png">
 <meta property="og:image" content="https://leng521.top/assets/hello-world/git_1.png">
 <meta property="og:image" content="https://leng521.top/assets/hello-world/node_1.png">
-<meta property="og:image" content="https://leng521.top/2018/01/17/hello-world/assets/hello-world/hexo_1.png">
-<meta property="og:image" content="https://leng521.top/2018/01/17/hello-world/assets/hello-world/hexo_2.png">
-<meta property="og:image" content="https://leng521.top/2018/01/17/hello-world/assets/hello-world/github_1.png">
-<meta property="og:image" content="https://leng521.top/2018/01/17/hello-world/assets/hello-world/config_1.png">
-<meta property="og:image" content="https://leng521.top/2018/01/17/hello-world/assets/hello-world/config_2.png">
-<meta property="og:updated_time" content="2018-01-19T05:01:31.610Z">
+<meta property="og:image" content="https://leng521.top/assets/hello-world/hexo_1.png">
+<meta property="og:image" content="https://leng521.top/assets/hello-world/hexo_2.png">
+<meta property="og:image" content="https://leng521.top/assets/hello-world/github_1.png">
+<meta property="og:image" content="https://leng521.top/assets/hello-world/config_1.png">
+<meta property="og:image" content="https://leng521.top/assets/hello-world/config_2.png">
+<meta property="og:updated_time" content="2018-01-19T05:26:31.986Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hello World">
 <meta name="twitter:description" content="搭建自己的博客在github page   经过2天的折腾的终于把自己的博客给搭建出来了,也可以说是自己的一个Hello World 吧 这个主题是使用Litten的theme通过hexo搭建 准备环境* install git    * install node * 注册github的账号 Git Downloadnodejs Downloadgithub 注册的地址 再创建之前思考一个事情就是">
@@ -210,7 +210,7 @@ var _hmt = _hmt || [];
 <p>然后就是利用 node 的 npm 工具去安装 hexo 输入 </p>
 <pre><code>npm install -g hexo-cli
 </code></pre><p>如果自己的 hexo 安装成功的话</p>
-<p>在 cmd 中 输入 hexo -v<br><img src="assets/hello-world/hexo_1.png" alt="hexo -v"></p>
+<p>在 cmd 中 输入 hexo -v<br><img src="/assets/hello-world/hexo_1.png" alt="hexo -v"></p>
 <h2 id="创建自己的-hexo-工程"><a href="#创建自己的-hexo-工程" class="headerlink" title="创建自己的 hexo 工程"></a><strong>创建自己的 hexo 工程</strong></h2><p>假设自己的 hexo 的工程目录是在 D:\Pro\pro_wdh\nodejs</p>
 <pre><code>1. 在 cmd 中 输入 pushd D:\Pro\pro_wdh\nodejs
 2. cmd的当前目录直接跳转到 D:\Pro\pro_wdh\nodejs
@@ -233,13 +233,13 @@ var _hmt = _hmt || [];
 <p>Hexo的模板是指在新建的markdown文件中默认填充的内容。例如，如果您修改scaffold/post.md中的Front-matter内容，那么每次新建一篇文章时都会包含这个修改。</p>
 <h3 id="source"><a href="#source" class="headerlink" title="source"></a><strong>source</strong></h3><p>资源文件夹是存放用户资源的地方。除 <em>posts 文件夹之外，开头命名为 </em> (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。</p>
 <h3 id="themes"><a href="#themes" class="headerlink" title="themes"></a><strong>themes</strong></h3><p>主题 文件夹。Hexo 会根据主题来生成静态页面。</p>
-<h2 id="运行自己的hexo工程"><a href="#运行自己的hexo工程" class="headerlink" title="运行自己的hexo工程"></a><strong>运行自己的hexo工程</strong></h2><p>在 cmd 中 输入 hexo s<br><img src="assets/hello-world/hexo_2.png" alt=""></p>
+<h2 id="运行自己的hexo工程"><a href="#运行自己的hexo工程" class="headerlink" title="运行自己的hexo工程"></a><strong>运行自己的hexo工程</strong></h2><p>在 cmd 中 输入 hexo s<br><img src="/assets/hello-world/hexo_2.png" alt=""></p>
 <p>在自己的浏览器中打开 <code>http://localhost:4000/.</code></p>
 <p>这时你会看到自己的静态网页</p>
 <p><a href="https://segmentfault.com/a/1190000002632530" target="_blank" rel="noopener">更多的 hexo的命令</a><br><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">hexo 的官网</a></p>
 <h2 id="部署自己的笔记2github"><a href="#部署自己的笔记2github" class="headerlink" title="部署自己的笔记2github"></a><strong>部署自己的笔记2github</strong></h2><p>网上的一些教程都是 使用 SSH 去上传自己的博客<br>但是使用 htpp 的方式也同样可以 上传</p>
-<p>创建自己的 github 的仓库<br><img src="assets/hello-world/github_1.png" alt=""><br>上面的仓库名字就和你 github 的名字一样就行了</p>
-<p>然后就是在 hexo 的根目录下的 _config.yml 中 找到<br><img src="assets/hello-world/config_1.png" alt=""><br>按照图片上的配置自己的 github 仓库的地址<br>github 仓库的地址在这里拿<br><img src="assets/hello-world/config_2.png" alt=""></p>
+<p>创建自己的 github 的仓库<br><img src="/assets/hello-world/github_1.png" alt=""><br>上面的仓库名字就和你 github 的名字一样就行了</p>
+<p>然后就是在 hexo 的根目录下的 _config.yml 中 找到<br><img src="/assets/hello-world/config_1.png" alt=""><br>按照图片上的配置自己的 github 仓库的地址<br>github 仓库的地址在这里拿<br><img src="/assets/hello-world/config_2.png" alt=""></p>
 <p>然后执行 hexo的命令 在cmd中输入  </p>
 <pre><code>1.hexo clean
 2.hexo g
@@ -262,7 +262,8 @@ git push origin blog
 </blockquote>
 <p><a href="http://www.runoob.com/?s=git" target="_blank" rel="noopener">更多 git 的知识</a></p>
 <p>这只是一些基础</p>
-<p>更多需要你多去尝试</p>
+<p>更多需要你多去尝试,多自己动手。</p>
+<p>有疑问可以加QQ一起讨论</p>
 
       
 
@@ -527,14 +528,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">IT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hello world</a>
               </li>
              
@@ -544,6 +537,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博客</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">IT</a>
               </li>
             
             <div class="clearfix"></div>
