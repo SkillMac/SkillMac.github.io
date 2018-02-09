@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://leng521.top/2018/01/22/优化cocos2dxSpine库/spine-code_1.png">
 <meta property="og:image" content="https://leng521.top/2018/01/22/优化cocos2dxSpine库/libSpine_1.png">
 <meta property="og:image" content="https://leng521.top/2018/01/22/优化cocos2dxSpine库/auto_binding_2_lua_1.png">
-<meta property="og:updated_time" content="2018-02-09T10:54:21.754Z">
+<meta property="og:updated_time" content="2018-02-09T11:11:29.796Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="优化cocos2dxSpine库">
 <meta name="twitter:description" content="对cocos2dxSpine库的升级和优化本文的大纲1.升级spine在cocos2dx-3.15的运行时库2.优化spine在创建的时候效率 在开发的时候出现的问题1.spine这个软件导出3.6新加的特效在cocos2dx3.15 不能使用2.spine在批量创建的时候帧数会下降">
@@ -297,7 +297,7 @@ spine-cocos2dx/src/spine/*.cpp  and  spine-cocos2dx/src/spine/*.h
 <p>那就打开 <code>genbindings.py</code> 你会发现他需要的是NDK <strong>3.3-3.4</strong> 然而自己的NDK经过查看 是 <strong>3.5-3.6</strong> 没关系,把它这个所有相关 <strong>3.3  3.4</strong> 全部改成 <strong>3.5-3.6</strong>的就OK了。</p>
 <p>改完后运行 Prefect ^-^.</p>
 <h3 id="在lua中调用"><a href="#在lua中调用" class="headerlink" title="在lua中调用"></a><strong>在lua中调用</strong></h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sp.SkeletonAnimation: createFromCache(key)</span><br><span class="line">sp.SkeletonAnimation: isExistSkeletonDataInCache(key)</span><br><span class="line">sp.SkeletonAnimation: loadSkeletonDataToCache(key,jsonFilePath,atlasFilePath,scale =<span class="number">1</span>)      </span><br><span class="line">sp.SkeletonAnimation: getSkeletonDataFromCache(key)</span><br><span class="line">sp.SkeletonAnimation: removeSkeletonData(key)</span><br><span class="line">sp.SkeletonAnimation: removeAllSkeletonData()</span><br></pre></td></tr></table></figure>
-<p>这里面有一个问题是你会发现返回的<code>骷髅数据</code>拿不到,这个是cocos2dx在绑定的时候并没有将这个数据类型绑定lua去,我上面那么写就是为了以后留个接口,当然你也可以自己把那个返回值去掉。</p>
+<p>这里面有一个问题是你会发现返回的<code>骨胳数据</code>拿不到,这个是cocos2dx在绑定的时候并没有将这个数据类型绑定lua去,我上面那么写就是为了以后留个接口,当然你也可以自己把那个返回值去掉。</p>
 <p>好了今天就到这吧。</p>
 
       
@@ -311,7 +311,7 @@ spine-cocos2dx/src/spine/*.cpp  and  spine-cocos2dx/src/spine/*.h
         <p><span>本文标题:</span><a href="/2018/01/22/优化cocos2dxSpine库/">优化cocos2dxSpine库</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 小魏 的个人博客">小魏</a></p>
         <p><span>发布时间:</span>2018年01月22日 - 20时44分</p>
-        <p><span>最后更新:</span>2018年02月09日 - 18时54分</p>
+        <p><span>最后更新:</span>2018年02月09日 - 19时11分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/01/22/优化cocos2dxSpine库/" title="优化cocos2dxSpine库">https://leng521.top/2018/01/22/优化cocos2dxSpine库/</a>
             <span class="copy-path" data-clipboard-text="原文: https://leng521.top/2018/01/22/优化cocos2dxSpine库/　　作者: 小魏" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
