@@ -3,29 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | 小魏的博客</title>
+  <title>git命令的记录 | 小魏的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="搭建自己的博客在github page">
-<meta name="keywords" content="hello world,github page,博客">
+  <meta name="description" content="现在对git也使用快一年了现在总结一下常用的一些命令。 本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit4.git push5.git branch6.git remote7.git checkout8.git reset">
+<meta name="keywords" content="git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://leng521.top/2018/01/17/hello-world/index.html">
+<meta property="og:title" content="git命令的记录">
+<meta property="og:url" content="https://leng521.top/2018/03/07/git命令的记录/index.html">
 <meta property="og:site_name" content="小魏的博客">
-<meta property="og:description" content="搭建自己的博客在github page">
-<meta property="og:image" content="http://img7.cache.hxsd.com/game/2012/11/20/669145_1353383319_18.jpg">
-<meta property="og:image" content="https://leng521.top/assets/hello-world/path_1.png">
-<meta property="og:image" content="https://leng521.top/assets/hello-world/git_1.png">
-<meta property="og:image" content="https://leng521.top/assets/hello-world/node_1.png">
-<meta property="og:image" content="https://leng521.top/assets/hello-world/hexo_1.png">
-<meta property="og:image" content="https://leng521.top/assets/hello-world/hexo_2.png">
-<meta property="og:image" content="https://leng521.top/assets/hello-world/github_1.png">
-<meta property="og:image" content="https://leng521.top/assets/hello-world/config_1.png">
-<meta property="og:image" content="https://leng521.top/assets/hello-world/github_2.png">
-<meta property="og:updated_time" content="2018-02-09T03:56:07.909Z">
+<meta property="og:description" content="现在对git也使用快一年了现在总结一下常用的一些命令。 本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit4.git push5.git branch6.git remote7.git checkout8.git reset">
+<meta property="og:image" content="https://leng521.top/2018/03/07/git命令的记录/git_branch_vv.png">
+<meta property="og:image" content="https://leng521.top/2018/03/07/git命令的记录/git_remote_v.png">
+<meta property="og:updated_time" content="2018-03-07T07:14:59.522Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="搭建自己的博客在github page">
-<meta name="twitter:image" content="http://img7.cache.hxsd.com/game/2012/11/20/669145_1353383319_18.jpg">
+<meta name="twitter:title" content="git命令的记录">
+<meta name="twitter:description" content="现在对git也使用快一年了现在总结一下常用的一些命令。 本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit4.git push5.git branch6.git remote7.git checkout8.git reset">
+<meta name="twitter:image" content="https://leng521.top/2018/03/07/git命令的记录/git_branch_vv.png">
   
     <link rel="alternative" href="/atom.xml" title="小魏的博客" type="application/atom+xml">
   
@@ -241,11 +234,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-git命令的记录" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/01/17/hello-world/" class="article-date">
-      <time datetime="2018-01-17T02:22:30.454Z" itemprop="datePublished">2018-01-17</time>
+      <a href="/2018/03/07/git命令的记录/" class="article-date">
+      <time datetime="2018-03-07T03:00:24.000Z" itemprop="datePublished">2018-03-07</time>
 </a>
     </div>
   
@@ -258,7 +251,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      git命令的记录
     </h1>
   
 
@@ -269,7 +262,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github-page/">github page</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hello-world/">hello world</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博客/">博客</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -279,78 +272,83 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="搭建自己的博客在github-page"><a href="#搭建自己的博客在github-page" class="headerlink" title="搭建自己的博客在github page"></a>搭建自己的博客在github page</h2><!-- ![](http://img7.cache.hxsd.com/game/2012/11/20/669145_1353383319_18.jpg) -->
-<p><p><img src = "http://img7.cache.hxsd.com/game/2012/11/20/669145_1353383319_18.jpg" alt="霜降" width="683" height="384"><br></p><br><a id="more"></a><br>经过2天的折腾的终于把自己的博客给搭建出来了,也可以说是自己的一个<code>Hello World</code> 吧</p>
-<p>这个主题是使用<strong>Litten</strong>的theme通过hexo搭建</p>
-<h2 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a><strong>准备环境</strong></h2><pre><code>* install git   
-* install node
-* 注册github的账号
-</code></pre><p><a href="https://git-scm.com/downloads">Git Download</a><br><a href="http://nodejs.cn/download/">nodejs Download</a><br><a href="https://github.com/">github 注册的地址</a></p>
-<h2 id="再创建之前思考一个事情"><a href="#再创建之前思考一个事情" class="headerlink" title="再创建之前思考一个事情"></a><strong>再创建之前思考一个事情</strong></h2><p>就是在你做完这些之后，你开始写自己的博客的时候，突然之间要换电脑了，这个时候你要怎么办<br>这个思考是对于那些使用过 github 或者是使用过别的版本控制的工具。 </p>
-<h2 id="Build-to-blog"><a href="#Build-to-blog" class="headerlink" title="Build to blog"></a><strong>Build to blog</strong></h2><pre><code>安装 nodejs 很简单,就是傻瓜式的安装。
-在安装 git 的时候也是一键式安装。
-然后自己注册github的账号。
-</code></pre><p>记得配置自己的 <code>nodejs的Path</code></p>
-<p>在 cmd 窗口 输入 path<br><img src="/assets/hello-world/path_1.png" alt="path"><br>我自己的 <code>nodejs</code> 在E盘</p>
-<p>同样看看自己的 git 的 path 有没有配置</p>
-<p>然后就是验证你的安装是否正确打开你 cmd 输入 git<br><img src="/assets/hello-world/git_1.png" alt="git"><br>输入 node -v<br><img src="/assets/hello-world/node_1.png" alt="node -v"><br>github 就不用验证了吧</p>
-<p>然后就是利用 node 的 npm 工具去安装 hexo 输入 </p>
-<pre><code>npm install -g hexo-cli
-</code></pre><p>如果自己的 hexo 安装成功的话</p>
-<p>在 cmd 中 输入 hexo -v<br><img src="/assets/hello-world/hexo_1.png" alt="hexo -v"></p>
-<h2 id="创建自己的-hexo-工程"><a href="#创建自己的-hexo-工程" class="headerlink" title="创建自己的 hexo 工程"></a><strong>创建自己的 hexo 工程</strong></h2><p>假设自己的 hexo 的工程目录是在 D:\Pro\pro_wdh\nodejs</p>
-<pre><code>1. 在 cmd 中 输入 pushd D:\Pro\pro_wdh\nodejs
-2. cmd的当前目录直接跳转到 D:\Pro\pro_wdh\nodejs
-3. 使用 hexo init 命令 初始化  （）hexo init [folderName] ）
-</code></pre><blockquote>
-<p>hexo init hexo<br>cd hexo<br>nmp install</p>
-</blockquote>
-<p>完成之后目录结构如下：</p>
-<pre><code>.
-├── _config.yml
-├── package.json
-├── scaffolds
-├── source
-|   ├── _drafts
-|   └── _posts
-└── themes
-</code></pre><h3 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a><strong>_config.yml</strong></h3><p>网站的 配置 信息，您可以在此配置大部分的参数。</p>
-<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a><strong>package.json</strong></h3><p>应用程序的信息。EJS, Stylus 和 Markdown renderer 已默认安装，您可以自由移除。</p>
-<h3 id="scaffolds"><a href="#scaffolds" class="headerlink" title="scaffolds"></a><strong>scaffolds</strong></h3><p>模版 文件夹。当您新建文章时，Hexo 会根据 scaffold 来建立文件。</p>
-<p>Hexo的模板是指在新建的markdown文件中默认填充的内容。例如，如果您修改scaffold/post.md中的Front-matter内容，那么每次新建一篇文章时都会包含这个修改。</p>
-<h3 id="source"><a href="#source" class="headerlink" title="source"></a><strong>source</strong></h3><p>资源文件夹是存放用户资源的地方。除 <em>posts 文件夹之外，开头命名为 </em> (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。</p>
-<h3 id="themes"><a href="#themes" class="headerlink" title="themes"></a><strong>themes</strong></h3><p>主题 文件夹。Hexo 会根据主题来生成静态页面。</p>
-<h2 id="运行自己的hexo工程"><a href="#运行自己的hexo工程" class="headerlink" title="运行自己的hexo工程"></a><strong>运行自己的hexo工程</strong></h2><p>在 cmd 中 输入 hexo s<br><img src="/assets/hello-world/hexo_2.png" alt=""></p>
-<p>在自己的浏览器中打开 <code>http://localhost:4000/.</code></p>
-<p>这时你会看到自己的静态网页</p>
-<p><a href="https://segmentfault.com/a/1190000002632530">更多的 hexo的命令</a><br><a href="https://hexo.io/zh-cn/">hexo 的官网</a></p>
-<h2 id="部署自己的笔记2github"><a href="#部署自己的笔记2github" class="headerlink" title="部署自己的笔记2github"></a><strong>部署自己的笔记2github</strong></h2><p>网上的一些教程都是 使用 SSH 去上传自己的博客<br>但是使用 htpp 的方式也同样可以 上传</p>
-<p>创建自己的 github 的仓库<br><img src="/assets/hello-world/github_1.png" alt=""><br>上面的仓库名字就和你 github 的名字一样就行了</p>
-<p>然后就是在 hexo 的根目录下的 _config.yml 中 找到<br><img src="/assets/hello-world/config_1.png" alt=""><br>按照图片上的配置自己的 github 仓库的地址<br>github 仓库的地址在这里拿<br><img src="/assets/hello-world/github_2.png" alt=""></p>
-<p>然后执行 hexo的命令 在cmd中输入  </p>
-<pre><code>1.hexo clean
-2.hexo g
-3.hexo d
-</code></pre><p>静静的等待</p>
-<p>上传完成之后</p>
-<p>打开 <code>http://Test.github.io</code> 就可以看到自己的博客了</p>
-<h2 id="回答上面的提出的思考"><a href="#回答上面的提出的思考" class="headerlink" title="回答上面的提出的思考"></a><strong>回答上面的提出的思考</strong></h2><p>答案就是 在 github 上创建自己的 branch(分支)</p>
-<p>我是在自己的 github 创建自己的 blog(分支)</p>
-<p><a href="http://note.youdao.com/noteshare?id=7abb057f779aca20328c74a7c810e027&amp;sub=855026A2B8904F61A0933D26CA9E27FF">git 的一些命令</a></p>
-<p>不是太全,但是应对日常还是可以的</p>
-<p>做法如下：</p>
-<pre><code>git chcekout -b blog
-git add -A
-git commit - m &quot;commit my blog&quot;
-git push origin blog
-</code></pre><p>解释一下吧</p>
+        <p>现在对git也使用快一年了现在总结一下常用的一些命令。</p>
+<h3 id="本文的大纲"><a href="#本文的大纲" class="headerlink" title="本文的大纲"></a><strong>本文的大纲</strong></h3><p>对以下命令做一些记录<br>1.git clone<br>2.git pull<br>3.git commit<br>4.git push<br>5.git branch<br>6.git remote<br>7.git checkout<br>8.git reset<br><a id="more"></a></p>
+<h2 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a><strong>git clone</strong></h2><pre><code>git clone 是克隆别的仓库
+</code></pre><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="params">&lt;repo&gt;</span> <span class="params">&lt;directory&gt;</span></span><br><span class="line">参数说明：</span><br><span class="line"><span class="symbol">    repo:</span>Git 仓库</span><br><span class="line"><span class="symbol">    directory:</span>本地目录</span><br></pre></td></tr></table></figure>
+<pre><code>ej:比如，要克隆 Ruby 语言的 Git 代码仓库 Grit，可以用下面的命令：
+git clone git://github.com/schacon/grit.git
+或者是这样的
+git clone git://github.com/schacon/grit.git test
+这个就会克隆到 ../test 和目录
+</code></pre><h2 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a><strong>git pull</strong></h2><pre><code>拉取别人在远程仓库更新的内容 
+默认是远程的 origin 分支
+</code></pre><h2 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a><strong>git add</strong></h2><pre><code>将本地的改变提交到缓存区
+</code></pre><p><strong>git add -u</strong></p>
 <blockquote>
-<p>创建新的分支 blog<br>添加自己的文件到缓存区<br>提交到本地版本库<br>推送到远端</p>
+<p>是将本地追踪的文件提交到缓存区<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">git add -u *.png</span><br><span class="line">--添加所有追踪的文件提交到缓存区 前提是以<span class="selector-class">.png</span> 为结尾的文件</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<p><a href="http://www.runoob.com/?s=git">更多 git 的知识</a></p>
-<p>这只是一些基础</p>
-<p>更多需要你多去尝试,多自己动手。</p>
-<p>有疑问可以加QQ一起讨论</p>
+<p><strong>git add -A</strong></p>
+<blockquote>
+<p>是将本地未追踪的文件提交到缓存区<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">git <span class="keyword">add</span><span class="bash"> -A .</span></span><br><span class="line"><span class="bash">--添加所有的未追踪的文件提交到缓存区</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a><strong>git commit</strong></h2><blockquote>
+<p>将本地的改变提交到缓存区的内容到本地版本库<br><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ej</span>:</span><br><span class="line">git commit -m <span class="string">"test"</span></span><br><span class="line">-- -m 是对此次的提交内容的描述(<span class="built_in">desc</span>)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a><strong>git push</strong></h2><blockquote>
+<p>将本地的改变提交到本地版本库的内容推送到远程版本库<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">ej:</span></span><br><span class="line">git <span class="keyword">push</span></span><br><span class="line">-- 默认是主为分支(origin)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a><strong>git branch</strong></h2><blockquote>
+<p>有关分支的一些使用</p>
+</blockquote>
+<p><strong>git branch</strong></p>
+<blockquote>
+<p>查看本地分支<br><strong>git branch -vv</strong><br>查看本地分支 与 远程分支的映射关系<br><strong>git branch -a</strong><br>查看 本地和远程分支<br><strong>git branch -r</strong><br>查看远程分支<br><strong>git branch xx</strong><br>创建新的xx分支<br><strong>git branch -D xx</strong><br>删除xx分支</p>
+<h2 id="git-branch-upstream-git-分支的映射关系"><a href="#git-branch-upstream-git-分支的映射关系" class="headerlink" title="git branch upstream(git 分支的映射关系)"></a><strong>git branch upstream(git 分支的映射关系)</strong></h2><pre><code>建立本地分支与远程分支的映射关系（或者为跟踪关系track）。这样使用`git pull`或者`git push`时就不必每次都要指定从远程的哪个分支拉取合并和推送到远程的哪个分支了。
+</code></pre><p>ej:<br><img src="/2018/03/07/git命令的记录/git_branch_vv.png" title="git branch -vv"><br>从这上面可以看到本地分支与远程分支的映射关系<br>若没有映射关系 <code>git pull 或是 git push</code> 会失败 这个时候你需要指定目标分支</p>
+</blockquote>
+<p><strong>与远程分支建立映射关系</strong><br>使用 <code>git branch -u origin/xx</code> 与远程分支 建立 映射关系<br>xx 为 远程分支的名字<br><strong>与远程分支取消映射关系</strong><br>使用 <code>git branch --unset-upstream</code></p>
+<blockquote>
+<p>补充：不同名字客之间也是可以建立映射关系的</p>
+</blockquote>
+<h2 id="git-fetch"><a href="#git-fetch" class="headerlink" title="git fetch"></a><strong>git fetch</strong></h2><blockquote>
+<p>来一个关系式 <code>git pull = git fecth + git merge</code><br>拉取别人远程仓库的内容到自己本地的一个分支上</p>
+</blockquote>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">    git fecth origin test:temp</span><br><span class="line">    -<span class="ruby">- 拉取远程分支 test 到 本地 temp 分支上</span></span><br><span class="line"><span class="ruby">    -- 注意这种拉取 本地分支和远程分支 是没有映射关系的</span></span><br></pre></td></tr></table></figure>
+<h2 id="git-remote"><a href="#git-remote" class="headerlink" title="git remote"></a><strong>git remote</strong></h2><p><strong>git remote and git remote -v</strong></p>
+<blockquote>
+<p>git remote用来管理本地工作目录对应的远程代码仓库，在一般的工作目录下，执行git remote结果如下：<br><img src="/2018/03/07/git命令的记录/git_remote_v.png" title="git remote -v"></p>
+</blockquote>
+<p><strong>git remote add</strong></p>
+<blockquote>
+<p>我们可以使用git remote add命令来增加一个远程仓库，这个远程仓库可以是ssh地址（如上面这种），可以是本地目录，也可以是git协议或者http协议的地址。 例如，我要把liming的仓库作为我的远程仓库之一，可以执行git remote add 来增加仓库，例如：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote add liming /home/liming/repo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote</span></span><br><span class="line">liming</span><br><span class="line">origin</span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span><br><span class="line">liming  /home/liming/repo (fetch)</span><br><span class="line">liming  /home/liming/repo (push)</span><br><span class="line">origin  git@remoteRepo (fetch)</span><br><span class="line">origin  git@remoteRepo (push)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>相应的，可以使用git remote rm或者git remote rename对远程代码仓库的名称进行修改（本地的，不会影响到对方的目录）</p>
+</blockquote>
+<h2 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a><strong>git checkout</strong></h2><pre><code>作用：
+1.切换分支
+2.放弃对某个文件的修改
+3.创建新的分支
+</code></pre><p><strong>git checkout xx</strong></p>
+<blockquote>
+<p>切换到xx分支</p>
+</blockquote>
+<p><strong>git checkout -b xx</strong></p>
+<blockquote>
+<p>在没有的时候 创建的新的分支xx 并跳转到 xx 分支上</p>
+</blockquote>
+<p><strong>git checkout xx.ext</strong></p>
+<blockquote>
+<p>放弃修改直接还原和版本库保持一致</p>
+</blockquote>
+<p><strong>拉取远程方法</strong><br><figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b 本地分支名<span class="keyword">x</span> origin/远程分支名<span class="keyword">x</span></span><br><span class="line">Note:使用该方式会在本地新建分支<span class="keyword">x</span>，并自动切换到该本地分支<span class="keyword">x</span>。</span><br><span class="line">     采用此种方法建立的本地分支会和远程分支建立映射关系。</span><br></pre></td></tr></table></figure></p>
+<h2 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a><strong>git reset</strong></h2><pre><code>作用：
+1.文件从暂存区回退到工作区
+2.版本回退
+</code></pre><p>作用1：<br>    git reset HEAD filename(xx)<br>作用2:<br>    我就直接转载一篇文章写的挺好的<br>    <a href="http://blog.csdn.net/hbwindy/article/details/51519999">git reset的使用</a></p>
+<p><a href="https://git-scm.com/book/zh/v2">git 中文的教程</a> –貌似要科学上网</p>
 
       
       
@@ -360,13 +358,13 @@ git push origin blog
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/01/17/hello-world/">Hello World</a></p>
+        <p><span>本文标题:</span><a href="/2018/03/07/git命令的记录/">git命令的记录</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 小魏 的个人博客">小魏</a></p>
-        <p><span>发布时间:</span>2018年01月17日 - 10时22分</p>
-        <p><span>最后更新:</span>2018年02月09日 - 11时56分</p>
+        <p><span>发布时间:</span>2018年03月07日 - 11时00分</p>
+        <p><span>最后更新:</span>2018年03月07日 - 15时14分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/01/17/hello-world/" title="Hello World">https://leng521.top/2018/01/17/hello-world/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://leng521.top/2018/01/17/hello-world/　　作者: 小魏" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/03/07/git命令的记录/" title="git命令的记录">https://leng521.top/2018/03/07/git命令的记录/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://leng521.top/2018/03/07/git命令的记录/　　作者: 小魏" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -379,15 +377,11 @@ git push origin blog
 
 <nav id="article-nav">
   
-    <a href="/2018/01/17/Using-Hexo/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Using-Hexo
-        
-      </div>
-    </a>
   
+    <a href="/2018/01/22/优化cocos2dxSpine库/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">优化cocos2dxSpine库</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -396,7 +390,7 @@ git push origin blog
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建自己的博客在github-page"><span class="toc-number">1.</span> <span class="toc-text">搭建自己的博客在github page</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备环境"><span class="toc-number">2.</span> <span class="toc-text">准备环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#再创建之前思考一个事情"><span class="toc-number">3.</span> <span class="toc-text">再创建之前思考一个事情</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Build-to-blog"><span class="toc-number">4.</span> <span class="toc-text">Build to blog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建自己的-hexo-工程"><span class="toc-number">5.</span> <span class="toc-text">创建自己的 hexo 工程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#config-yml"><span class="toc-number">5.1.</span> <span class="toc-text">_config.yml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#package-json"><span class="toc-number">5.2.</span> <span class="toc-text">package.json</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scaffolds"><span class="toc-number">5.3.</span> <span class="toc-text">scaffolds</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#source"><span class="toc-number">5.4.</span> <span class="toc-text">source</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#themes"><span class="toc-number">5.5.</span> <span class="toc-text">themes</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行自己的hexo工程"><span class="toc-number">6.</span> <span class="toc-text">运行自己的hexo工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署自己的笔记2github"><span class="toc-number">7.</span> <span class="toc-text">部署自己的笔记2github</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回答上面的提出的思考"><span class="toc-number">8.</span> <span class="toc-text">回答上面的提出的思考</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#本文的大纲"><span class="toc-number">1.</span> <span class="toc-text">本文的大纲</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-clone"><span class="toc-number"></span> <span class="toc-text">git clone</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-pull"><span class="toc-number"></span> <span class="toc-text">git pull</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-add"><span class="toc-number"></span> <span class="toc-text">git add</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-commit"><span class="toc-number"></span> <span class="toc-text">git commit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-push"><span class="toc-number"></span> <span class="toc-text">git push</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-branch"><span class="toc-number"></span> <span class="toc-text">git branch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-branch-upstream-git-分支的映射关系"><span class="toc-number"></span> <span class="toc-text">git branch upstream(git 分支的映射关系)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-fetch"><span class="toc-number"></span> <span class="toc-text">git fetch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-remote"><span class="toc-number"></span> <span class="toc-text">git remote</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-checkout"><span class="toc-number"></span> <span class="toc-text">git checkout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-reset"><span class="toc-number"></span> <span class="toc-text">git reset</span></a>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -467,13 +461,13 @@ git push origin blog
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/01/17/Using-Hexo/" title="上一篇: Using-Hexo">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2018/01/22/优化cocos2dxSpine库/" title="下一篇: 优化cocos2dxSpine库">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
     <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/03/07/git命令的记录/">git命令的记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/22/优化cocos2dxSpine库/">优化cocos2dxSpine库</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/17/Using-Hexo/">Using-Hexo</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/17/hello-world/">Hello World</a></li></ul>
