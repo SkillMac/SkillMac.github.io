@@ -14,7 +14,7 @@
 <meta property="og:description" content="现在对git也使用快一年了现在总结一下常用的一些命令。 本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit4.git push5.git branch6.git remote7.git checkout8.git reset">
 <meta property="og:image" content="https://leng521.top/2018/03/07/git命令的记录/git_branch_vv.png">
 <meta property="og:image" content="https://leng521.top/2018/03/07/git命令的记录/git_remote_v.png">
-<meta property="og:updated_time" content="2018-03-07T07:14:59.522Z">
+<meta property="og:updated_time" content="2018-03-07T10:13:04.601Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git命令的记录">
 <meta name="twitter:description" content="现在对git也使用快一年了现在总结一下常用的一些命令。 本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit4.git push5.git branch6.git remote7.git checkout8.git reset">
@@ -305,12 +305,13 @@ git clone git://github.com/schacon/grit.git test
 <blockquote>
 <p>查看本地分支<br><strong>git branch -vv</strong><br>查看本地分支 与 远程分支的映射关系<br><strong>git branch -a</strong><br>查看 本地和远程分支<br><strong>git branch -r</strong><br>查看远程分支<br><strong>git branch xx</strong><br>创建新的xx分支<br><strong>git branch -D xx</strong><br>删除xx分支</p>
 <h2 id="git-branch-upstream-git-分支的映射关系"><a href="#git-branch-upstream-git-分支的映射关系" class="headerlink" title="git branch upstream(git 分支的映射关系)"></a><strong>git branch upstream(git 分支的映射关系)</strong></h2><pre><code>建立本地分支与远程分支的映射关系（或者为跟踪关系track）。这样使用`git pull`或者`git push`时就不必每次都要指定从远程的哪个分支拉取合并和推送到远程的哪个分支了。
-</code></pre><p>ej:<br><img src="/2018/03/07/git命令的记录/git_branch_vv.png" title="git branch -vv"><br>从这上面可以看到本地分支与远程分支的映射关系<br>若没有映射关系 <code>git pull 或是 git push</code> 会失败 这个时候你需要指定目标分支</p>
+</code></pre><p>ej:<br><img src="/2018/03/07/git命令的记录/git_branch_vv.png" title="git branch -vv"><br>从这上面可以看到本地分支与远程分支的映射关系<br>若没有映射关系 <code>git pull 或是 git push</code> 会失败</p>
 </blockquote>
 <p><strong>与远程分支建立映射关系</strong><br>使用 <code>git branch -u origin/xx</code> 与远程分支 建立 映射关系<br>xx 为 远程分支的名字<br><strong>与远程分支取消映射关系</strong><br>使用 <code>git branch --unset-upstream</code></p>
 <blockquote>
 <p>补充：不同名字客之间也是可以建立映射关系的</p>
 </blockquote>
+<p><strong>删除远程的分支</strong><br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> --<span class="built_in">delete</span> xxx</span><br><span class="line">-- xxx 为远程分支的名字</span><br></pre></td></tr></table></figure></p>
 <h2 id="git-fetch"><a href="#git-fetch" class="headerlink" title="git fetch"></a><strong>git fetch</strong></h2><blockquote>
 <p>来一个关系式 <code>git pull = git fecth + git merge</code><br>拉取别人远程仓库的内容到自己本地的一个分支上</p>
 </blockquote>
@@ -361,7 +362,7 @@ git clone git://github.com/schacon/grit.git test
         <p><span>本文标题:</span><a href="/2018/03/07/git命令的记录/">git命令的记录</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 小魏 的个人博客">小魏</a></p>
         <p><span>发布时间:</span>2018年03月07日 - 11时00分</p>
-        <p><span>最后更新:</span>2018年03月07日 - 15时14分</p>
+        <p><span>最后更新:</span>2018年03月07日 - 18时13分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/03/07/git命令的记录/" title="git命令的记录">https://leng521.top/2018/03/07/git命令的记录/</a>
             <span class="copy-path" data-clipboard-text="原文: https://leng521.top/2018/03/07/git命令的记录/　　作者: 小魏" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
