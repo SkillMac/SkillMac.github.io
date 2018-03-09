@@ -14,7 +14,7 @@
 <meta property="og:description" content="现在对git也使用快一年了现在总结一下常用的一些命令。 本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit4.git push5.git branch6.git remote7.git checkout8.git reset9.git stash">
 <meta property="og:image" content="https://leng521.top/2018/03/07/git命令的记录/git_branch_vv.png">
 <meta property="og:image" content="https://leng521.top/2018/03/07/git命令的记录/git_remote_v.png">
-<meta property="og:updated_time" content="2018-03-07T11:15:40.025Z">
+<meta property="og:updated_time" content="2018-03-09T10:46:30.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git命令的记录">
 <meta name="twitter:description" content="现在对git也使用快一年了现在总结一下常用的一些命令。 本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit4.git push5.git branch6.git remote7.git checkout8.git reset9.git stash">
@@ -355,7 +355,12 @@ git clone git://github.com/schacon/grit.git test
 <p><strong>如何恢复工作现场呢？</strong></p>
 <pre><code>第一种方案，用`git stash apply`恢复，但是恢复后，stash内容不删除，需要用`git stash drop`来删除
 第二种方案，用`git stash pop`,恢复的同时把stash内容也删除了。
-</code></pre>
+</code></pre><p>Problem :<br>    1.为什么在切换分支的时,会出现有时要你提交本地的改变才可以切换，有的时候却不需要？</p>
+<p><code>出现融合的时候是你当前分支改变的内容与你将要切换分支的内容有冲突，这个时候不知要你融合。</code></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">解决的方法有我种：</span><br><span class="line">    <span class="number">1.</span>使用 git stash 保存当前的改变   git stash 的用法在上面</span><br><span class="line">    <span class="number">2.</span>使用 git merge  融合要切换的分支到当前的分支</span><br><span class="line">    <span class="number">3.</span>使用 git checkout 还原当前冲突的文件</span><br></pre></td></tr></table></figure>
+<!-- 这里面会记录我使用不知过程中的问题
+[git 问题总结](http://leng521.top/2018/03/07/git%E5%91%BD%E4%BB%A4%E7%9A%84%E8%AE%B0%E5%BD%95/) -->
+
       
       
     </div>
@@ -367,7 +372,7 @@ git clone git://github.com/schacon/grit.git test
         <p><span>本文标题:</span><a href="/2018/03/07/git命令的记录/">git命令的记录</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 小魏 的个人博客">小魏</a></p>
         <p><span>发布时间:</span>2018年03月07日 - 11时00分</p>
-        <p><span>最后更新:</span>2018年03月07日 - 19时15分</p>
+        <p><span>最后更新:</span>2018年03月09日 - 18时46分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/03/07/git命令的记录/" title="git命令的记录">https://leng521.top/2018/03/07/git命令的记录/</a>
             <span class="copy-path" data-clipboard-text="原文: https://leng521.top/2018/03/07/git命令的记录/　　作者: 小魏" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
