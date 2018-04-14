@@ -262,7 +262,10 @@
 <h1 id="1-Hexo-TypeError-Cannot-set-property-‘lastIndex’-of-undefined"><a href="#1-Hexo-TypeError-Cannot-set-property-‘lastIndex’-of-undefined" class="headerlink" title="1. Hexo: TypeError: Cannot set property ‘lastIndex’ of undefined"></a>1. Hexo: TypeError: Cannot set property ‘lastIndex’ of undefined</h1><pre><code>解决方案是 将你工程下的 _config.yml (这个不是主题的_config.yml) 文件里面的 `auto_detect` 设置为 false.
 </code></pre><h1 id="2-hexo-skip-render-的使用"><a href="#2-hexo-skip-render-的使用" class="headerlink" title="2. hexo skip_render 的使用"></a>2. hexo skip_render 的使用</h1><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">skip_render:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">'dir/**'</span> <span class="comment"># 忽略dir这目录下的所有文件，不进行渲染</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">'xx/**'</span>  <span class="comment"># 道理同上。</span></span><br></pre></td></tr></table></figure>
 <h1 id="3-修改完-hexo-目录下的-config-yml-文件-重新-generate-文件不生效"><a href="#3-修改完-hexo-目录下的-config-yml-文件-重新-generate-文件不生效" class="headerlink" title="3. 修改完 hexo 目录下的 _config.yml 文件 重新 generate 文件不生效"></a>3. 修改完 hexo 目录下的 _config.yml 文件 重新 generate 文件不生效</h1><pre><code>使用 hexo 的命令 `hexo clean`,每次记得使用这个命令清除一下
-</code></pre>
+</code></pre><h1 id="4-hexo-添加搜索功能"><a href="#4-hexo-添加搜索功能" class="headerlink" title="4. hexo 添加搜索功能"></a>4. hexo 添加搜索功能</h1><p>在搜索引擎上都是写的接入一些翻墙的插件，而且有些主题也集成不了，这一点我不是太喜欢，这里我费了一番功夫，找到了一个插件 可以很好的集成 而且不是翻墙。</p>
+<p>这里我就不写教程了，直接转载一篇文章，他写的很详细。</p>
+<p><a href="https://www.codeboy.me/2016/11/29/hexo-search-component/">hexo 加入搜索功能</a></p>
+
       
       
     </div>
