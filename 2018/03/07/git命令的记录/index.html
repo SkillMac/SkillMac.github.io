@@ -122,8 +122,6 @@
                         
                             <li><a href="/Home">首页</a></li>
                         
-                            <li><a href="/categories/hexo">分类</a></li>
-                        
                             <li><a href="/archives">归档</a></li>
                         
                         </ul>
@@ -152,7 +150,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/cocos2dx/" style="font-size: 10px;">cocos2dx</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a>
+                        <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/cocos2dx/" style="font-size: 10px;">cocos2dx</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a>
                     </div>
                 </section>
                 
@@ -173,7 +171,7 @@
                 
                 <section class="switch-part switch-part4">
                 
-                    <div id="js-aboutme">爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                    <div id="js-aboutme">爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中.&lt;-- QQ 2807582398 --&gt;</div>
                 </section>
                 
             </div>
@@ -204,8 +202,6 @@
                 <ul>
                 
                     <li><a href="/Home">首页</a></li>
-                
-                    <li><a href="/categories/hexo">分类</a></li>
                 
                     <li><a href="/archives">归档</a></li>
                 
@@ -275,7 +271,7 @@
         <p>现在对git也使用快一年了现在总结一下常用的一些命令。</p>
 <h3 id="本文的大纲"><a href="#本文的大纲" class="headerlink" title="本文的大纲"></a><strong>本文的大纲</strong></h3><p>对以下命令做一些记录<br>1.git clone<br>2.git pull<br>3.git commit<br>4.git push<br>5.git branch<br>6.git remote<br>7.git checkout<br>8.git reset<br>9.git stash<br>10.git配置一些外部工具<br>11.git merge<br><a id="more"></a></p>
 <h2 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a><strong>git clone</strong></h2><pre><code>git clone 是克隆别的仓库
-</code></pre><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="params">&lt;repo&gt;</span> <span class="params">&lt;directory&gt;</span></span><br><span class="line">参数说明：</span><br><span class="line"><span class="symbol">    repo:</span>Git 仓库</span><br><span class="line"><span class="symbol">    directory:</span>本地目录</span><br></pre></td></tr></table></figure>
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;repo&gt; &lt;directory&gt;</span><br><span class="line">参数说明：</span><br><span class="line">    repo:Git 仓库</span><br><span class="line">    directory:本地目录</span><br></pre></td></tr></table></figure>
 <pre><code>ej:比如，要克隆 Ruby 语言的 Git 代码仓库 Grit，可以用下面的命令：
 git clone git://github.com/schacon/grit.git
 或者是这样的
@@ -288,24 +284,24 @@ git clone git://github.com/schacon/grit.git test
 <blockquote>
 <p>是将本地追踪的文件提交到缓存区</p>
 </blockquote>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">git add -u *.png</span><br><span class="line">--添加所有追踪的文件提交到缓存区 前提是以<span class="selector-class">.png</span> 为结尾的文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">git add -u *.png</span><br><span class="line">--添加所有追踪的文件提交到缓存区 前提是以.png 为结尾的文件</span><br></pre></td></tr></table></figure>
 <p><strong>git add -A</strong></p>
 <blockquote>
 <p>是将本地未追踪的文件提交到缓存区</p>
 </blockquote>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">git <span class="keyword">add</span><span class="bash"> -A .</span></span><br><span class="line"><span class="bash">--添加所有的未追踪的文件提交到缓存区</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">git add -A .</span><br><span class="line">--添加所有的未追踪的文件提交到缓存区</span><br></pre></td></tr></table></figure>
 <h2 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a><strong>git commit</strong></h2><blockquote>
 <p>将本地的改变提交到缓存区的内容到本地版本库</p>
 </blockquote>
-<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ej</span>:</span><br><span class="line">git commit -m <span class="string">"test"</span></span><br><span class="line">-- -m 是对此次的提交内容的描述(<span class="built_in">desc</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">git commit -m &quot;test&quot;</span><br><span class="line">-- -m 是对此次的提交内容的描述(desc)</span><br></pre></td></tr></table></figure>
 <h2 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a><strong>git push</strong></h2><blockquote>
 <p>将本地的改变提交到本地版本库的内容推送到远程版本库</p>
 </blockquote>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">ej:</span></span><br><span class="line">git <span class="keyword">push</span></span><br><span class="line">-- 默认是主为分支(origin)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">git push</span><br><span class="line">-- 默认是主为分支(origin)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>git push 将本地分支推送到云端</p>
 </blockquote>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span>/远程分支的名字 本地分支的名字</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin/远程分支的名字 本地分支的名字</span><br></pre></td></tr></table></figure>
 <h2 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a><strong>git branch</strong></h2><blockquote>
 <p>有关分支的一些使用</p>
 </blockquote>
@@ -341,11 +337,11 @@ git clone git://github.com/schacon/grit.git test
 <blockquote>
 <p>补充：不同名字客之间也是可以建立映射关系的</p>
 </blockquote>
-<p><strong>删除远程的分支</strong><br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> --<span class="built_in">delete</span> xxx</span><br><span class="line">-- xxx 为远程分支的名字</span><br></pre></td></tr></table></figure></p>
+<p><strong>删除远程的分支</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete xxx</span><br><span class="line">-- xxx 为远程分支的名字</span><br></pre></td></tr></table></figure></p>
 <h2 id="git-fetch"><a href="#git-fetch" class="headerlink" title="git fetch"></a><strong>git fetch</strong></h2><blockquote>
 <p>来一个关系式 <code>git pull = git fecth + git merge</code><br>拉取别人远程仓库的内容到自己本地的一个分支上</p>
 </blockquote>
-<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">    git fecth origin test:temp</span><br><span class="line">    -<span class="ruby">- 拉取远程分支 test 到 本地 temp 分支上</span></span><br><span class="line"><span class="ruby">    -- 注意这种拉取 本地分支和远程分支 是没有映射关系的</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">    git fecth origin test:temp</span><br><span class="line">    -- 拉取远程分支 test 到 本地 temp 分支上</span><br><span class="line">    -- 注意这种拉取 本地分支和远程分支 是没有映射关系的</span><br></pre></td></tr></table></figure>
 <h2 id="git-remote"><a href="#git-remote" class="headerlink" title="git remote"></a><strong>git remote</strong></h2><p><strong>git remote and git remote -v</strong></p>
 <blockquote>
 <p>git remote用来管理本地工作目录对应的远程代码仓库，在一般的工作目录下，执行git remote结果如下：<br><img src="/2018/03/07/git命令的记录/git_remote_v.png" title="git remote -v"></p>
@@ -354,7 +350,7 @@ git clone git://github.com/schacon/grit.git test
 <blockquote>
 <p>我们可以使用git remote add命令来增加一个远程仓库，这个远程仓库可以是ssh地址（如上面这种），可以是本地目录，也可以是git协议或者http协议的地址。 例如，我要把liming的仓库作为我的远程仓库之一，可以执行git remote add 来增加仓库，例如：</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote add liming /home/liming/repo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote</span></span><br><span class="line">liming</span><br><span class="line">origin</span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span><br><span class="line">liming  /home/liming/repo (fetch)</span><br><span class="line">liming  /home/liming/repo (push)</span><br><span class="line">origin  git@remoteRepo (fetch)</span><br><span class="line">origin  git@remoteRepo (push)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add liming /home/liming/repo</span><br><span class="line">$ git remote</span><br><span class="line">liming</span><br><span class="line">origin</span><br><span class="line">$ git remote -v</span><br><span class="line">liming  /home/liming/repo (fetch)</span><br><span class="line">liming  /home/liming/repo (push)</span><br><span class="line">origin  git@remoteRepo (fetch)</span><br><span class="line">origin  git@remoteRepo (push)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>相应的，可以使用git remote rm或者git remote rename对远程代码仓库的名称进行修改（本地的，不会影响到对方的目录）</p>
 </blockquote>
@@ -374,14 +370,14 @@ git clone git://github.com/schacon/grit.git test
 <blockquote>
 <p>放弃修改直接还原和版本库保持一致</p>
 </blockquote>
-<p><strong>拉取远程方法</strong><br><figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b 本地分支名<span class="keyword">x</span> origin/远程分支名<span class="keyword">x</span></span><br><span class="line">Note:使用该方式会在本地新建分支<span class="keyword">x</span>，并自动切换到该本地分支<span class="keyword">x</span>。</span><br><span class="line">     采用此种方法建立的本地分支会和远程分支建立映射关系。</span><br></pre></td></tr></table></figure></p>
+<p><strong>拉取远程方法</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b 本地分支名x origin/远程分支名x</span><br><span class="line">Note:使用该方式会在本地新建分支x，并自动切换到该本地分支x。</span><br><span class="line">     采用此种方法建立的本地分支会和远程分支建立映射关系。</span><br></pre></td></tr></table></figure></p>
 <h2 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a><strong>git reset</strong></h2><pre><code>作用：
 1.文件从暂存区回退到工作区
 2.版本回退
 </code></pre><p>作用1：<br>    git reset HEAD filename(xx)<br>作用2:<br>    我就直接转载一篇文章写的挺好的<br>    <a href="http://blog.csdn.net/hbwindy/article/details/51519999">git reset的使用</a></p>
 <p><a href="https://git-scm.com/book/zh/v2">git 中文的教程</a> –貌似要科学上网</p>
 <h2 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a><strong>git stash</strong></h2><p>你当前正在开发的分支上面，还有未提交的代码，你又不想把代码提交了，怎么办呢？<br>作用：<br>    将本地的改变存储起来，切换到另外的分支上。</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br><span class="line"><span class="comment">-- 将本地的改变存储起来</span></span><br><span class="line">git stash <span class="built_in">list</span></span><br><span class="line"><span class="comment">-- 查看本地存储的列表</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br><span class="line">-- 将本地的改变存储起来</span><br><span class="line">git stash list</span><br><span class="line">-- 查看本地存储的列表</span><br></pre></td></tr></table></figure>
 <p><strong>如何恢复工作现场呢？</strong></p>
 <pre><code>第一种方案，用`git stash apply`恢复，但是恢复后，stash内容不删除，需要用`git stash drop`来删除
 第二种方案，用`git stash pop`,恢复的同时把stash内容也删除了。
@@ -390,24 +386,24 @@ git clone git://github.com/schacon/grit.git test
 </code></pre><p><a href="http://www.skycn.com/soft/appid/11557.html">download diffuse</a></p>
 <ul>
 <li><p>1.git查看有哪些对比工具可以设置命令：</p>
-  <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git difftool <span class="comment">--tool-help</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git difftool --tool-help</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>2.然后再设置对比工具，如：</p>
-  <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git<span class="built_in"> config </span>--global diff.tool diffuse</span><br><span class="line">git<span class="built_in"> config </span>--global difftool.diffuse.path <span class="string">"E:\Program Files (x86)\Diffuse\diffuse.exe"</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global diff.tool diffuse</span><br><span class="line">git config --global difftool.diffuse.path &quot;E:\Program Files (x86)\Diffuse\diffuse.exe&quot;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>3.设置好后，使用命令是 <code>git difftool</code> 而不是之前的 <code>git diff</code> 了</p>
 </li>
 </ul>
 <h2 id="git-Problem"><a href="#git-Problem" class="headerlink" title="git Problem"></a><strong>git Problem</strong></h2><p>Problem :<br>    1.为什么在切换分支的时,会出现有时要你提交本地的改变才可以切换，有的时候却不需要？</p>
 <p><code>出现融合的时候是你当前分支改变的内容与你将要切换分支的内容有冲突，这个时候不知要你融合。</code></p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">解决的方法有我种：</span><br><span class="line">    <span class="number">1.</span>使用 git stash 保存当前的改变   git stash 的用法在上面</span><br><span class="line">    <span class="number">2.</span>使用 git merge  融合要切换的分支到当前的分支</span><br><span class="line">    <span class="number">3.</span>使用 git checkout 还原当前冲突的文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">解决的方法有我种：</span><br><span class="line">    1.使用 git stash 保存当前的改变   git stash 的用法在上面</span><br><span class="line">    2.使用 git merge  融合要切换的分支到当前的分支</span><br><span class="line">    3.使用 git checkout 还原当前冲突的文件</span><br></pre></td></tr></table></figure>
 <h2 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a><strong>git merge</strong></h2><p>– 2018年3月20日14:36:34<br>git 融合：是融合你当前版本库没有的东西。<br>你可以选择本地的分支也可以是远程的分支</p>
-<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">- 融合远程分支</span></span><br><span class="line"><span class="ruby"><span class="symbol">ej:</span></span></span><br><span class="line"><span class="ruby">    git merge origin/分支的名字</span></span><br><span class="line"><span class="ruby">-- 融合本地分支</span></span><br><span class="line"><span class="ruby"><span class="symbol">ej:</span></span></span><br><span class="line"><span class="ruby">    git merge 分支的名字</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- 融合远程分支</span><br><span class="line">ej:</span><br><span class="line">    git merge origin/分支的名字</span><br><span class="line">-- 融合本地分支</span><br><span class="line">ej:</span><br><span class="line">    git merge 分支的名字</span><br></pre></td></tr></table></figure>
 <h2 id="git-更高级的用法"><a href="#git-更高级的用法" class="headerlink" title="git 更高级的用法"></a><strong>git 更高级的用法</strong></h2><p>问题: 在你的使用 git merge 的时候也会出现冲突.</p>
 <h2 id="git-merge-–abort"><a href="#git-merge-–abort" class="headerlink" title="git merge –abort"></a><strong>git merge –abort</strong></h2><p>选项会尝试恢复到你运行合并前的状态。 但当运行命令前，在工作目录中有未储藏、未提交的修改时它不能完美处理，除此之外它都工作地很好</p>
 <h2 id="git-status-sb"><a href="#git-status-sb" class="headerlink" title="git status -sb"></a><strong>git status -sb</strong></h2><p>罗列出需要解决冲突的文件.</p>
 <p>在你合并的时候 你可以将远端共同祖先的文件, 自己本地的文件, 要融合分支的文件,都下载到本地,</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git show :<span class="number">1</span>:hello<span class="selector-class">.rb</span> &gt; hello<span class="selector-class">.common</span><span class="selector-class">.rb</span></span><br><span class="line">git show :<span class="number">2</span>:hello<span class="selector-class">.rb</span> &gt; hello<span class="selector-class">.ours</span><span class="selector-class">.rb</span></span><br><span class="line">git show :<span class="number">3</span>:hello<span class="selector-class">.rb</span> &gt; hello<span class="selector-class">.theirs</span><span class="selector-class">.rb</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git show :1:hello.rb &gt; hello.common.rb</span><br><span class="line">git show :2:hello.rb &gt; hello.ours.rb</span><br><span class="line">git show :3:hello.rb &gt; hello.theirs.rb</span><br></pre></td></tr></table></figure>
 <h2 id="git-clean-f"><a href="#git-clean-f" class="headerlink" title="git clean -f"></a><strong>git clean -f</strong></h2><p>在这时我们可以使用 git clean 命令来清理我们为手动合并而创建但不再有用的额外文件。<br>就是通过上面的命令 git  show :1 …  这个命令产出的文件.</p>
 <!-- 这里面会记录我使用不知过程中的问题
 [git 问题总结](http://leng521.top/2018/03/07/git%E5%91%BD%E4%BB%A4%E7%9A%84%E8%AE%B0%E5%BD%95/) -->
@@ -543,7 +539,7 @@ git clone git://github.com/schacon/grit.git test
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/04/11/python-optionparser模块/">python_optionparser模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/07/git命令的记录/">git命令的记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/22/优化cocos2dxSpine库/">优化cocos2dxSpine库</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/17/Using-Hexo/">Using-Hexo</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/17/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/04/14/记录使用hexo写博客的问题/">记录使用hexo写博客的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/11/python-optionparser模块/">python_optionparser模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/07/git命令的记录/">git命令的记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/22/优化cocos2dxSpine库/">优化cocos2dxSpine库</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/17/Using-Hexo/">Using-Hexo</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/17/hello-world/">Hello World</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
@@ -694,6 +690,26 @@ MathJax.Hub.Queue(function() {
     });
 </script>
 
+
+
+
+<div class="cb-search-tool" style="position: fixed; top: 0px ; bottom: 0px; left: 0px; right:  0px;
+        opacity: 0.95; background-color: #111111; z-index: 9999; display: none;">
+
+    <input type="text" class="cb-search-content" id="cb-search-content" style="position: fixed; top: 60px" placeholder="文章标题 日期 标签" />
+
+    <div style="position: fixed; top: 16px; right: 16px;">
+        <img src="/search/img/cb-close.png"  id="cb-close-btn"/>
+    </div>
+</div>
+
+<div style="position: fixed; right: 16px; bottom: 20px;">
+    <img src="/search/img/cb-search.png"  id="cb-search-btn"  title="双击ctrl试一下"/>
+</div>
+
+<link rel="stylesheet" href="/search/css/cb-search.css">
+<script src="/search/js/bootstrap3-typeahead.min.js"></script>
+<script src="/search/js/cb-search.js"></script>
 
   </div>
 </body>
