@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title>python-闭包问题</title>
+      <link href="//posts/87435431/"/>
+      <url>//posts/87435431/</url>
+      <content type="html"><![CDATA[<p>本文主要是python闭包问题的记录。<br><a id="more"></a><br>python 实现的有内部函数，那么自然就会使用内部函数外面的变量。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">A</span><span class="params">()</span>:</span></span><br><span class="line">    xxx = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">B</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="comment">#这个时候你可能会使用xxx变量。  直接引用是会报错的</span></span><br><span class="line">        <span class="comment">#告诉你使用了没有分配的引用   referenced before assignment</span></span><br><span class="line">        <span class="keyword">nonlocal</span> xxx</span><br><span class="line">        xxx += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> xxx</span><br><span class="line">    <span class="keyword">return</span> B</span><br><span class="line">f = A()</span><br><span class="line">print(f(),f(),f())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出  1 2 3</span></span><br></pre></td></tr></table></figure><p>这里主要是使用了python 内部的关键字 <code>nonlocal</code><br>主要是引用内部函数以外的局部变量  注意这里不是全局变量。 </p><blockquote><p>注意这个关键字是python3.x 中可以出现的关键字。在python2.x中会报错。</p></blockquote><hr><p>如果要引用全局变量要是用python的另外一个关键字 global。<br>用法和上面相同。   使用例子如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line">xxx = <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">A</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">B</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="comment">#这个时候你可能会使用xxx变量。  直接引用是会报错的</span></span><br><span class="line">        <span class="comment">#告诉你使用了没有分配的引用   referenced before assignment</span></span><br><span class="line">        <span class="keyword">global</span> xxx</span><br><span class="line">        xxx += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> xxx</span><br><span class="line">    <span class="keyword">return</span> B</span><br><span class="line">f = A()</span><br><span class="line">print(f(),f(),f())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出  1 2 3</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> 闭包 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>记录使用hexo写博客的问题</title>
       <link href="//posts/a9ff66a6/"/>
       <url>//posts/a9ff66a6/</url>
