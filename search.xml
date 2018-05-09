@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title>linux升级gcc</title>
+      <link href="//posts/f62a7c7d/"/>
+      <url>//posts/f62a7c7d/</url>
+      <content type="html"><![CDATA[<p>这一篇是对linux centos7 中 gcc 的升级.<br>这次升级gcc的版本是 8.1.0<br><a id="more"></a></p><h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a><strong>方法一</strong></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ su \\进入 root</span><br><span class="line"># sudo yum install libmpc-devel mpfr-devel gmp-devel</span><br><span class="line">...</span><br><span class="line"># cd 下载</span><br><span class="line"># curl ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/*   \\* 号为自己想要更新的版本号</span><br><span class="line">\\ 做法是自己将这个 地址放到浏览器中自己去选取合适的版本直接下载.</span><br><span class="line">\\ 我这里下载的是 8.1.0 </span><br><span class="line"># tar zxfv gcc-8.1.0.tar.gz</span><br><span class="line"># cd gcc-8.1.0</span><br><span class="line"># ./configure --disable-multilib --enable-languages=c,c++</span><br><span class="line"># make -j 4</span><br><span class="line">...</span><br><span class="line"># make install</span><br><span class="line">...</span><br><span class="line"># gcc -v</span><br><span class="line">...</span><br><span class="line">线程模式:posix</span><br><span class="line">gcc 版本 8.1.0(GCC)</span><br><span class="line">\\ ... 意思省略</span><br></pre></td></tr></table></figure><h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a><strong>方法二</strong></h2><p>在 etc/yum.repos.d下面添加repo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch FedoraRepo.repo</span><br></pre></td></tr></table></figure></p><p>然后添加下面的内容:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[warning:fedora] </span><br><span class="line">name=fedora </span><br><span class="line">mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-23&amp;arch=$basearch </span><br><span class="line">enabled=1 </span><br><span class="line">gpgcheck=1 </span><br><span class="line">gpgkey=https://getfedora.org/static/34EC9CBA.txt</span><br></pre></td></tr></table></figure><p>然后更新gcc</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y update gcc gcc-c++</span><br></pre></td></tr></table></figure><p>然后就是新版本了<br>但是这我还不太懂.所以就没有用这个方法.</p><blockquote><p>我用的是方法一.<br>因为方法一可以自己选择gcc版本,并不是所有的东西都要更新到最新的版本,当然这个根据你们自己了.<br>根据情况而定. 方法二更简单一点.</p></blockquote><p>好了今天就先到这了.</p>]]></content>
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> gcc </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>9宫格纹理的更新问题</title>
       <link href="//posts/1e09c0f5/"/>
       <url>//posts/1e09c0f5/</url>
