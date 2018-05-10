@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://leng521.top/posts/b1de475b/">
+    
+    
+    <title>给sublime写自定义的插件 | 小魏的博客 | 摔倒了爬起来就好。</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="sublime插件">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+	<script src="//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209"></script>
+
+
+    
+    <meta name="description" content="以前总是在sublime中装各种插件,去实现某种便捷,如装一个 git 插件可以直接快速的去查看当前打开的文件与远端的这个文件的差异.但是这些插件总是满足不了你的欲望,有的时候在有一些奇葩的需求,可能没有现有的插件可用,这个时候就要自己去写插件了.">
+<meta name="keywords" content="sublime插件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给sublime写自定义的插件">
+<meta property="og:url" content="https://leng521.top/posts/b1de475b/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="以前总是在sublime中装各种插件,去实现某种便捷,如装一个 git 插件可以直接快速的去查看当前打开的文件与远端的这个文件的差异.但是这些插件总是满足不了你的欲望,有的时候在有一些奇葩的需求,可能没有现有的插件可用,这个时候就要自己去写插件了.">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/b1de475b/1.png">
+<meta property="og:image" content="https://leng521.top/posts/b1de475b/2.png">
+<meta property="og:image" content="https://leng521.top/posts/b1de475b/3.png">
+<meta property="og:image" content="https://leng521.top/posts/b1de475b/4.png">
+<meta property="og:image" content="https://leng521.top/posts/b1de475b/5.png">
+<meta property="og:updated_time" content="2018-05-10T08:33:01.383Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="给sublime写自定义的插件">
+<meta name="twitter:description" content="以前总是在sublime中装各种插件,去实现某种便捷,如装一个 git 插件可以直接快速的去查看当前打开的文件与远端的这个文件的差异.但是这些插件总是满足不了你的欲望,有的时候在有一些奇葩的需求,可能没有现有的插件可用,这个时候就要自己去写插件了.">
+<meta name="twitter:image" content="https://leng521.top/posts/b1de475b/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小魏的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">小魏</h5>
+          
+            <div id="mymotto" class="motto"></div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="xiaowei:2807582398@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/SkillMac" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">给sublime写自定义的插件</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第一步-创建python脚本文件"><span class="post-toc-number">1.</span> <span class="post-toc-text">第一步 创建python脚本文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第二步-填充自己的python文件并保存到相应位置"><span class="post-toc-number">2.</span> <span class="post-toc-text">第二步 填充自己的python文件并保存到相应位置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第三步-绑定快捷键"><span class="post-toc-number">3.</span> <span class="post-toc-text">第三步 绑定快捷键</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-给sublime写自定义的插件"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">给sublime写自定义的插件</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-05-10 14:17:48" datetime="2018-05-10T06:17:48.000Z"  itemprop="datePublished">2018-05-10</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/插件/">插件</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">3</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>以前总是在sublime中装各种插件,去实现某种便捷,如装一个 git 插件可以直接快速的去查看当前打开的文件与远端的这个文件的差异.<br>但是这些插件总是满足不了你的欲望,有的时候在有一些奇葩的需求,可能没有现有的插件可用,这个时候就要自己去写插件了.<br><a id="more"></a><br>首先Sublime是支持自定义插件的,其次是Sublime的插件是采用python的语法,所以你要在写插件之前至少要了解python语法.不然就望而生畏了.</p>
+<h2 id="第一步-创建python脚本文件"><a href="#第一步-创建python脚本文件" class="headerlink" title="第一步 创建python脚本文件"></a><strong>第一步 创建python脚本文件</strong></h2><p>直接打开 Sublime 在最上面工具栏中 找到 Tools/Developer/New Plugin</p>
+<p>点击完成之后会有一个内容类似下面的未保存文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sublime</span><br><span class="line"><span class="keyword">import</span> sublime_plugin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExampleCommand</span><span class="params">(sublime_plugin.TextCommand)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, edit)</span>:</span></span><br><span class="line">        self.view.insert(edit, <span class="number">0</span>, <span class="string">"Hello, World!"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>关于 sublime 这两个包的 API可以去 <a href="http://www.sublimetext.com/docs/3/api_reference.html">SublimeAPI</a> 可能需要翻墙,我只是翻墙之后快了许多.</p>
+<h2 id="第二步-填充自己的python文件并保存到相应位置"><a href="#第二步-填充自己的python文件并保存到相应位置" class="headerlink" title="第二步 填充自己的python文件并保存到相应位置"></a><strong>第二步 填充自己的python文件并保存到相应位置</strong></h2><img src="/posts/b1de475b/1.png" title="package path">
+<img src="/posts/b1de475b/2.png" title="package floder">
+<p>打开上面所指向的目录自己新建一个文件夹,和你那个User目录同级就行了.<br>列如我建立一个PythonHead 的目录如下:</p>
+<img src="/posts/b1de475b/3.png" title="python head">
+<p>里面有个 head.py 的python文件,具体内容如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sublime</span><br><span class="line"><span class="keyword">import</span> sublime_plugin</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line">str_head = <span class="string">"""#!usr/bin/env python2</span></span><br><span class="line"><span class="string">#-*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">#data:%s\n</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PyHeadCommand</span><span class="params">(sublime_plugin.TextCommand)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, edit)</span>:</span></span><br><span class="line">        self.view.insert(edit, <span class="number">0</span>,str_head % (datetime.datetime.now().strftime(<span class="string">"%y-%m-%d %H:%m:%s"</span>)))</span><br></pre></td></tr></table></figure>
+<p>这个自定义的功能主要是给自己python文件定义加了一些通用的注释而已.<br>样子就如下面这样</p>
+<img src="/posts/b1de475b/4.png" title="开头加自动加注释例子">
+<p>这一写完之后你可以直接打开 Sublime 的命令行 快捷键 ctrl+` 如果快捷键冲突可以直接 View/Show Console 这个也可以</p>
+<p>直接在这里面输入如下代码</p>
+<img src="/posts/b1de475b/5.png" title="打开Sublime的命令行">
+<p>就会向上面显示的那样.</p>
+<p>当然这样肯定是不行的因为这个效率太低下,这里我们直接使用快捷键</p>
+<h2 id="第三步-绑定快捷键"><a href="#第三步-绑定快捷键" class="headerlink" title="第三步 绑定快捷键"></a><strong>第三步 绑定快捷键</strong></h2><p>在上面的那个PyHead的文件夹下面有个 <code>Default (Windows).sublime-keymap</code> </p>
+<blockquote>
+<p>它这个分了一些平台 如 Default (OSX).sublime-keymap Default (Linux).sublime-keymap<br>这样的文件夹,这个是你绑定快捷键到你这个 功能上面.<br>里面的内容如下(使用json的数据格式):</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;<span class="attr">"keys"</span>: [<span class="string">"ctrl+alt+h"</span>], <span class="attr">"command"</span>: <span class="string">"py_head"</span>&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>如果不熟悉json的话可以自己去补一下.</p>
+<p>前面这个定义快捷键,后面是你要调用的函数,这里你可能有疑问了,为啥定义是<code>PyHeadCommand</code> 这个名字 却写个这,<br>那是因为在Sublime中 函数的绑定都是小写, 如果你是大写就像上面那样驼峰式命名<br>在绑定的时候是以下划线开头在这个大写字母前面,然后全部小写.<br>举一个例子吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如 函数名 PyHead  绑定的 command 是 py_head</span><br><span class="line">函数名 pyhead 绑定的 command 是 pyhead </span><br><span class="line">函数名 PYHead 绑定的 command 是 p_y_head</span><br></pre></td></tr></table></figure></p>
+<p>这下应该明白了吧.</p>
+<p>这样你就成功的写了一个 Sublime 插件的 hello world,如果你要写更厉害的插件你还得去学习 正则表达式,至于这个是啥怎么用自己去找,网上一大堆.</p>
+<p>好了今天就先到这.有时间我在接着写一些其他的文档如 Sublime的API文档.</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-05-10T08:33:01.383Z" itemprop="dateUpdated">2018-05-10 16:33:01</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/b1de475b/" target="_blank" rel="external">https://leng521.top/posts/b1de475b/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://leng521.top'">
+            <img src="/img/head.jpg" alt="小魏">
+            <a>小魏</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime插件/">sublime插件</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/b1de475b/&title=《给sublime写自定义的插件》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/b1de475b/&title=《给sublime写自定义的插件》 — 小魏的博客&source=以前总是在sublime中装各种插件,去实现某种便捷,如装一个 git 插件可以直接快速的去查看当前打开的文件与远端的这个文件的差异.但是这些插件总是满足..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/b1de475b/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《给sublime写自定义的插件》 — 小魏的博客&url=https://leng521.top/posts/b1de475b/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/b1de475b/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/f62a7c7d/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：linux升级gcc">下一篇：linux升级gcc</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://leng521.top">leng521.top</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/b1de475b/&title=《给sublime写自定义的插件》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/b1de475b/&title=《给sublime写自定义的插件》 — 小魏的博客&source=以前总是在sublime中装各种插件,去实现某种便捷,如装一个 git 插件可以直接快速的去查看当前打开的文件与远端的这个文件的差异.但是这些插件总是满足..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/b1de475b/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《给sublime写自定义的插件》 — 小魏的博客&url=https://leng521.top/posts/b1de475b/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/b1de475b/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByklEQVR42u3aS46DMBAFQO5/6USaVRbBee3GDhOVVwghU2bRoj/HEa/H33q9fr3TuX+sWLi4uG3uY7jOth4/n+x89gnGe+Li4u7k5sErD0DjY48/x+l9XFzcm3HzwyRQXFzc3+COf03ykIeLi/tfuHlykiQ/eVK0MFfDxcVtcOcKptdeL6/v4uLiXtSVmAtS1RJJ4e24uLhbuEnJYxxJ1jVuT/fHxcVdzB2/Mg9h5WAU/PpEIQwXF3cBd25M6qoD5CGsHNRwcXHb3E5hNA+I1dAZDWbh4uIu4M4VNaoNks7I15sqDi4u7hbu+KFq+zM5xmTBBRcXdwt3rnw5l9LkIQ8XF/cO3Gqqkx+7uuf48Li4uHu41YBSLYx2PgcuLu53uZ1UJG+EVFutb57BxcXdwk3SnnyEKz9ea09cXNzF3OoL8nbs3D4f9sTFxd3I7YSw/IemU2TBxcXdz622VJNXVtsthW4PLi7uYm6/QZIPWlULIuUuMS4u7qXcueCVN1SqB8PFxb0Pd24CqtN0mSyq4uLi3oybFETyRks+pPXhNLi4uDfg5kMY+SBXPsyBi4u7k9vZKE+TtpZFcHFxtxdMq8lSf7ADFxd3C/cJJo1swz0BknsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/01/17");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+    elasticText({
+        id: "mymotto",
+        duration: 100,
+        effact: "easeOut",
+        content: ""
+    });
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "小魏");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>
