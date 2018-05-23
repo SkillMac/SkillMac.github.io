@@ -3,6 +3,52 @@
   
     
     <entry>
+      <title>解决运行exe时缺少dll问题</title>
+      <link href="//posts/8e17853e/"/>
+      <url>//posts/8e17853e/</url>
+      <content type="html"><![CDATA[<p>今天主要是解决如果你使用 cocos2dx 做的游戏(exe) 要放到别人的电脑上运行问题,在有些时候你可能会将自己的exe放到别人的电脑上,但是不幸的是,运行不了,提示说找不到*.dll.<br> <a id="more"></a></p><h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a><strong>解决思路</strong></h2><p>1.你可能会直接去百度上下载一堆dll但是发现没什么用,还是会报错.那就看来这个思路是行不通的,换一个思路就是你去思考你的电脑比他电脑多了什么东西,其实也就是多了cocos2dx的运行框架,多了个VS.那既然我们已经将cocos2dx编译出来的和锁依赖的dll已经全部放在他的电脑上了,那就剩下个VS,这下目标很清晰喽,直接从VS下手,事实证明这是对的.</p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h2><p>1.去找VS的dll存放的地方,我这里就不找,直接利用电脑管家去全局搜索某个文件,如下图<br><img src="/posts/8e17853e/1.png" title="搜索dll的图片"></p><p>2.将你缺少的dll全部放在对方这个路径下<code>C:\Windows\SysWOW64</code></p><blockquote><p>Note:当然这里你怕放在这里影响其他的应用的话你也可以不放在,直接放在和你要运行的exe同级目录下就行.<br>我这里只是为了解决多人时出现的问题.</p></blockquote><p>3.copy你通过VS编译出来的exe和它所依赖的dll文件,具体目录在<code>~/simulator/win32/*</code>~代表你项目的根目录,然后将你项目根目录下的<code>src和res</code>文件夹拷贝到他的电脑上,其实就是将win32目录下的src和res给删除,将你项目根目录下的src和res放进去,为了只是保证资源和代码是最新的.</p><p>4.如果有人动了c++代码的话,你如果不是太了解C++中dll是干啥的就直接将自己<code>~/simulator/win32/*.dll</code>这个目录下的dll再重新覆盖一下.</p><p>好了就先到这里了.</p>]]></content>
+      
+      <categories>
+          
+          <category> cocos2dx </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 缺少dll </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="//posts/4a17b156/"/>
+      <url>//posts/4a17b156/</url>
+      <content type="html"><![CDATA[<h2 id="搭建自己的博客在github-page"><a href="#搭建自己的博客在github-page" class="headerlink" title="搭建自己的博客在github page"></a>搭建自己的博客在github page</h2><p>经过2天的折腾的终于把自己的博客给搭建出来了,也可以说是自己的一个<code>Hello World</code> 吧<br><a id="more"></a><br>这个主题是使用<strong>Litten</strong>的theme通过hexo搭建</p><h2 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a><strong>准备环境</strong></h2><pre><code>* install git   * install node* 注册github的账号</code></pre><p><a href="https://git-scm.com/downloads">Git Download</a><br><a href="http://nodejs.cn/download/">nodejs Download</a><br><a href="https://github.com/">github 注册的地址</a></p><h2 id="再创建之前思考一个事情"><a href="#再创建之前思考一个事情" class="headerlink" title="再创建之前思考一个事情"></a><strong>再创建之前思考一个事情</strong></h2><p>就是在你做完这些之后，你开始写自己的博客的时候，突然之间要换电脑了，这个时候你要怎么办<br>这个思考是对于那些使用过 github 或者是使用过别的版本控制的工具。 </p><h2 id="Build-to-blog"><a href="#Build-to-blog" class="headerlink" title="Build to blog"></a><strong>Build to blog</strong></h2><pre><code>安装 nodejs 很简单,就是傻瓜式的安装。在安装 git 的时候也是一键式安装。然后自己注册github的账号。</code></pre><p>记得配置自己的 <code>nodejs的Path</code></p><p>在 cmd 窗口 输入 path<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/path_1.png" alt="path" title="">                </div>                <div class="image-caption">path</div>            </figure><br>我自己的 <code>nodejs</code> 在E盘</p><p>同样看看自己的 git 的 path 有没有配置</p><p>然后就是验证你的安装是否正确打开你 cmd 输入 git<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/git_1.png" alt="git" title="">                </div>                <div class="image-caption">git</div>            </figure><br>输入 node -v<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/node_1.png" alt="node -v" title="">                </div>                <div class="image-caption">node -v</div>            </figure><br>github 就不用验证了吧</p><p>然后就是利用 node 的 npm 工具去安装 hexo 输入 </p><pre><code>npm install -g hexo-cli</code></pre><p>如果自己的 hexo 安装成功的话</p><p>在 cmd 中 输入 hexo -v<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/hexo_1.png" alt="hexo -v" title="">                </div>                <div class="image-caption">hexo -v</div>            </figure></p><h2 id="创建自己的-hexo-工程"><a href="#创建自己的-hexo-工程" class="headerlink" title="创建自己的 hexo 工程"></a><strong>创建自己的 hexo 工程</strong></h2><p>假设自己的 hexo 的工程目录是在 D:\Pro\pro_wdh\nodejs</p><pre><code>1. 在 cmd 中 输入 pushd D:\Pro\pro_wdh\nodejs2. cmd的当前目录直接跳转到 D:\Pro\pro_wdh\nodejs3. 使用 hexo init 命令 初始化  （）hexo init [folderName] ）</code></pre><blockquote><p>hexo init hexo<br>cd hexo<br>nmp install</p></blockquote><p>完成之后目录结构如下：</p><pre><code>.├── _config.yml├── package.json├── scaffolds├── source|   ├── _drafts|   └── _posts└── themes</code></pre><h3 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a><strong>_config.yml</strong></h3><p>网站的 配置 信息，您可以在此配置大部分的参数。</p><h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a><strong>package.json</strong></h3><p>应用程序的信息。EJS, Stylus 和 Markdown renderer 已默认安装，您可以自由移除。</p><h3 id="scaffolds"><a href="#scaffolds" class="headerlink" title="scaffolds"></a><strong>scaffolds</strong></h3><p>模版 文件夹。当您新建文章时，Hexo 会根据 scaffold 来建立文件。</p><p>Hexo的模板是指在新建的markdown文件中默认填充的内容。例如，如果您修改scaffold/post.md中的Front-matter内容，那么每次新建一篇文章时都会包含这个修改。</p><h3 id="source"><a href="#source" class="headerlink" title="source"></a><strong>source</strong></h3><p>资源文件夹是存放用户资源的地方。除 <em>posts 文件夹之外，开头命名为 </em> (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。</p><h3 id="themes"><a href="#themes" class="headerlink" title="themes"></a><strong>themes</strong></h3><p>主题 文件夹。Hexo 会根据主题来生成静态页面。</p><h2 id="运行自己的hexo工程"><a href="#运行自己的hexo工程" class="headerlink" title="运行自己的hexo工程"></a><strong>运行自己的hexo工程</strong></h2><p>在 cmd 中 输入 hexo s<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/hexo_2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure></p><p>在自己的浏览器中打开 <code>http://localhost:4000/.</code></p><p>这时你会看到自己的静态网页</p><p><a href="https://segmentfault.com/a/1190000002632530">更多的 hexo的命令</a><br><a href="https://hexo.io/zh-cn/">hexo 的官网</a></p><h2 id="部署自己的笔记2github"><a href="#部署自己的笔记2github" class="headerlink" title="部署自己的笔记2github"></a><strong>部署自己的笔记2github</strong></h2><p>网上的一些教程都是 使用 SSH 去上传自己的博客<br>但是使用 htpp 的方式也同样可以 上传</p><p>创建自己的 github 的仓库<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/github_1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><br>上面的仓库名字就和你 github 的名字一样就行了</p><p>然后就是在 hexo 的根目录下的 _config.yml 中 找到<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/config_1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><br>按照图片上的配置自己的 github 仓库的地址<br>github 仓库的地址在这里拿<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/github_2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure></p><p>然后执行 hexo的命令 在cmd中输入  </p><pre><code>1.hexo clean2.hexo g3.hexo d</code></pre><p>静静的等待</p><p>上传完成之后</p><p>打开 <code>http://Test.github.io</code> 就可以看到自己的博客了</p><h2 id="回答上面的提出的思考"><a href="#回答上面的提出的思考" class="headerlink" title="回答上面的提出的思考"></a><strong>回答上面的提出的思考</strong></h2><p>答案就是 在 github 上创建自己的 branch(分支)</p><p>我是在自己的 github 创建自己的 blog(分支)</p><p><a href="http://note.youdao.com/noteshare?id=7abb057f779aca20328c74a7c810e027&amp;sub=855026A2B8904F61A0933D26CA9E27FF">git 的一些命令</a></p><p>不是太全,但是应对日常还是可以的</p><p>做法如下：</p><pre><code>git chcekout -b bloggit add -Agit commit - m &quot;commit my blog&quot;git push origin blog</code></pre><p>解释一下吧</p><blockquote><p>创建新的分支 blog<br>添加自己的文件到缓存区<br>提交到本地版本库<br>推送到远端</p></blockquote><p><a href="http://www.runoob.com/?s=git">更多 git 的知识</a></p><p>这只是一些基础</p><p>更多需要你多去尝试,多自己动手。</p><p>有疑问可以加QQ一起讨论</p>]]></content>
+      
+      <categories>
+          
+          <category> hexo </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hello world </tag>
+            
+            <tag> github page </tag>
+            
+            <tag> 博客 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>给sublime写自定义的插件</title>
       <link href="//posts/b1de475b/"/>
       <url>//posts/b1de475b/</url>
@@ -188,31 +234,6 @@
             <tag> hexo </tag>
             
             <tag> IT </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="//posts/4a17b156/"/>
-      <url>//posts/4a17b156/</url>
-      <content type="html"><![CDATA[<h2 id="搭建自己的博客在github-page"><a href="#搭建自己的博客在github-page" class="headerlink" title="搭建自己的博客在github page"></a>搭建自己的博客在github page</h2><p>经过2天的折腾的终于把自己的博客给搭建出来了,也可以说是自己的一个<code>Hello World</code> 吧<br><a id="more"></a><br>这个主题是使用<strong>Litten</strong>的theme通过hexo搭建</p><h2 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a><strong>准备环境</strong></h2><pre><code>* install git   * install node* 注册github的账号</code></pre><p><a href="https://git-scm.com/downloads">Git Download</a><br><a href="http://nodejs.cn/download/">nodejs Download</a><br><a href="https://github.com/">github 注册的地址</a></p><h2 id="再创建之前思考一个事情"><a href="#再创建之前思考一个事情" class="headerlink" title="再创建之前思考一个事情"></a><strong>再创建之前思考一个事情</strong></h2><p>就是在你做完这些之后，你开始写自己的博客的时候，突然之间要换电脑了，这个时候你要怎么办<br>这个思考是对于那些使用过 github 或者是使用过别的版本控制的工具。 </p><h2 id="Build-to-blog"><a href="#Build-to-blog" class="headerlink" title="Build to blog"></a><strong>Build to blog</strong></h2><pre><code>安装 nodejs 很简单,就是傻瓜式的安装。在安装 git 的时候也是一键式安装。然后自己注册github的账号。</code></pre><p>记得配置自己的 <code>nodejs的Path</code></p><p>在 cmd 窗口 输入 path<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/path_1.png" alt="path" title="">                </div>                <div class="image-caption">path</div>            </figure><br>我自己的 <code>nodejs</code> 在E盘</p><p>同样看看自己的 git 的 path 有没有配置</p><p>然后就是验证你的安装是否正确打开你 cmd 输入 git<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/git_1.png" alt="git" title="">                </div>                <div class="image-caption">git</div>            </figure><br>输入 node -v<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/node_1.png" alt="node -v" title="">                </div>                <div class="image-caption">node -v</div>            </figure><br>github 就不用验证了吧</p><p>然后就是利用 node 的 npm 工具去安装 hexo 输入 </p><pre><code>npm install -g hexo-cli</code></pre><p>如果自己的 hexo 安装成功的话</p><p>在 cmd 中 输入 hexo -v<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/hexo_1.png" alt="hexo -v" title="">                </div>                <div class="image-caption">hexo -v</div>            </figure></p><h2 id="创建自己的-hexo-工程"><a href="#创建自己的-hexo-工程" class="headerlink" title="创建自己的 hexo 工程"></a><strong>创建自己的 hexo 工程</strong></h2><p>假设自己的 hexo 的工程目录是在 D:\Pro\pro_wdh\nodejs</p><pre><code>1. 在 cmd 中 输入 pushd D:\Pro\pro_wdh\nodejs2. cmd的当前目录直接跳转到 D:\Pro\pro_wdh\nodejs3. 使用 hexo init 命令 初始化  （）hexo init [folderName] ）</code></pre><blockquote><p>hexo init hexo<br>cd hexo<br>nmp install</p></blockquote><p>完成之后目录结构如下：</p><pre><code>.├── _config.yml├── package.json├── scaffolds├── source|   ├── _drafts|   └── _posts└── themes</code></pre><h3 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a><strong>_config.yml</strong></h3><p>网站的 配置 信息，您可以在此配置大部分的参数。</p><h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a><strong>package.json</strong></h3><p>应用程序的信息。EJS, Stylus 和 Markdown renderer 已默认安装，您可以自由移除。</p><h3 id="scaffolds"><a href="#scaffolds" class="headerlink" title="scaffolds"></a><strong>scaffolds</strong></h3><p>模版 文件夹。当您新建文章时，Hexo 会根据 scaffold 来建立文件。</p><p>Hexo的模板是指在新建的markdown文件中默认填充的内容。例如，如果您修改scaffold/post.md中的Front-matter内容，那么每次新建一篇文章时都会包含这个修改。</p><h3 id="source"><a href="#source" class="headerlink" title="source"></a><strong>source</strong></h3><p>资源文件夹是存放用户资源的地方。除 <em>posts 文件夹之外，开头命名为 </em> (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。</p><h3 id="themes"><a href="#themes" class="headerlink" title="themes"></a><strong>themes</strong></h3><p>主题 文件夹。Hexo 会根据主题来生成静态页面。</p><h2 id="运行自己的hexo工程"><a href="#运行自己的hexo工程" class="headerlink" title="运行自己的hexo工程"></a><strong>运行自己的hexo工程</strong></h2><p>在 cmd 中 输入 hexo s<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/hexo_2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure></p><p>在自己的浏览器中打开 <code>http://localhost:4000/.</code></p><p>这时你会看到自己的静态网页</p><p><a href="https://segmentfault.com/a/1190000002632530">更多的 hexo的命令</a><br><a href="https://hexo.io/zh-cn/">hexo 的官网</a></p><h2 id="部署自己的笔记2github"><a href="#部署自己的笔记2github" class="headerlink" title="部署自己的笔记2github"></a><strong>部署自己的笔记2github</strong></h2><p>网上的一些教程都是 使用 SSH 去上传自己的博客<br>但是使用 htpp 的方式也同样可以 上传</p><p>创建自己的 github 的仓库<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/github_1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><br>上面的仓库名字就和你 github 的名字一样就行了</p><p>然后就是在 hexo 的根目录下的 _config.yml 中 找到<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/config_1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><br>按照图片上的配置自己的 github 仓库的地址<br>github 仓库的地址在这里拿<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/assets/hello-world/github_2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure></p><p>然后执行 hexo的命令 在cmd中输入  </p><pre><code>1.hexo clean2.hexo g3.hexo d</code></pre><p>静静的等待</p><p>上传完成之后</p><p>打开 <code>http://Test.github.io</code> 就可以看到自己的博客了</p><h2 id="回答上面的提出的思考"><a href="#回答上面的提出的思考" class="headerlink" title="回答上面的提出的思考"></a><strong>回答上面的提出的思考</strong></h2><p>答案就是 在 github 上创建自己的 branch(分支)</p><p>我是在自己的 github 创建自己的 blog(分支)</p><p><a href="http://note.youdao.com/noteshare?id=7abb057f779aca20328c74a7c810e027&amp;sub=855026A2B8904F61A0933D26CA9E27FF">git 的一些命令</a></p><p>不是太全,但是应对日常还是可以的</p><p>做法如下：</p><pre><code>git chcekout -b bloggit add -Agit commit - m &quot;commit my blog&quot;git push origin blog</code></pre><p>解释一下吧</p><blockquote><p>创建新的分支 blog<br>添加自己的文件到缓存区<br>提交到本地版本库<br>推送到远端</p></blockquote><p><a href="http://www.runoob.com/?s=git">更多 git 的知识</a></p><p>这只是一些基础</p><p>更多需要你多去尝试,多自己动手。</p><p>有疑问可以加QQ一起讨论</p>]]></content>
-      
-      <categories>
-          
-          <category> hexo </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> hello world </tag>
-            
-            <tag> github page </tag>
-            
-            <tag> 博客 </tag>
             
         </tags>
       
