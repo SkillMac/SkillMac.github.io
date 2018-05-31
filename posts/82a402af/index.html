@@ -54,7 +54,7 @@
 <meta property="og:image" content="https://leng521.top/posts/82a402af/git_branch_vv.png">
 <meta property="og:image" content="https://leng521.top/posts/82a402af/git_remote_v.png">
 <meta property="og:image" content="https://leng521.top/posts/82a402af/1.png">
-<meta property="og:updated_time" content="2018-05-25T07:56:35.956Z">
+<meta property="og:updated_time" content="2018-05-31T06:46:08.501Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git命令的记录">
 <meta name="twitter:description" content="现在对git也使用快一年了现在总结一下常用的一些命令。 本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit">
@@ -162,7 +162,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Búsqueda">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -196,7 +196,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#本文的大纲"><span class="post-toc-number">1.</span> <span class="post-toc-text">本文的大纲</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-clone"><span class="post-toc-number"></span> <span class="post-toc-text">git clone</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-pull"><span class="post-toc-number"></span> <span class="post-toc-text">git pull</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-add"><span class="post-toc-number"></span> <span class="post-toc-text">git add</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-commit"><span class="post-toc-number"></span> <span class="post-toc-text">git commit</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-push"><span class="post-toc-number"></span> <span class="post-toc-text">git push</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-branch"><span class="post-toc-number"></span> <span class="post-toc-text">git branch</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-branch-upstream-git-分支的映射关系"><span class="post-toc-number"></span> <span class="post-toc-text">git branch upstream(git 分支的映射关系)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-fetch"><span class="post-toc-number"></span> <span class="post-toc-text">git fetch</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-remote"><span class="post-toc-number"></span> <span class="post-toc-text">git remote</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-checkout"><span class="post-toc-number"></span> <span class="post-toc-text">git checkout</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-reset"><span class="post-toc-number"></span> <span class="post-toc-text">git reset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-stash"><span class="post-toc-number"></span> <span class="post-toc-text">git stash</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git配置一些外部工具"><span class="post-toc-number"></span> <span class="post-toc-text">git配置一些外部工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置代码对比工具"><span class="post-toc-number">1.</span> <span class="post-toc-text">配置代码对比工具</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-Problem"><span class="post-toc-number"></span> <span class="post-toc-text">git Problem</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-merge"><span class="post-toc-number"></span> <span class="post-toc-text">git merge</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-更高级的用法"><span class="post-toc-number"></span> <span class="post-toc-text">git 更高级的用法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-merge-–abort"><span class="post-toc-number"></span> <span class="post-toc-text">git merge –abort</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-status-sb"><span class="post-toc-number"></span> <span class="post-toc-text">git status -sb</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-clean-f"><span class="post-toc-number"></span> <span class="post-toc-text">git clean -f</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-log"><span class="post-toc-number"></span> <span class="post-toc-text">git log</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-log-n"><span class="post-toc-number">1.</span> <span class="post-toc-text">git log -n</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-show"><span class="post-toc-number"></span> <span class="post-toc-text">git show</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-show-–stat-commitId"><span class="post-toc-number">1.</span> <span class="post-toc-text">git show –stat [commitId]</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-show-commitId"><span class="post-toc-number">2.</span> <span class="post-toc-text">git show [commitId]</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#本文的大纲"><span class="post-toc-number">1.</span> <span class="post-toc-text">本文的大纲</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-clone"><span class="post-toc-number"></span> <span class="post-toc-text">git clone</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-pull"><span class="post-toc-number"></span> <span class="post-toc-text">git pull</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-add"><span class="post-toc-number"></span> <span class="post-toc-text">git add</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-commit"><span class="post-toc-number"></span> <span class="post-toc-text">git commit</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-push"><span class="post-toc-number"></span> <span class="post-toc-text">git push</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-branch"><span class="post-toc-number"></span> <span class="post-toc-text">git branch</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-branch-upstream-git-分支的映射关系"><span class="post-toc-number"></span> <span class="post-toc-text">git branch upstream(git 分支的映射关系)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-fetch"><span class="post-toc-number"></span> <span class="post-toc-text">git fetch</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-remote"><span class="post-toc-number"></span> <span class="post-toc-text">git remote</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-checkout"><span class="post-toc-number"></span> <span class="post-toc-text">git checkout</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-reset"><span class="post-toc-number"></span> <span class="post-toc-text">git reset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-stash"><span class="post-toc-number"></span> <span class="post-toc-text">git stash</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git配置一些外部工具"><span class="post-toc-number"></span> <span class="post-toc-text">git配置一些外部工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置代码对比工具"><span class="post-toc-number">1.</span> <span class="post-toc-text">配置代码对比工具</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-Problem"><span class="post-toc-number"></span> <span class="post-toc-text">git Problem</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-merge"><span class="post-toc-number"></span> <span class="post-toc-text">git merge</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-更高级的用法"><span class="post-toc-number"></span> <span class="post-toc-text">git 更高级的用法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-merge-–abort"><span class="post-toc-number"></span> <span class="post-toc-text">git merge –abort</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-status-sb"><span class="post-toc-number"></span> <span class="post-toc-text">git status -sb</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-clean-f"><span class="post-toc-number"></span> <span class="post-toc-text">git clean -f</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-log"><span class="post-toc-number"></span> <span class="post-toc-text">git log</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-log-n"><span class="post-toc-number">1.</span> <span class="post-toc-text">git log -n</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-show"><span class="post-toc-number"></span> <span class="post-toc-text">git show</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-show-–stat-commitId"><span class="post-toc-number">1.</span> <span class="post-toc-text">git show –stat [commitId]</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-show-commitId"><span class="post-toc-number">2.</span> <span class="post-toc-text">git show [commitId]</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-diff"><span class="post-toc-number"></span> <span class="post-toc-text">git diff</span></a>
         </nav>
     </aside>
    
@@ -231,7 +231,7 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>现在对git也使用快一年了现在总结一下常用的一些命令。</p>
-<h3 id="本文的大纲"><a href="#本文的大纲" class="headerlink" title="本文的大纲"></a><strong>本文的大纲</strong></h3><p>对以下命令做一些记录<br>1.git clone<br>2.git pull<br>3.git commit<br><a id="more"></a><br>4.git push<br>5.git branch<br>6.git remote<br>7.git checkout<br>8.git reset<br>9.git stash<br>10.git配置一些外部工具<br>11.git merge<br>12.git log<br>13.git show</p>
+<h3 id="本文的大纲"><a href="#本文的大纲" class="headerlink" title="本文的大纲"></a><strong>本文的大纲</strong></h3><p>对以下命令做一些记录<br>1.git clone<br>2.git pull<br>3.git commit<br><a id="more"></a><br>4.git push<br>5.git branch<br>6.git remote<br>7.git checkout<br>8.git reset<br>9.git stash<br>10.git配置一些外部工具<br>11.git merge<br>12.git log<br>13.git show<br>14.git diff</p>
 <h2 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a><strong>git clone</strong></h2><pre><code>git clone 是克隆别的仓库
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;repo&gt; &lt;directory&gt;</span><br><span class="line">参数说明：</span><br><span class="line">    repo:Git 仓库</span><br><span class="line">    directory:本地目录</span><br></pre></td></tr></table></figure>
 <pre><code>ej:比如，要克隆 Ruby 语言的 Git 代码仓库 Grit，可以用下面的命令：
@@ -382,6 +382,23 @@ git clone git://github.com/schacon/grit.git test
 <blockquote>
 <p>ej git show 96daa2f6bb9b413ae3ce5a1ccf3f58ee22b32b42 src/a.lua<br>显示这次这个文件提交的内容</p>
 </blockquote>
+<h2 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a><strong>git diff</strong></h2><p>比较文件的差异</p>
+<p><strong>git diff 文件的相对路径</strong></p>
+<blockquote>
+<p>git diff src/a.lua<br>它会罗列出当前的改动与你本地版本库的差异</p>
+</blockquote>
+<p><strong>git diff branch1 branch2 –stat</strong></p>
+<blockquote>
+<p>显示出所有有差异的文件列表</p>
+</blockquote>
+<p><strong>git diff branch1 branch2 文件名字</strong></p>
+<blockquote>
+<p>显示这个文件的详细差异</p>
+</blockquote>
+<p><strong>git diff branch1 branch2</strong></p>
+<blockquote>
+<p>显示这个两个分支差异文件的详细情况.</p>
+</blockquote>
 
         </div>
 
@@ -389,7 +406,7 @@ git clone git://github.com/schacon/grit.git test
     <div class="content">
         
 <span class="post-time">
-    Última actualización<time datetime="2018-05-25T07:56:35.956Z" itemprop="dateUpdated">2018-05-25 15:56:35</time>
+    Last updated: <time datetime="2018-05-31T06:46:08.501Z" itemprop="dateUpdated">2018-05-31 14:46:08</time>
 </span>
 
 
@@ -536,7 +553,7 @@ git clone git://github.com/schacon/grit.git test
         </span>
         <br/>
 
-        <span class="license">Este blog está licenciado bajo una <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">licencia internacional Creative Commons Attribution 4.0</a>.</span>
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
     </div>
 </footer>
 
