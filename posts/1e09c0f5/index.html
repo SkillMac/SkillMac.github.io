@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://leng521.top/posts/1e09c0f5/">
+    
+    
+    <title>9宫格纹理的更新问题 | 小魏的博客 | 摔倒了爬起来就好。</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="cocos2dx,9宫格">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+	<script src="//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209"></script>
+
+
+    
+    <meta name="description" content="这一篇文章主要是讲解一下 cocos2dx 9宫格纹理更新问题">
+<meta name="keywords" content="cocos2dx,9宫格">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9宫格纹理的更新问题">
+<meta property="og:url" content="https://leng521.top/posts/1e09c0f5/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="这一篇文章主要是讲解一下 cocos2dx 9宫格纹理更新问题">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-04-26T02:23:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="9宫格纹理的更新问题">
+<meta name="twitter:description" content="这一篇文章主要是讲解一下 cocos2dx 9宫格纹理更新问题">
+    
+        <link rel="alternate" type="application/atom+xml" title="小魏的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">小魏</h5>
+          
+            <div id="mymotto" class="motto"></div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="xiaowei:2807582398@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/SkillMac" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">9宫格纹理的更新问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题描述"><span class="post-toc-number">1.</span> <span class="post-toc-text">问题描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题剖析"><span class="post-toc-number">2.</span> <span class="post-toc-text">问题剖析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码实现"><span class="post-toc-number">3.</span> <span class="post-toc-text">代码实现</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-9宫格纹理的更新问题"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">9宫格纹理的更新问题</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-04-26 09:40:53" datetime="2018-04-26T01:40:53.000Z"  itemprop="datePublished">2018-04-26</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/cocos2dx/">cocos2dx</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">3</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这一篇文章主要是讲解一下 cocos2dx 9宫格纹理更新问题<br><a id="more"></a><br>我这里就不说 cocos2dx 9宫格怎么使用了。在网上一搜一大堆。基本内容都是那样。我不想做无谓的叙述了。</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a><strong>问题描述</strong></h2><p>现在的环境是：<br>    cocos2dx 3.15<br>    VS 2015<br>    使用 lua 写项目</p>
+<blockquote>
+<p>注意这里是说使用 plist 里面的纹理 也就是精灵帧</p>
+</blockquote>
+<p>现在面临的问题是: cocos2dx 对9宫格纹理更新，不能像更新精灵那样使用它提供的函数 <code>setSpriteFrame</code><br>虽然9宫格就是对精灵的在次封装。 </p>
+<p>cocos2dx 九宫格的这个函数（setSpriteFrame）在C++定义的头文件中是长这样的</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UIScale9Sprite.h</span></span><br><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setSpriteFrame</span><span class="params">(SpriteFrame * spriteFrame, <span class="keyword">const</span> Rect&amp; capInsets)</span></span>;</span><br><span class="line"><span class="comment">//它没有提供直接输入字符串来实现纹理的更换.</span></span><br></pre></td></tr></table></figure>
+<p>这说明我们需要一个精灵帧类型，但是这个类型我用了这么时间，基本没用过。</p>
+<h2 id="问题剖析"><a href="#问题剖析" class="headerlink" title="问题剖析"></a><strong>问题剖析</strong></h2><p>我上面有说过九宫格是对纹理的再次封装实现的，说以就去查看他的父类<code>Sprite.h</code>这个是怎么初始化的。</p>
+<p>追了 它父类的初始化函数 <code>Sprite.h</code> 看到了它是怎么创建出精灵帧的，下面是他初始化它内部的精灵帧的操作。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Sprite::setSpriteFrame(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;spriteFrameName)</span><br><span class="line">&#123;</span><br><span class="line">    CCASSERT(!spriteFrameName.empty(), <span class="string">"spriteFrameName must not be empty"</span>);</span><br><span class="line">    <span class="keyword">if</span> (spriteFrameName.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    SpriteFrameCache *cache = SpriteFrameCache::getInstance();</span><br><span class="line">    <span class="comment">// 根据名字在精灵帧缓存中查找相应的精灵帧。</span></span><br><span class="line">    SpriteFrame *spriteFrame = cache-&gt;getSpriteFrameByName(spriteFrameName);</span><br><span class="line"></span><br><span class="line">    CCASSERT(spriteFrame, <span class="built_in">std</span>::<span class="built_in">string</span>(<span class="string">"Invalid spriteFrameName :"</span>).append(spriteFrameName).c_str());</span><br><span class="line">    <span class="comment">// 设置自己内部的精灵帧对象</span></span><br><span class="line">    setSpriteFrame(spriteFrame);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>原理是在精灵帧缓存中查找对象<br>设置精灵的精灵帧</p>
+</blockquote>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h2><p>这下就好办了。</p>
+<p>lua层的代码就是</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> spriteFrameCache = cc.SpriteFrameCache:getInstance()</span><br><span class="line"><span class="keyword">local</span> frame = spriteFrameCache:getSpriteFrame(<span class="string">"xxx.png"</span>)</span><br><span class="line"><span class="comment">-- xxx.png 就是你 plist文件中对应的文件名字。</span></span><br><span class="line"><span class="comment">-- 这个就是我们需要的精灵帧对象</span></span><br><span class="line"><span class="comment">-- 然后在调用它的 setSpriteFrame</span></span><br></pre></td></tr></table></figure>
+<p>具体的实现代码lua层的<br>c++层我就不说了。暂时没有用到。做法都一样。<br>上面的实现在 cocos2dx display的lua文件里面有实现。所以就直接调用。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- desc: 创建9宫格图片</span></span><br><span class="line"><span class="comment">-- params [ path | pos | capInsets | size | rect ]</span></span><br><span class="line"><span class="comment">-- params.path 可以是精灵帧 ej: params.path = "#xxx.png"</span></span><br><span class="line"><span class="comment">-- params.pos 精灵的位置</span></span><br><span class="line"><span class="comment">-- params.capInsets 是9宫格中间 Rect 的位置和大小</span></span><br><span class="line"><span class="comment">-- params.rect 可以不用填</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">T.cp_s9</span><span class="params">( parentNode, params )</span></span></span><br><span class="line">    <span class="keyword">local</span> pos = params.pos</span><br><span class="line">    <span class="keyword">local</span> s   = display.newSprite(params.<span class="built_in">path</span>,pos.x,pos.y,params)</span><br><span class="line">    <span class="keyword">local</span> _   = parentNode <span class="keyword">and</span> parentNode:addChild(s)</span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- desc: 9宫格图片纹理的更新</span></span><br><span class="line"><span class="comment">-- path 无效添加报错机制</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">T.update_s9</span><span class="params">( node, path, capInsets, size )</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">string</span>.<span class="built_in">byte</span>(<span class="built_in">path</span>) == <span class="number">35</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">local</span> sp = display.newSpriteFrame(<span class="built_in">path</span>)</span><br><span class="line">        node:setSpriteFrame(sp,capInsets)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> cc.FileUtils:getInstance():isFileExist(<span class="built_in">path</span>) <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">error</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">"invalid path , file isn't exist , path - %s"</span>,<span class="built_in">path</span>))</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        node:setTexture(<span class="built_in">path</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    node:setContentSize(size)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>需要注意的一点就是在九宫格更新纹理后尺寸又变回原来的大小，你需要重新设置大小。</p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2018-04-26T02:23:54.000Z" itemprop="dateUpdated">2018-04-26 10:23:54</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/1e09c0f5/" target="_blank" rel="external">https://leng521.top/posts/1e09c0f5/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://leng521.top'">
+            <img src="/img/head.jpg" alt="小魏">
+            <a>小魏</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/9宫格/">9宫格</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2dx/">cocos2dx</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/1e09c0f5/&title=《9宫格纹理的更新问题》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/1e09c0f5/&title=《9宫格纹理的更新问题》 — 小魏的博客&source=这一篇文章主要是讲解一下 cocos2dx 9宫格纹理更新问题" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/1e09c0f5/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《9宫格纹理的更新问题》 — 小魏的博客&url=https://leng521.top/posts/1e09c0f5/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/1e09c0f5/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/f62a7c7d/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：linux升级gcc
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/87435431/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：python-闭包问题">下一篇：python-闭包问题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://leng521.top">leng521.top</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/1e09c0f5/&title=《9宫格纹理的更新问题》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/1e09c0f5/&title=《9宫格纹理的更新问题》 — 小魏的博客&source=这一篇文章主要是讲解一下 cocos2dx 9宫格纹理更新问题" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/1e09c0f5/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《9宫格纹理的更新问题》 — 小魏的博客&url=https://leng521.top/posts/1e09c0f5/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/1e09c0f5/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABx0lEQVR42u3ay2rEMAwF0Pz/T6fbFjrhSrLdUI5XQ/Akxxuhh68rXve3Vd3z/PzasXBxccfc+3H1uAnx0/uf34CLi3uS++nzn/Ykx8sDWWLAxcV9M/curuQAuLi4/5WbJD0vCmS4uLgBtxqG8gZHtbhaVqvh4uIOuHmXct/vLf1dXFzcFndSxuSDk0nh9ONtuLi4R7h5QMmTkmT/5Lu4uLhnuM+pTA+0duBayLxwcXHH3LVt0PyKRu/AuLi457lJM3R+vDx9+eW7uLi4R7iT5mkvkFXzr9FABRcXd8BdUDMV2xmTSxu4uLhnuL2EI0lBksM34y4uLu5mbrJ1R7Ojmjzh4uKe4c5ro3xY8vwkCmS4uLhHuEmCkoSw6ji2mhhd+d9wcXGXcqtJTDW5qYa2cvGDi4u7gZu3M6oJTbVDE9VquLi4R7gTULXlmo9gm1kVLi7ugHsXVy9ILRvi4uLiHuH2rlPko5G8LTJpzeDi4u7g5k3Papt1EuyieyK4uLibudUm6bwZmhc/hSErLi7un3LzhCYfwRYqNlxc3Jdxqzt74WxZIMPFxR1wF4eb4nCl0DTBxcU9wu0NPpMxSS9LyQe3uLi4G7hfBs3iMQnIRGQAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/01/17");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+    elasticText({
+        id: "mymotto",
+        duration: 100,
+        effact: "easeOut",
+        content: ""
+    });
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "小魏");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>
