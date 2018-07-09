@@ -1,6 +1,3 @@
----
-abbrlink: '0'
----
 let msgType = {
     clear:0, // 清除
     updateRank: 1, // 跟新排行榜
