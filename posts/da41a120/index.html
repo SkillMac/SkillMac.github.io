@@ -5,16 +5,16 @@
     <meta charset="utf-8">
     
     
-    <link rel="canonical" href="https://leng521.top/posts/f62a7c7d/">
+    <link rel="canonical" href="https://leng521.top/posts/da41a120/">
     
     
-    <title>linux升级gcc | 小魏的博客 | 摔倒了爬起来就好。</title>
+    <title>微信小游戏发布流程 | 小魏的博客 | 摔倒了爬起来就好。</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     
     <meta name="theme-color" content="#77AAFF">
     
     
-    <meta name="keywords" content="gcc">
+    <meta name="keywords" content="cocos creator,微信小游戏">
     
     
 
@@ -43,18 +43,25 @@
 
 
     
-    <meta name="description" content="这一篇是对linux centos7 中 gcc 的升级.这次升级gcc的版本是 8.1.0">
-<meta name="keywords" content="gcc">
+    <meta name="description" content="今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.  个人发布 和 企业发布的流程 代码上传的注意的问题 代码审核会出现的问题">
+<meta name="keywords" content="cocos creator,微信小游戏">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux升级gcc">
-<meta property="og:url" content="https://leng521.top/posts/f62a7c7d/index.html">
+<meta property="og:title" content="微信小游戏发布流程">
+<meta property="og:url" content="https://leng521.top/posts/da41a120/index.html">
 <meta property="og:site_name" content="小魏的博客">
-<meta property="og:description" content="这一篇是对linux centos7 中 gcc 的升级.这次升级gcc的版本是 8.1.0">
+<meta property="og:description" content="今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.  个人发布 和 企业发布的流程 代码上传的注意的问题 代码审核会出现的问题">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-09T02:08:50.000Z">
+<meta property="og:image" content="https://leng521.top/posts/da41a120/1.png">
+<meta property="og:image" content="https://leng521.top/posts/da41a120/2.png">
+<meta property="og:image" content="https://leng521.top/posts/da41a120/3.png">
+<meta property="og:image" content="https://leng521.top/posts/da41a120/4.png">
+<meta property="og:image" content="https://leng521.top/posts/da41a120/5.png">
+<meta property="og:image" content="https://leng521.top/posts/da41a120/6.png">
+<meta property="og:updated_time" content="2018-07-09T16:02:19.435Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux升级gcc">
-<meta name="twitter:description" content="这一篇是对linux centos7 中 gcc 的升级.这次升级gcc的版本是 8.1.0">
+<meta name="twitter:title" content="微信小游戏发布流程">
+<meta name="twitter:description" content="今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.  个人发布 和 企业发布的流程 代码上传的注意的问题 代码审核会出现的问题">
+<meta name="twitter:image" content="https://leng521.top/posts/da41a120/1.png">
     
         <link rel="alternate" type="application/atom+xml" title="小魏的博客" href="/atom.xml">
     
@@ -152,7 +159,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">linux升级gcc</div>
+        <div class="flex-col header-title ellipsis">微信小游戏发布流程</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -192,24 +199,24 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方法一"><span class="post-toc-number">1.</span> <span class="post-toc-text">方法一</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方法二"><span class="post-toc-number">2.</span> <span class="post-toc-text">方法二</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#个人发布"><span class="post-toc-number">1.</span> <span class="post-toc-text">个人发布</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#企业发布"><span class="post-toc-number">2.</span> <span class="post-toc-text">企业发布</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#差异"><span class="post-toc-number">3.</span> <span class="post-toc-text">差异</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#代码上传的注意的问题"><span class="post-toc-number"></span> <span class="post-toc-text">代码上传的注意的问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#代码审核会出现的问题"><span class="post-toc-number"></span> <span class="post-toc-text">代码审核会出现的问题</span></a>
         </nav>
     </aside>
    
-<article id="post-linux升级gcc"
+<article id="post-微信小游戏发布流程"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">linux升级gcc</h1>
+        <h1 class="post-card-title">微信小游戏发布流程</h1>
         <div class="post-meta">
             <i class="icon icon-lg icon-calendar-o"></i>
             发表于
-            <time class="post-time" title="2018-05-09 09:37:30" datetime="2018-05-09T01:37:30.000Z"  itemprop="datePublished">2018-05-09</time>
+            <time class="post-time" title="2018-07-09 23:02:35" datetime="2018-07-09T15:02:35.000Z"  itemprop="datePublished">2018-07-09</time>
 
             <br id="mybreak"/>
             
 	<i class="icon icon-lg icon-folder-o"></i>
-	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/linux/">linux</a></li></ul>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/微信小游戏/">微信小游戏</a></li></ul>
 
 
             <i>·</i>
@@ -222,21 +229,56 @@
         </div>
         <div class="post-count-custom">
             <i class="icon icon-lg icon-comment-o"></i>
-            阅读本文可能花费您&nbsp;<span class="post-count">2</span>&nbsp;分钟
+            阅读本文可能花费您&nbsp;<span class="post-count">3</span>&nbsp;分钟
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>这一篇是对linux centos7 中 gcc 的升级.<br>这次升级gcc的版本是 8.1.0<br><a id="more"></a></p>
-<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a><strong>方法一</strong></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ su \\进入 root</span><br><span class="line"># sudo yum install libmpc-devel mpfr-devel gmp-devel</span><br><span class="line">...</span><br><span class="line"># cd 下载</span><br><span class="line"># curl ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/*   \\* 号为自己想要更新的版本号</span><br><span class="line">\\ 做法是自己将这个 地址放到浏览器中自己去选取合适的版本直接下载.</span><br><span class="line">\\ 我这里下载的是 8.1.0 </span><br><span class="line"># tar zxfv gcc-8.1.0.tar.gz</span><br><span class="line"># cd gcc-8.1.0</span><br><span class="line"># ./configure --disable-multilib --enable-languages=c,c++</span><br><span class="line"># make -j 4</span><br><span class="line">...</span><br><span class="line"># make install</span><br><span class="line">...</span><br><span class="line"># gcc -v</span><br><span class="line">...</span><br><span class="line">线程模式:posix</span><br><span class="line">gcc 版本 8.1.0(GCC)</span><br><span class="line">\\ ... 意思省略</span><br></pre></td></tr></table></figure>
-<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a><strong>方法二</strong></h2><p>在 etc/yum.repos.d下面添加repo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch FedoraRepo.repo</span><br></pre></td></tr></table></figure></p>
-<p>然后添加下面的内容:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[warning:fedora] </span><br><span class="line">name=fedora </span><br><span class="line">mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-23&amp;arch=$basearch </span><br><span class="line">enabled=1 </span><br><span class="line">gpgcheck=1 </span><br><span class="line">gpgkey=https://getfedora.org/static/34EC9CBA.txt</span><br></pre></td></tr></table></figure>
-<p>然后更新gcc</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y update gcc gcc-c++</span><br></pre></td></tr></table></figure>
-<p>然后就是新版本了<br>但是这我还不太懂.所以就没有用这个方法.</p>
+            <p>今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.</p>
+<ul>
+<li>个人发布 和 企业发布的流程</li>
+<li>代码上传的注意的问题</li>
+<li>代码审核会出现的问题<a id="more"></a>
+</li>
+</ul>
+<p>#<em>个人发布和企业发布</em></p>
 <blockquote>
-<p>我用的是方法一.<br>因为方法一可以自己选择gcc版本,并不是所有的东西都要更新到最新的版本,当然这个根据你们自己了.<br>根据情况而定. 方法二更简单一点.</p>
+<p>这里的个人发布和企业发布是 取决于 你注册这个公众号时 绑定的主体信息是 个人还是企业</p>
 </blockquote>
-<p>好了今天就先到这了.</p>
+<h2 id="个人发布"><a href="#个人发布" class="headerlink" title="个人发布"></a><em>个人发布</em></h2><p>个人发布时需要 两份材料 和一个 苹果的开发者账号</p>
+<p>个人准备:</p>
+<pre><code>- 游戏自审查报告
+- 计算机软件著作权登记书(简称 软著)
+- Apple ID (苹果开发者账号)
+</code></pre><img src="/posts/da41a120/1.png" title="发布信息截图1">
+<img src="/posts/da41a120/2.png" title="发布信息截图2">
+<p>1.最上面就是你最基础的配置信息,你的游戏类型,你使用的游戏引擎,<br>2.然后就是上传 刚才提到的那两份材料.<br>3.填写你本次跟新的内容.<br>4.如果你的游戏自己账号系统,需要提供一份给微信团队做测试的账号,密码,没有可以不填写.<br>5.最后一项 Apple ID(必须是开发者账号).</p>
+<blockquote>
+<p>至于怎么申请 成为 苹果的开发者 上百度自己查</p>
+</blockquote>
+<h2 id="企业发布"><a href="#企业发布" class="headerlink" title="企业发布"></a><em>企业发布</em></h2><p>整体流程同上但是比上面多要两份材料</p>
+<p>企业需要:</p>
+<pre><code>- 游戏自审查报告
+- 计算机软件著作权登记书(简称 软著)
+- 广电总局版号批文(简称版号)
+- 文化部备案信息
+- Apple ID (苹果开发者账号)
+</code></pre><img src="/posts/da41a120/3.png" title="发布信息截图3">
+<h2 id="差异"><a href="#差异" class="headerlink" title="差异"></a><em>差异</em></h2><p>如果是以个人发布的话 你的权限会受到影响,个人不支持内置支付,唯一盈利的途径就是接入广告,</p>
+<p>以企业发布 可以接入支付 , 但是 需要版号(申请时间周期长) , 比较的麻烦</p>
+<p>上面的信息 填写完毕后 可以直接提交发布.</p>
+<h1 id="代码上传的注意的问题"><a href="#代码上传的注意的问题" class="headerlink" title="代码上传的注意的问题"></a><em>代码上传的注意的问题</em></h1><p>你只有提交代码后才可以向微信提交审核,</p>
+<p>上传代码的步骤很简单, 打开你的微信开发者工具 点击上传<br><img src="/posts/da41a120/4.png" title="上传代码"></p>
+<p>然后会弹出如下的弹窗<br><img src="/posts/da41a120/5.png" title="上传代码"></p>
+<p>填写你的这次的版本信息 和 这次游戏更新的内容或则是修复的bug</p>
+<p>这里如果是使用 cocos creator 的话 ,,由于creator的js文件过大 导致 ES6 转换成 ES5 失败 ,你可以自己在网上找 软件去解决这个问题 ,, 当然也可以先直接提交. ,, 这个问题不大,, </p>
+<p>然后在微信后台 的 <code>开发管理里面</code> 会有你提交的小游戏版本信息 ,</p>
+<p>这里你可以把你刚才提交的小游戏设置为体验版本,这样做的好处是,产生的二维码不会过期.</p>
+<img src="/posts/da41a120/6.png" title="后台版本信息">
+<blockquote>
+<p>这里需要注意的是,你每次上传代码都会覆盖掉后台上已经存在的版本,也就是说你的后台,只能存在一个版本.不会同时出现多个不同的版本.</p>
+</blockquote>
+<h1 id="代码审核会出现的问题"><a href="#代码审核会出现的问题" class="headerlink" title="代码审核会出现的问题"></a><em>代码审核会出现的问题</em></h1><ol>
+<li>代码审核不通过<br> 原因出现 可能是出现诱导分享,如果是这种原因,不可怕, 具体的做法就是 ,将微信团队反馈出来截图中涉及到诱导到分享的功能 的控制权全部移交到后端,<br> 就是每次游戏启动的时候都会想后端 请求一次数据 ,, 访问是否开启某个模块,在审核的时候将这些模块在后台关掉,审核通过后再在后台打开,就行了.</li>
+</ol>
 
         </div>
 
@@ -244,12 +286,12 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-05-09T02:08:50.000Z" itemprop="dateUpdated">2018-05-09 10:08:50</time>
+    Last updated: <time datetime="2018-07-09T16:02:19.435Z" itemprop="dateUpdated">2018-07-10 00:02:19</time>
 </span>
 
 
         
-        原文链接：<a href="/posts/f62a7c7d/" target="_blank" rel="external">https://leng521.top/posts/f62a7c7d/</a>
+        原文链接：<a href="/posts/da41a120/" target="_blank" rel="external">https://leng521.top/posts/da41a120/</a>
         
     </div>
     <footer>
@@ -265,7 +307,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gcc/">gcc</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos-creator/">cocos creator</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信小游戏/">微信小游戏</a></li></ul>
 
 
             
@@ -275,7 +317,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/f62a7c7d/&title=《linux升级gcc》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/da41a120/&title=《微信小游戏发布流程》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -285,22 +327,26 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/f62a7c7d/&title=《linux升级gcc》 — 小魏的博客&source=这一篇是对linux centos7 中 gcc 的升级.这次升级gcc的版本是 8.1.0" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/da41a120/&title=《微信小游戏发布流程》 — 小魏的博客&source=今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.
+
+个人发布 和 企业发布的流程
+代码上传的注意的问题
+代码审核会出现的问题" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/f62a7c7d/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/da41a120/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《linux升级gcc》 — 小魏的博客&url=https://leng521.top/posts/f62a7c7d/&via=https://leng521.top" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏发布流程》 — 小魏的博客&url=https://leng521.top/posts/da41a120/&via=https://leng521.top" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/f62a7c7d/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/da41a120/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -320,21 +366,13 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/posts/b1de475b/" id="post-prev" class="post-nav-link">
-        <h4 class="title" >
-          上一篇：给sublime写自定义的插件
-        </h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/posts/1e09c0f5/" id="post-next" class="post-nav-link">
-        <h4 class="title" data-hover="下一篇：9宫格纹理的更新问题">下一篇：9宫格纹理的更新问题</h4>
+      <a href="/posts/777fe656/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：微信小游戏开发记录">下一篇：微信小游戏开发记录</h4>
       </a>
     </div>
   
@@ -407,7 +445,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/f62a7c7d/&title=《linux升级gcc》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/da41a120/&title=《微信小游戏发布流程》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -417,22 +455,26 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/f62a7c7d/&title=《linux升级gcc》 — 小魏的博客&source=这一篇是对linux centos7 中 gcc 的升级.这次升级gcc的版本是 8.1.0" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/da41a120/&title=《微信小游戏发布流程》 — 小魏的博客&source=今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.
+
+个人发布 和 企业发布的流程
+代码上传的注意的问题
+代码审核会出现的问题" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/f62a7c7d/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/da41a120/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《linux升级gcc》 — 小魏的博客&url=https://leng521.top/posts/f62a7c7d/&via=https://leng521.top" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏发布流程》 — 小魏的博客&url=https://leng521.top/posts/da41a120/&via=https://leng521.top" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/f62a7c7d/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/da41a120/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -443,7 +485,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p class="wechatshare">扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxElEQVR42u3aW46DQAwEQO5/6ewBEKRtzxBWqvmK8oAiHy2mzXHE63NavU/P7x87Fi4u7pj7uV3338mPcCb2joCLi/sk9yoxrr5zhb6n5Me/fB8XF/f13CQQkwvAxcX979wkpPJNES4u7pu5eQzlJ5tvrnBxcX/FzVvKfa+39Lu4uLgt7qe4VtUlvYWLi/sMNw+U3k1Prwr5MqDFxcV9nDs5ZSGMigPXo/ozXFzcMbdXfCQnmIRd+SEMXFzcDdy1/cOX25R4DBPdDOHi4m7g9orOaiFSDcHm5gcXF3fMzbco9zcr0WMTxQi7/F9xcXE3c5uVxGBMm2x4yrmLi4u7lNsccw5q1l6E4eLiPs9Nys1qkdErR6Igw8XF3czNS9LkAqqDkFGzi4uLu5lbHmq2BqJ5vfKlnMXFxf0Rt/eYRbVeaY5kcHFxH+TmP5gPWZOILHyMi4u7lDspTHu3KaOxDS4u7iPctSPSajwlkde8GFxc3DG3WpXmFWpOKQQcLi7ug9x8pDG5TZlHHi4u7ju5803Ugh0bLi7uK7mTerS691oQZLi4uC3uJG7KD1zGfwcuLu6vuNUo6T2U2atHR/0uLi5uh/sHOV+5aL8HHY8AAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABvklEQVR42u3aQY7DIBAEQP//01lpr7txusFgRypOkWVBOYcR03Ac8Xj9juRJ+/xYMXBxcae5r9Pxd+rknWTm8znffSQuLu5O7nnxShY4rznv5swNuLi4z+Su2HXg4uJ+OzcvSTMFDhcX9zncvDlJgpJz9KZeDRcXd4LbBqYrfi/Md3FxcUvuqxwzS7bF65/VcXFxt3DzA9RkyfniGP0RuLi4G7kJMX8naWMGgxVcXNzF3LGgM49QLw5ccHFxt3DzgpJsgNoYJS+IR1v/cHFxJ7jttiP5jLGPiebExcXdyE1eXXcVo3gTFxf3MdzkSRF3lh+Mi4t7F7dtQtorWfl1qw8r4uLibuGOXacY2xIVOc25ChcXdzE3aVRmmp92I/WBjouLu4VbX4qaDlLbFuvtgQouLu4y7rWBad4y5ZseXFzcu7hXHZSOla2i0cLFxd3InY84x6LP/Aj2aLNYXFzcCW5bUOpNSdnktHEJLi7uOm7buswcyo5thnBxce/i5sVrrBi1h7gfjlJwcXEfw72Wkl/SKvotXFzcW7l5UzTTOOHi4t7LHZtosBjtiUVwcXG3B6bt7xzUhjK4uLiXcn8Aw/NswxY3aacAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
