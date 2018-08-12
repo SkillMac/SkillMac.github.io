@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://leng521.top/posts/4ec7de9/">
+    
+    
+    <title>微信小游戏开发问题总结 | 小魏的博客 | 摔倒了爬起来就好。</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="微信小游戏">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+	<script src="//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209"></script>
+
+
+    
+    <meta name="description" content="最近一个月有点忙呵,都没有时间写博客,今天就抽出一点时间记录一下这一个月中我开发过程遇到的问题,顺便记录一下微信小游戏开发过程中遇到的问题.">
+<meta name="keywords" content="微信小游戏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小游戏开发问题总结">
+<meta property="og:url" content="https://leng521.top/posts/4ec7de9/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="最近一个月有点忙呵,都没有时间写博客,今天就抽出一点时间记录一下这一个月中我开发过程遇到的问题,顺便记录一下微信小游戏开发过程中遇到的问题.">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-12T13:28:35.083Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信小游戏开发问题总结">
+<meta name="twitter:description" content="最近一个月有点忙呵,都没有时间写博客,今天就抽出一点时间记录一下这一个月中我开发过程遇到的问题,顺便记录一下微信小游戏开发过程中遇到的问题.">
+    
+        <link rel="alternate" type="application/atom+xml" title="小魏的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">小魏</h5>
+          
+            <div id="mymotto" class="motto"></div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="xiaowei:2807582398@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">微信小游戏开发问题总结</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更新新版本问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">更新新版本问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#微信用户拒绝授权问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">微信用户拒绝授权问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#小游戏跳转功能"><span class="post-toc-number">3.</span> <span class="post-toc-text">小游戏跳转功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#小游戏推广中遇到的错误"><span class="post-toc-number">4.</span> <span class="post-toc-text">小游戏推广中遇到的错误</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-微信小游戏开发问题总结"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">微信小游戏开发问题总结</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-08-11 23:43:19" datetime="2018-08-11T15:43:19.000Z"  itemprop="datePublished">2018-08-11</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/微信小游戏/">微信小游戏</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">5</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>最近一个月有点忙呵,都没有时间写博客,今天就抽出一点时间记录一下这一个月中我开发过程遇到的问题,顺便记录一下微信小游戏开发过程中遇到的问题.<br><a id="more"></a></p>
+<p>今天就接着,上面写的发布流程,接着写会面临的问题吧.</p>
+<h2 id="更新新版本问题"><a href="#更新新版本问题" class="headerlink" title="更新新版本问题"></a><strong>更新新版本问题</strong></h2><p>你的游戏上线后,首先面临的一个问题就是,游戏更新逻辑问题,比如提示玩家更新游戏到最新的游戏版本.这里就直接使用小游戏提供的API.</p>
+<p>我这里废话不多说直接给你们参考代码.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">checkNewVersion() &#123;</span><br><span class="line">            <span class="keyword">if</span> (CC_WECHATGAME &amp;&amp; <span class="keyword">typeof</span> wx.getUpdateManager === <span class="string">'function'</span>) &#123;</span><br><span class="line">                <span class="keyword">const</span> updateManager = wx.getUpdateManager()</span><br><span class="line"> </span><br><span class="line">                updateManager.onCheckForUpdate(<span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;&#125;)</span><br><span class="line"> </span><br><span class="line">                updateManager.onUpdateReady(<span class="function"><span class="keyword">function</span> (<span class="params"> res </span>) </span>&#123;</span><br><span class="line">                    wx.showModal(&#123;</span><br><span class="line">                        title: <span class="string">'更新提示'</span>,</span><br><span class="line">                        content: <span class="string">'新版本来袭，是否重启应用？'</span>,</span><br><span class="line">                        success: <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">                          <span class="keyword">if</span> (res.confirm) &#123;</span><br><span class="line">                            updateManager.applyUpdate()</span><br><span class="line">                          &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                      &#125;)</span><br><span class="line">                &#125;)</span><br><span class="line"> </span><br><span class="line">                updateManager.onUpdateFailed(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;)</span><br><span class="line">              &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>这里主要是用到了微信交互控件中的 showModal . 这个函数 直接就是在启动应用的时候直接调用.检测是否有新版本.</p>
+<h2 id="微信用户拒绝授权问题"><a href="#微信用户拒绝授权问题" class="headerlink" title="微信用户拒绝授权问题"></a><strong>微信用户拒绝授权问题</strong></h2><p>还是直接上代码,说的多,不如自己看明白是怎么回事.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">getUserInfo(func_) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="keyword">this</span>.checkIsWeChat()) &#123;<span class="keyword">return</span>;&#125;</span><br><span class="line">        wx.getUserInfo(&#123;</span><br><span class="line">            withCredentials : <span class="literal">false</span>,</span><br><span class="line">            success: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> userInfo = res.userInfo</span><br><span class="line">                <span class="comment">// 授权成功</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">// avatarUrl</span></span><br><span class="line">                <span class="comment">// nickName</span></span><br><span class="line">                <span class="comment">// gender //性别 0：未知、1：男、2：女</span></span><br><span class="line">                <span class="comment">// province 省</span></span><br><span class="line">                <span class="comment">// city</span></span><br><span class="line">                <span class="comment">// country</span></span><br><span class="line">            &#125;,</span><br><span class="line">            fail: <span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">                <span class="comment">// 未授权 处理</span></span><br><span class="line">                wx.showModal(&#123;</span><br><span class="line">                    title: <span class="string">'温馨提示'</span>,</span><br><span class="line">                    content: <span class="string">'为了良好的体验,请开启用户信息授权'</span>,</span><br><span class="line">                    success: <span class="function"><span class="params">res</span> =&gt;</span>&#123;</span><br><span class="line">                        <span class="keyword">if</span>(res.confirm || res.cancel) &#123;</span><br><span class="line">                            <span class="keyword">let</span> button = wx.createOpenSettingButton(&#123;</span><br><span class="line">                                type: <span class="string">'text'</span>,</span><br><span class="line">                                text: <span class="string">'打开设置页面'</span>,</span><br><span class="line">                                style: &#123;</span><br><span class="line">                                    left: <span class="number">10</span>,</span><br><span class="line">                                    top: <span class="number">76</span>,</span><br><span class="line">                                    width: <span class="number">170</span>,</span><br><span class="line">                                    height: <span class="number">40</span>,</span><br><span class="line">                                    lineHeight: <span class="number">40</span>,</span><br><span class="line">                                    backgroundColor: <span class="string">'#4b6881'</span>,</span><br><span class="line">                                    color: <span class="string">'#ffffff'</span>,</span><br><span class="line">                                    textAlign: <span class="string">'center'</span>,</span><br><span class="line">                                    fontSize: <span class="number">16</span>,</span><br><span class="line">                                    borderRadius: <span class="number">4</span></span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;)</span><br><span class="line">                            button.show()</span><br><span class="line">                            button.onTap(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                                wx.getSetting(&#123;</span><br><span class="line">                                    success: <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">                                        button.destroy()</span><br><span class="line">                                        <span class="keyword">if</span>(res.authSetting[<span class="string">'scope.userInfo'</span>]) &#123;</span><br><span class="line">                                            wx.getUserInfo(&#123;</span><br><span class="line">                                                withCredentials : <span class="literal">false</span>,</span><br><span class="line">                                                success: <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">                                                    <span class="keyword">let</span> info = res.userInfo</span><br><span class="line">                                                    KUN.Server.uploadUserData(<span class="built_in">JSON</span>.stringify(info),res=&gt;&#123;</span><br><span class="line">                                                        <span class="keyword">if</span>(res == <span class="string">'1'</span>) &#123;</span><br><span class="line">                                                            func_()</span><br><span class="line">                                                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                                            <span class="comment">// 暂时不做处理</span></span><br><span class="line">                                                        &#125;</span><br><span class="line">                                                    &#125;)</span><br><span class="line">                                                &#125;</span><br><span class="line">                                            &#125;)</span><br><span class="line">                                        &#125;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;)</span><br><span class="line">                            &#125;)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure></p>
+<p>这里面就随便讲解一下,主要是用到了这个api<code>wx.createOpenSettingButton</code>,在现在的微信小游戏的文档里面没有 按钮事件响应的方法名,我这里处理的方法是在模拟器中把button打印出来然后看里面的详细属性和方法,我这里发现了一个叫 <code>onTap</code>.</p>
+<p>主要的思路是</p>
+<p>首次进入游戏 -&gt; 用户拒绝授权 -&gt; 获取用户信息失败 -&gt; 创建打开时设置的按钮 -&gt; 绑定监听事件(onTap) -&gt; 再次处理获取用户信息的逻辑.</p>
+<h2 id="小游戏跳转功能"><a href="#小游戏跳转功能" class="headerlink" title="小游戏跳转功能"></a><strong>小游戏跳转功能</strong></h2><p>最近小游戏又更新了一下,出现了一个小程序跳转功能,主要的API 是<br>(wx.navigateToMiniProgram)[<a href="https://developers.weixin.qq.com/minigame/dev/document/open-api/miniprogram-navigate/wx.navigateToMiniProgram.html">https://developers.weixin.qq.com/minigame/dev/document/open-api/miniprogram-navigate/wx.navigateToMiniProgram.html</a>]</p>
+<p>这里面你主要去填写 appid 和要跳转的发行版本 ,,, 其他的你可以去选择也可以不用选择.</p>
+<p>还是老样子直接上代码<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span>(wx.navigateToMiniProgram) != <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    wx.navigateToMiniProgram(&#123;</span><br><span class="line">        appId: <span class="string">'xxxx'</span>,</span><br><span class="line">        path: <span class="string">''</span>, <span class="comment">// 这个可以填写个空.</span></span><br><span class="line">        <span class="comment">// extarData: &#123;</span></span><br><span class="line">        <span class="comment">//   open: ''</span></span><br><span class="line">        <span class="comment">// &#125;,</span></span><br><span class="line">        envVersion: <span class="string">'release'</span>,</span><br><span class="line">        success(res) &#123;</span><br><span class="line">            <span class="comment">// 打开成功</span></span><br><span class="line">        &#125;,</span><br><span class="line">        fail(res) &#123;</span><br><span class="line">            <span class="comment">// 打开失败</span></span><br><span class="line">        &#125;                                         </span><br><span class="line">    </span><br><span class="line">    &#125;)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">// 提示用户微信版本过低</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="小游戏推广中遇到的错误"><a href="#小游戏推广中遇到的错误" class="headerlink" title="小游戏推广中遇到的错误"></a><strong>小游戏推广中遇到的错误</strong></h2><p>在我这篇博客没有写完之前就收到了 boss 的微信消息,说用户进不去了,黑屏了,我是一脸蒙蔽,测试完全没有问题,去推广的时候就出现问题了, </p>
+<p>主要是以下几个问题(我只是记录我遇到问题,希望能够对你有帮助,只是说作参考吧,我也是一点点去采坑,一点点去记录.o(<em>￣︶￣</em>)o(持续更新中))</p>
+<p>1.用户的微信小游戏版本太低,导致你使用微信最新api时候报错.</p>
+<pre><code>只要在调用该API的时候 加一个判断 typeof(你要调用的小游戏的函数) != undefined,即可
+</code></pre><p>2.服务器地址配置 https协议只能是 443 吗?</p>
+<pre><code>经过我测试,不是的只要你在小程序后台配置 类似这样的格式其实也是可以的 这样就可以去访问 服务器其他的端口了 https://xxx.com:8080
+</code></pre><blockquote>
+<p>我这里说明一下,我没有去测试 websocket 因为现在业务还没有这方面的业务.有的小伙伴可去测试一下,可以告诉我一声.谢谢.</p>
+</blockquote>
+<p>暂时先写到这里,后面这个我会持续更新的,如有不对欢迎指正.</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2018-08-12T13:28:35.083Z" itemprop="dateUpdated">2018-08-12 21:28:35</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/4ec7de9/" target="_blank" rel="external">https://leng521.top/posts/4ec7de9/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://leng521.top'">
+            <img src="/img/head.jpg" alt="小魏">
+            <a>小魏</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信小游戏/">微信小游戏</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/4ec7de9/&title=《微信小游戏开发问题总结》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/4ec7de9/&title=《微信小游戏开发问题总结》 — 小魏的博客&source=最近一个月有点忙呵,都没有时间写博客,今天就抽出一点时间记录一下这一个月中我开发过程遇到的问题,顺便记录一下微信小游戏开发过程中遇到的问题." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/4ec7de9/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏开发问题总结》 — 小魏的博客&url=https://leng521.top/posts/4ec7de9/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/4ec7de9/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/da41a120/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：微信小游戏发布流程">下一篇：微信小游戏发布流程</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://leng521.top">leng521.top</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/4ec7de9/&title=《微信小游戏开发问题总结》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/4ec7de9/&title=《微信小游戏开发问题总结》 — 小魏的博客&source=最近一个月有点忙呵,都没有时间写博客,今天就抽出一点时间记录一下这一个月中我开发过程遇到的问题,顺便记录一下微信小游戏开发过程中遇到的问题." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/4ec7de9/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏开发问题总结》 — 小魏的博客&url=https://leng521.top/posts/4ec7de9/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/4ec7de9/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxElEQVR42u3aQQ6DMAwEQP7/aSr1WgFrhwQqTU6VSmHowbI32bZ47d+1Fdf+s8bviYuLu4a7n66jWx99e/Tb5P7n1+Di4q7nnhevpBglr5p8vrDh4uK+jHte1MaLHS4u7j9yD9uOuDDh4uL+F7c6nCRDUV74psxquLi4A9xqYDrj88R8FxcXt8jdiysvQ3lbU3g6Li7uEm7elPQClGpxjO6Di4s7mZsHE3n02Tt+EZVFXFzchdx8c/TeViYvYRcdGS4u7q3caiNSHX4KfVbxT8HFxZ3NTVqQXhs0vn170ejg4uJO4FYPQFRHoLyCRlfi4uIu5PaOPvSikDxqwcXFfYo7cuYhn0d6kUrzBXBxcYe5vUIzUraqdFxc3Ddwe8ezyg/uDWC4uLhLuOPHrcYjj+QFcHFxV3LHg85806V3sAMXF/cpbj7wRC1I8co8lMHFxV3JzVc1Wq2WsGZ2i4uLeyu3WlCqw1K+TduLS3Bxcedx83g0D0TyolYewHBxcRdy88KUbKv0Sls0SuHi4r6Mm49P+ZGO8iYNLi7u67nVJqmwcXL0XFxc3IXc6o3yYSb/7c2xCC4u7qOBaW/sya/HxcVdyP0AiWG+VWZOiOwAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/01/17");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+    elasticText({
+        id: "mymotto",
+        duration: 100,
+        effact: "easeOut",
+        content: ""
+    });
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "小魏");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>
