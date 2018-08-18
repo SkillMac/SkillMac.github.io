@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://leng521.top/posts/967bbd27/">
+    
+    
+    <title>微信小游戏接入广告 | 小魏的博客 | 摔倒了爬起来就好。</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="微信小游戏,广告">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+	<script src="//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209"></script>
+
+
+    
+    <meta name="description" content="今天主要更新微信小游戏广告接入问题… 微信小游戏现在已经开始对外测试了,只要你的 UV(累计用户超过1000) 且没有违规行为,就可以填写个人信息,如,个人银行卡相关信息等,然后提交审核.如果接过广告的程序员,应该都知道在接入广告的时候需要先创建广告位,产生相关id.">
+<meta name="keywords" content="微信小游戏,广告">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小游戏接入广告">
+<meta property="og:url" content="https://leng521.top/posts/967bbd27/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="今天主要更新微信小游戏广告接入问题… 微信小游戏现在已经开始对外测试了,只要你的 UV(累计用户超过1000) 且没有违规行为,就可以填写个人信息,如,个人银行卡相关信息等,然后提交审核.如果接过广告的程序员,应该都知道在接入广告的时候需要先创建广告位,产生相关id.">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/967bbd27/1.png">
+<meta property="og:updated_time" content="2018-08-18T15:14:11.471Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信小游戏接入广告">
+<meta name="twitter:description" content="今天主要更新微信小游戏广告接入问题… 微信小游戏现在已经开始对外测试了,只要你的 UV(累计用户超过1000) 且没有违规行为,就可以填写个人信息,如,个人银行卡相关信息等,然后提交审核.如果接过广告的程序员,应该都知道在接入广告的时候需要先创建广告位,产生相关id.">
+<meta name="twitter:image" content="https://leng521.top/posts/967bbd27/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小魏的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">小魏</h5>
+          
+            <div id="mymotto" class="motto"></div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="xiaowei:2807582398@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">微信小游戏接入广告</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Búsqueda">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#填写个人信息"><span class="post-toc-number">1.</span> <span class="post-toc-text">填写个人信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建爱你广告位"><span class="post-toc-number">2.</span> <span class="post-toc-text">创建爱你广告位</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#客户端逻辑实现"><span class="post-toc-number">3.</span> <span class="post-toc-text">客户端逻辑实现</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-微信小游戏接入广告"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">微信小游戏接入广告</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-08-18 22:34:25" datetime="2018-08-18T14:34:25.000Z"  itemprop="datePublished">2018-08-18</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/微信小游戏/">微信小游戏</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">3</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>今天主要更新微信小游戏广告接入问题… 微信小游戏现在已经开始对外测试了,只要你的 UV(累计用户超过1000) 且没有违规行为,就可以填写个人信息,如,个人银行卡相关信息等,然后提交审核.如果接过广告的程序员,应该都知道在接入广告的时候需要先创建广告位,产生相关id.<br><a id="more"></a><br>大致流程</p>
+<p>满足条件 –&gt; 填写个人信息 –&gt; 提交申请 –&gt; 在微信后台创建广告位 –&gt; 游戏前端添加<br>相应的代码逻辑</p>
+<h2 id="填写个人信息"><a href="#填写个人信息" class="headerlink" title="填写个人信息"></a><strong>填写个人信息</strong></h2><p>主要需要填写银行相关信息,账单流水邮件接收人的相关信息,,,这里我截图了,放在公司了,后面补上.</p>
+<h2 id="创建爱你广告位"><a href="#创建爱你广告位" class="headerlink" title="创建爱你广告位"></a><strong>创建爱你广告位</strong></h2><img src="/posts/967bbd27/1.png" title="广告位截图">
+<p>这里主要是广告的类型,,,目前下游戏提供的广告类型,,,只有横幅广告 和 激励广告</p>
+<p>横幅广告:<br>    1.一般放在游戏的下方和游戏弹窗触发的情境下<br>    2.横幅广告组件一旦被创建里面的广告内容不会被更新,如果需要更新内容需要,需要将当前组件销毁,重新创建新的组件<br>    3.需要自己去放置位置,这里需要自己去计算位置和缩放和适配,计算不好会遮挡按钮,这个会违反微信小游戏广告规范,这样会有封号,或者是账号被冻结的问题.</p>
+<p>激励广告:<br>    1.这个一般是全屏,不需要自己去考虑组件的位置等等<br>    2.主要运用的场景是游戏复活,获取积分,获取道具,获取新关卡机会等等<br>    3.主要负责视频是否播放完毕</p>
+<h2 id="客户端逻辑实现"><a href="#客户端逻辑实现" class="headerlink" title="客户端逻辑实现"></a><strong>客户端逻辑实现</strong></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 展示横幅广告</span></span><br><span class="line">showAD() &#123;</span><br><span class="line">        <span class="keyword">if</span>(CC_WECHATGAME &amp;&amp; wx &amp;&amp; <span class="keyword">typeof</span>(wx.createBannerAd) != <span class="literal">undefined</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.destroyAd()</span><br><span class="line">            <span class="comment">// 横幅广告接入</span></span><br><span class="line">            <span class="keyword">let</span> bannerAd = wx.createBannerAd(&#123;</span><br><span class="line">                adUnitId: <span class="string">'adunit-68c37174ce72ce6b'</span>,</span><br><span class="line">                style: &#123;</span><br><span class="line">                    left: <span class="number">0</span>,</span><br><span class="line">                    top: <span class="number">0</span>,</span><br><span class="line">                    width: <span class="number">350</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="comment">// 一般放置屏幕的中下方</span></span><br><span class="line">            bannerAd.onResize(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                bannerAd.style.left = screenWidth / <span class="number">2</span> - bannerAd.style.realWidth / <span class="number">2</span> + <span class="number">0.1</span>;</span><br><span class="line">                bannerAd.style.top = screenHeight - bannerAd.style.realHeight + <span class="number">0.1</span>;</span><br><span class="line">            &#125;)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 默认广告组件是关闭的</span></span><br><span class="line">            bannerAd.show()</span><br><span class="line">            <span class="keyword">this</span>._lastBannerAd = bannerAd</span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 销毁横幅广告</span></span><br><span class="line">    destroyAd() &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>._lastBannerAd) &#123;</span><br><span class="line">            <span class="keyword">this</span>._lastBannerAd.destroy()</span><br><span class="line">            <span class="keyword">this</span>._lastBannerAd = <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 展示 激励广告</span></span><br><span class="line">    <span class="comment">// obj.success 广告展示完毕回调</span></span><br><span class="line">    <span class="comment">// obj.fail 广告展示中途被玩家给关闭会回调</span></span><br><span class="line">    showViewAd(obj)&#123;</span><br><span class="line">        <span class="keyword">if</span>(CC_WECHATGAME &amp;&amp; wx &amp;&amp; <span class="keyword">typeof</span>(wx.createRewardedVideoAd) != <span class="literal">undefined</span>) &#123;</span><br><span class="line">            <span class="keyword">let</span> videoAd = wx.createRewardedVideoAd(&#123;</span><br><span class="line">                adUnitId: <span class="string">'adunit-4db163908fba72f2'</span></span><br><span class="line">            &#125;)</span><br><span class="line">            </span><br><span class="line">            videoAd.load()</span><br><span class="line">            .then(<span class="function"><span class="params">()</span> =&gt;</span> videoAd.show())</span><br><span class="line">            .catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="comment">// console.log(err.errMsg)</span></span><br><span class="line">                videoAd.load.then(<span class="function"><span class="params">()</span> =&gt;</span> videoAd.show())</span><br><span class="line">            &#125;)</span><br><span class="line"></span><br><span class="line">            videoAd.onClose(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (res &amp;&amp; res.isEnded || res === <span class="literal">undefined</span>) &#123;</span><br><span class="line">                    <span class="comment">// 正常播放结束，可以下发游戏奖励</span></span><br><span class="line">                    <span class="keyword">if</span>(obj.success) &#123;</span><br><span class="line">                        obj.success(res)</span><br><span class="line">                    &#125;</span><br><span class="line">                  &#125;</span><br><span class="line">                  <span class="keyword">else</span> &#123;</span><br><span class="line">                      <span class="comment">// 播放中途退出，不下发游戏奖励</span></span><br><span class="line">                      <span class="keyword">if</span>(obj.fail) &#123;</span><br><span class="line">                          obj.fail()</span><br><span class="line">                      &#125;</span><br><span class="line">                  &#125;</span><br><span class="line">            &#125;)</span><br><span class="line"></span><br><span class="line">            videoAd.onError(<span class="function"><span class="params">res</span> =&gt;</span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'错误'</span>,res)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            T.showTips(<span class="string">'微信版本过低,请升级使用'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+<p>客户端的代码比较的简单,代码里都有注释,这里就不做过多的解释了.</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Última actualización<time datetime="2018-08-18T15:14:11.471Z" itemprop="dateUpdated">2018-08-18 23:14:11</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/967bbd27/" target="_blank" rel="external">https://leng521.top/posts/967bbd27/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://leng521.top'">
+            <img src="/img/head.jpg" alt="小魏">
+            <a>小魏</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/广告/">广告</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信小游戏/">微信小游戏</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/967bbd27/&title=《微信小游戏接入广告》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/967bbd27/&title=《微信小游戏接入广告》 — 小魏的博客&source=今天主要更新微信小游戏广告接入问题… 微信小游戏现在已经开始对外测试了,只要你的 UV(累计用户超过1000) 且没有违规行为,就可以填写个人信息,如,个..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/967bbd27/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏接入广告》 — 小魏的博客&url=https://leng521.top/posts/967bbd27/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/967bbd27/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/4ec7de9/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：微信小游戏开发问题总结">下一篇：微信小游戏开发问题总结</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://leng521.top">leng521.top</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">Este blog está licenciado bajo una <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">licencia internacional Creative Commons Attribution 4.0</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/967bbd27/&title=《微信小游戏接入广告》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/967bbd27/&title=《微信小游戏接入广告》 — 小魏的博客&source=今天主要更新微信小游戏广告接入问题… 微信小游戏现在已经开始对外测试了,只要你的 UV(累计用户超过1000) 且没有违规行为,就可以填写个人信息,如,个..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/967bbd27/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏接入广告》 — 小魏的博客&url=https://leng521.top/posts/967bbd27/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/967bbd27/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABwElEQVR42u3ay46DMAwF0P7/TzPbSlXptU0CGp2sUCvCgYUVP16veB1v6/OXz3V+7/vvrxULFxd3zE0eXGUlxN7L4+Li7uR+ixhXXef0HzZcXNxHcpPQ8y0Unh+YcHFx/xM3z1MeEchwcXFjbh6Gok0vSq5wcXHv4uZVynXXS+q7uLi4Le5RXOfHnSSxOQYLFxd3DzcPKFehq4EMFxf3Lm5+lpgMZEwars2jDy4u7oCbN0TnhYw82EVHHFxc3C3caynVTxA1WnBxcbdwk9ZIvmme0uSNWFxc3J3c5LZko16QSv6NzmK4uLiXcqvBKA9wvc8RvTYuLu5ibrUkkZc+q8XT5JVwcXH3cPPEplf4yPdsxl1cXNxl3Hxgohe25qWWwjwILi7uRdxC06JFrKJ/fDJcXNyN3PPjSz48kZdHq6MeuLi4z+Hm6U3+AtUEqfwYXFzcAfcorp1NFFxc3Lu41eBS3TRPe3qDGri4uOu41XJnkgLNW6pREwUXF3cxNw9Dk7GtSSMWFxf3+dx8kCJvtxQyNlxc3Idx84ZoNRRGQlxc3I3cariZp0DNogkuLu4W7qTx2XtkXh4d1XdxcXE73D+FQ3Gw9Ppy6AAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/01/17");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+    elasticText({
+        id: "mymotto",
+        duration: 100,
+        effact: "easeOut",
+        content: ""
+    });
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "小魏");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>
