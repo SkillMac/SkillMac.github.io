@@ -5,16 +5,16 @@
     <meta charset="utf-8">
     
     
-    <link rel="canonical" href="https://leng521.top/posts/da41a120/">
+    <link rel="canonical" href="https://leng521.top/posts/ba881459/">
     
     
-    <title>微信小游戏发布流程 | 小魏的博客 | 摔倒了爬起来就好。</title>
+    <title>微信小游戏记录长连接(websocket) | 小魏的博客 | 摔倒了爬起来就好。</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     
     <meta name="theme-color" content="#77AAFF">
     
     
-    <meta name="keywords" content="微信小游戏,cocos creator">
+    <meta name="keywords" content="微信小游戏,websocket">
     
     
 
@@ -43,25 +43,18 @@
 
 
     
-    <meta name="description" content="今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.  个人发布 和 企业发布的流程 代码上传的注意的问题 代码审核会出现的问题">
-<meta name="keywords" content="微信小游戏,cocos creator">
+    <meta name="description" content="哎,距离上次写博客竟然一个月了,真是时间不等人呀,好了废话不多说,直接进入正题.今天主要记录这几个问题:  websocket 端口问题, http(短连接) 端口问题,  由于公司的云服务器都是使用的是阿里云,但是小游戏是腾讯的,腾讯云又推出了一堆有利于小游戏的服务,但是我们用不来了,那就自己去解决里面会遇到的问题,">
+<meta name="keywords" content="微信小游戏,websocket">
 <meta property="og:type" content="article">
-<meta property="og:title" content="微信小游戏发布流程">
-<meta property="og:url" content="https://leng521.top/posts/da41a120/index.html">
+<meta property="og:title" content="微信小游戏记录长连接(websocket)">
+<meta property="og:url" content="https://leng521.top/posts/ba881459/index.html">
 <meta property="og:site_name" content="小魏的博客">
-<meta property="og:description" content="今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.  个人发布 和 企业发布的流程 代码上传的注意的问题 代码审核会出现的问题">
+<meta property="og:description" content="哎,距离上次写博客竟然一个月了,真是时间不等人呀,好了废话不多说,直接进入正题.今天主要记录这几个问题:  websocket 端口问题, http(短连接) 端口问题,  由于公司的云服务器都是使用的是阿里云,但是小游戏是腾讯的,腾讯云又推出了一堆有利于小游戏的服务,但是我们用不来了,那就自己去解决里面会遇到的问题,">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://leng521.top/posts/da41a120/1.png">
-<meta property="og:image" content="https://leng521.top/posts/da41a120/2.png">
-<meta property="og:image" content="https://leng521.top/posts/da41a120/3.png">
-<meta property="og:image" content="https://leng521.top/posts/da41a120/4.png">
-<meta property="og:image" content="https://leng521.top/posts/da41a120/5.png">
-<meta property="og:image" content="https://leng521.top/posts/da41a120/6.png">
-<meta property="og:updated_time" content="2018-07-09T16:42:37.833Z">
+<meta property="og:updated_time" content="2018-09-15T10:04:44.433Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="微信小游戏发布流程">
-<meta name="twitter:description" content="今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.  个人发布 和 企业发布的流程 代码上传的注意的问题 代码审核会出现的问题">
-<meta name="twitter:image" content="https://leng521.top/posts/da41a120/1.png">
+<meta name="twitter:title" content="微信小游戏记录长连接(websocket)">
+<meta name="twitter:description" content="哎,距离上次写博客竟然一个月了,真是时间不等人呀,好了废话不多说,直接进入正题.今天主要记录这几个问题:  websocket 端口问题, http(短连接) 端口问题,  由于公司的云服务器都是使用的是阿里云,但是小游戏是腾讯的,腾讯云又推出了一堆有利于小游戏的服务,但是我们用不来了,那就自己去解决里面会遇到的问题,">
     
         <link rel="alternate" type="application/atom+xml" title="小魏的博客" href="/atom.xml">
     
@@ -159,7 +152,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">微信小游戏发布流程</div>
+        <div class="flex-col header-title ellipsis">微信小游戏记录长连接(websocket)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -199,19 +192,19 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#个人发布"><span class="post-toc-number">1.</span> <span class="post-toc-text">个人发布</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#企业发布"><span class="post-toc-number">2.</span> <span class="post-toc-text">企业发布</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#差异"><span class="post-toc-number">3.</span> <span class="post-toc-text">差异</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#代码上传的注意的问题"><span class="post-toc-number"></span> <span class="post-toc-text">代码上传的注意的问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#代码审核会出现的问题"><span class="post-toc-number"></span> <span class="post-toc-text">代码审核会出现的问题</span></a>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#websocket-端口问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">websocket 端口问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#http-短连接端口问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">http 短连接端口问题</span></a></li></ol>
         </nav>
     </aside>
    
-<article id="post-微信小游戏发布流程"
+<article id="post-微信小游戏记录长连接-websocket"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">微信小游戏发布流程</h1>
+        <h1 class="post-card-title">微信小游戏记录长连接(websocket)</h1>
         <div class="post-meta">
             <i class="icon icon-lg icon-calendar-o"></i>
             发表于
-            <time class="post-time" title="2018-07-09 23:02:35" datetime="2018-07-09T15:02:35.000Z"  itemprop="datePublished">2018-07-09</time>
+            <time class="post-time" title="2018-09-15 10:55:43" datetime="2018-09-15T02:55:43.000Z"  itemprop="datePublished">2018-09-15</time>
 
             <br id="mybreak"/>
             
@@ -232,53 +225,21 @@
             阅读本文可能花费您&nbsp;<span class="post-count">3</span>&nbsp;分钟
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.</p>
+            <p>哎,距离上次写博客竟然一个月了,真是时间不等人呀,好了废话不多说,直接进入正题.<br>今天主要记录这几个问题:</p>
 <ul>
-<li>个人发布 和 企业发布的流程</li>
-<li>代码上传的注意的问题</li>
-<li>代码审核会出现的问题<a id="more"></a>
-</li>
+<li>websocket 端口问题,</li>
+<li>http(短连接) 端口问题,</li>
 </ul>
-<p>#<em>个人发布和企业发布</em></p>
-<blockquote>
-<p>这里的个人发布和企业发布是 取决于 你注册这个公众号时 绑定的主体信息是 个人还是企业</p>
-</blockquote>
-<h2 id="个人发布"><a href="#个人发布" class="headerlink" title="个人发布"></a><em>个人发布</em></h2><p>个人发布时需要 两份材料 和一个 苹果的开发者账号</p>
-<p>个人准备:</p>
-<pre><code>- 游戏自审查报告
-- 计算机软件著作权登记书(简称 软著)
-- Apple ID (苹果开发者账号)
-</code></pre><img src="/posts/da41a120/1.png" title="发布信息截图1">
-<img src="/posts/da41a120/2.png" title="发布信息截图2">
-<p>1.最上面就是你最基础的配置信息,你的游戏类型,你使用的游戏引擎,<br>2.然后就是上传 刚才提到的那两份材料.<br>3.填写你本次跟新的内容.<br>4.如果你的游戏自己账号系统,需要提供一份给微信团队做测试的账号,密码,没有可以不填写.<br>5.最后一项 Apple ID(必须是开发者账号).</p>
-<blockquote>
-<p>至于怎么申请 成为 苹果的开发者 上百度自己查</p>
-</blockquote>
-<h2 id="企业发布"><a href="#企业发布" class="headerlink" title="企业发布"></a><em>企业发布</em></h2><p>整体流程同上但是比上面多要两份材料</p>
-<p>企业需要:</p>
-<pre><code>- 游戏自审查报告
-- 计算机软件著作权登记书(简称 软著)
-- 广电总局版号批文(简称版号)
-- 文化部备案信息
-- Apple ID (苹果开发者账号)
-</code></pre><img src="/posts/da41a120/3.png" title="发布信息截图3">
-<h2 id="差异"><a href="#差异" class="headerlink" title="差异"></a><em>差异</em></h2><p>如果是以个人发布的话 你的权限会受到影响,个人不支持内置支付,唯一盈利的途径就是接入广告,</p>
-<p>以企业发布 可以接入支付 , 但是 需要版号(申请时间周期长) , 比较的麻烦</p>
-<p>上面的信息 填写完毕后 可以直接提交发布.</p>
-<h1 id="代码上传的注意的问题"><a href="#代码上传的注意的问题" class="headerlink" title="代码上传的注意的问题"></a><em>代码上传的注意的问题</em></h1><p>你只有提交代码后才可以向微信提交审核,</p>
-<p>上传代码的步骤很简单, 打开你的微信开发者工具 点击上传<br><img src="/posts/da41a120/4.png" title="上传代码"></p>
-<p>然后会弹出如下的弹窗<br><img src="/posts/da41a120/5.png" title="上传代码"></p>
-<p>填写你的这次的版本信息 和 这次游戏更新的内容或则是修复的bug</p>
-<p>这里如果是使用 cocos creator 的话 ,,由于creator的js文件过大 导致 ES6 转换成 ES5 失败 ,你可以自己在网上找 软件去解决这个问题 ,, 当然也可以先直接提交. ,, 这个问题不大,, </p>
-<p>然后在微信后台 的 <code>开发管理里面</code> 会有你提交的小游戏版本信息 ,</p>
-<p>这里你可以把你刚才提交的小游戏设置为体验版本,这样做的好处是,产生的二维码不会过期.</p>
-<img src="/posts/da41a120/6.png" title="后台版本信息">
-<blockquote>
-<p>这里需要注意的是,你每次上传代码都会覆盖掉后台上已经存在的版本,也就是说你的后台,只能存在一个版本.不会同时出现多个不同的版本.</p>
-</blockquote>
-<h1 id="代码审核会出现的问题"><a href="#代码审核会出现的问题" class="headerlink" title="代码审核会出现的问题"></a><em>代码审核会出现的问题</em></h1><ol>
-<li>代码审核不通过<br> 原因出现 可能是出现诱导分享,如果是这种原因,不可怕, 具体的做法就是 ,将微信团队反馈出来截图中涉及到诱导到分享的功能 的控制权全部移交到后端,<br> 就是每次游戏启动的时候都会想后端 请求一次数据 ,, 访问是否开启某个模块,在审核的时候将这些模块在后台关掉,审核通过后再在后台打开,就行了.</li>
-</ol>
+<p>由于公司的云服务器都是使用的是阿里云,但是小游戏是腾讯的,腾讯云又推出了一堆有利于小游戏的服务,但是我们用不来了,那就自己去解决里面会遇到的问题,<br><a id="more"></a></p>
+<h2 id="websocket-端口问题"><a href="#websocket-端口问题" class="headerlink" title="websocket 端口问题"></a>websocket 端口问题</h2><p>在微信小游戏里面所有用户的逻辑服务器或者是资源服务器 都是需要在微信公众平台配置服务器信息,但是微信是只要求使用 wss 协议 而且还必须是443端口,这就会暴露出一个问题,因为 https 写协议也是 443 端口,, 这就会出现端口占用问题?</p>
+<p>解决的方案 使用 nginx 反向代理功能, 主要的思路就是 让 nginx 占用443 端口,然后在由 nginx 去分发不同的请求.</p>
+<p>这里也没有什么好讲的吧 ,, 主要是 nginx 的配置表需要配置正确, 就可以实现上述的功能,这里就去讲解一下那个配置表要配置的东西,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"># 将 http 连接升级</span><br><span class="line">map $http_upgrade $connection_upgrade &#123;</span><br><span class="line">    default upgrade;</span><br><span class="line">    &apos;&apos; close;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 这个 配置反向代理的地址</span><br><span class="line">upstream websocket &#123;</span><br><span class="line">    server 127.0.0.1:3000;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    # 开启 443 端口监听</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    ...</span><br><span class="line">    # 配置证书  这个是需要你自己的ssl证书</span><br><span class="line">    ssl_certificate *.crt</span><br><span class="line">    ssl_certificate_key *.key</span><br><span class="line"></span><br><span class="line">    # 这几个 也需要配置 , 这个我 还没有 特备的清楚具体的作用, 暂时就先不解释了</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_session_cache shared:SSL:50m;</span><br><span class="line">    ssl_protocols TLSV1.1 TLSV1.2 SSLv2 SSLv3;</span><br><span class="line">    ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;</span><br><span class="line">    ssl_prefer_server_ciphers  on;</span><br><span class="line"></span><br><span class="line">    location /wss&#123;</span><br><span class="line">                proxy_pass https://websocket/;   # 代理到上面的地址去</span><br><span class="line">                proxy_http_version 1.1;</span><br><span class="line">                # 协议升级</span><br><span class="line">                proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">                proxy_set_header Connection &quot;Upgrade&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后 运行 nginx -t 去检查语法是否有误</p>
+<p>如果没有出现错误 ,,, 就 nginx -s reload // 重启</p>
+<p>然后你就可以 使用 http https wss 协议了<br>wss://localhost/wss<br><a href="https://localhost/">https://localhost/</a><br><a href="http://localhost/">http://localhost/</a></p>
+<h2 id="http-短连接端口问题"><a href="#http-短连接端口问题" class="headerlink" title="http 短连接端口问题"></a>http 短连接端口问题</h2><p>微信小游戏短连接是使用的是 https 协议 一般 https 的默认端口是 443 , 一般你在浏览器没有加端口,那是浏览器默认为443 ,,, 但是前面说了可以使用 nginx 来实现反向代理的问题, 如果是短连接的话 有个简单的 方法 ,, 经过我测试, 在微信后台配置其他端口在手机上是可以访问,所以 如果项目只是 短连接请求的话可以直接在后台配置你服务器开启的端口,这种方法只适用于 短连接,,, 长连接是不行, 长连接在 后台配置 会出现 在 微信开发工具上测试正常,到手机上测试会出现操作失败的错误,,,而且也连接不上.</p>
+<p>好了,这篇文章就先这样. 我也不想 让文章的篇幅过长.</p>
 
         </div>
 
@@ -286,12 +247,12 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-07-09T16:42:37.833Z" itemprop="dateUpdated">2018-07-10 00:42:37</time>
+    Last updated: <time datetime="2018-09-15T10:04:44.433Z" itemprop="dateUpdated">2018-09-15 18:04:44</time>
 </span>
 
 
         
-        原文链接：<a href="/posts/da41a120/" target="_blank" rel="external">https://leng521.top/posts/da41a120/</a>
+        原文链接：<a href="/posts/ba881459/" target="_blank" rel="external">https://leng521.top/posts/ba881459/</a>
         
     </div>
     <footer>
@@ -307,7 +268,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos-creator/">cocos creator</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信小游戏/">微信小游戏</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/websocket/">websocket</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信小游戏/">微信小游戏</a></li></ul>
 
 
             
@@ -317,7 +278,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/da41a120/&title=《微信小游戏发布流程》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/ba881459/&title=《微信小游戏记录长连接(websocket)》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -327,26 +288,25 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/da41a120/&title=《微信小游戏发布流程》 — 小魏的博客&source=今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/ba881459/&title=《微信小游戏记录长连接(websocket)》 — 小魏的博客&source=哎,距离上次写博客竟然一个月了,真是时间不等人呀,好了废话不多说,直接进入正题.今天主要记录这几个问题:
 
-个人发布 和 企业发布的流程
-代码上传的注意的问题
-代码审核会出现的问题" data-title=" QQ">
+websocket 端口问题,
+http(短连..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/da41a120/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/ba881459/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏发布流程》 — 小魏的博客&url=https://leng521.top/posts/da41a120/&via=https://leng521.top" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏记录长连接(websocket)》 — 小魏的博客&url=https://leng521.top/posts/ba881459/&via=https://leng521.top" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/da41a120/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/ba881459/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -366,21 +326,13 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/posts/4ec7de9/" id="post-prev" class="post-nav-link">
-        <h4 class="title" >
-          上一篇：微信小游戏开发问题总结
-        </h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/posts/777fe656/" id="post-next" class="post-nav-link">
-        <h4 class="title" data-hover="下一篇：微信小游戏开发记录">下一篇：微信小游戏开发记录</h4>
+      <a href="/posts/967bbd27/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：微信小游戏接入广告">下一篇：微信小游戏接入广告</h4>
       </a>
     </div>
   
@@ -477,7 +429,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/da41a120/&title=《微信小游戏发布流程》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/ba881459/&title=《微信小游戏记录长连接(websocket)》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -487,26 +439,25 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/da41a120/&title=《微信小游戏发布流程》 — 小魏的博客&source=今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/ba881459/&title=《微信小游戏记录长连接(websocket)》 — 小魏的博客&source=哎,距离上次写博客竟然一个月了,真是时间不等人呀,好了废话不多说,直接进入正题.今天主要记录这几个问题:
 
-个人发布 和 企业发布的流程
-代码上传的注意的问题
-代码审核会出现的问题" data-title=" QQ">
+websocket 端口问题,
+http(短连..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/da41a120/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/ba881459/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏发布流程》 — 小魏的博客&url=https://leng521.top/posts/da41a120/&via=https://leng521.top" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏记录长连接(websocket)》 — 小魏的博客&url=https://leng521.top/posts/ba881459/&via=https://leng521.top" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/da41a120/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/ba881459/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -517,7 +468,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p class="wechatshare">扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABvklEQVR42u3aQY7DIBAEQP//01lpr7txusFgRypOkWVBOYcR03Ac8Xj9juRJ+/xYMXBxcae5r9Pxd+rknWTm8znffSQuLu5O7nnxShY4rznv5swNuLi4z+Su2HXg4uJ+OzcvSTMFDhcX9zncvDlJgpJz9KZeDRcXd4LbBqYrfi/Md3FxcUvuqxwzS7bF65/VcXFxt3DzA9RkyfniGP0RuLi4G7kJMX8naWMGgxVcXNzF3LGgM49QLw5ccHFxt3DzgpJsgNoYJS+IR1v/cHFxJ7jttiP5jLGPiebExcXdyE1eXXcVo3gTFxf3MdzkSRF3lh+Mi4t7F7dtQtorWfl1qw8r4uLibuGOXacY2xIVOc25ChcXdzE3aVRmmp92I/WBjouLu4VbX4qaDlLbFuvtgQouLu4y7rWBad4y5ZseXFzcu7hXHZSOla2i0cLFxd3InY84x6LP/Aj2aLNYXFzcCW5bUOpNSdnktHEJLi7uOm7buswcyo5thnBxce/i5sVrrBi1h7gfjlJwcXEfw72Wkl/SKvotXFzcW7l5UzTTOOHi4t7LHZtosBjtiUVwcXG3B6bt7xzUhjK4uLiXcn8Aw/NswxY3aacAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxElEQVR42u3aO27DMBAFQN//0k6bRvJ7XJNKgGFlyIo5TLHgfl6veL1/rfad++evHQsXF3fMfd+u+TtXxPb3cXFxz3OvIsb955aSvP/BhouL+ye590/uw9zVAXBxcf87N9nm6gAPx11cXNySm4ehp+oYuLi4J7n5lvs+b6nv4uLiLnHf5UraKnnaU++Oi4t7hJsHlElrpC2FfNgXFxd3M3ct7UlC2HcbrqMsDRcXt+R+K2C1w1tJsIvQuLi4G7hJoGnTmLaVUjRycHFxj3DXhifyy00bzooj4eLibuMmuPkBJt9+yNVwcXE3cPOEJ9+sHdKq4y4uLu5mbpKutOhv/eZlroaLi7uZmw9LTQYykuPVcRcXF3czNwlD+bdt2KpLpbi4uEe4bRqTXGXy0Y38X4CLi/sUN7m+TAJTe+mJkh9cXNxt3KShMimk5uEyuoXh4uJu477LNW+U5k0UXFzcp7hrLdK24Tqp1iweBhcXd8xNgldbNm3bJEWAw8XFPciddGDy6Lj2TlTfxcXFfZSbj2JMntcnxsXFfZSbtz3ysc5CiIuLe5A7Gcqc/FWbUOHi4p7hrjU+8zLKZCBjVN/FxcVd4f4AZFl7ilLyueMAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
