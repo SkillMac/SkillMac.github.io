@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://leng521.top/posts/dd666e1a/">
+    
+    
+    <title>QQ玩一玩打包 | 小魏的博客 | 摔倒了爬起来就好。</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="cocos creator,QQ玩一玩">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+	<script src="//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209"></script>
+
+
+    
+    <meta name="description" content="今天主要纪录最近对 QQPlay(玩一玩)打包的纪录. 然后这里只是纪录我目前使用的引擎(Cocos Creator version 2.x.x),精力有限. QQPlay官方文档 大纲1. 玩一玩包体中缺少`Utils`文件 2. 怎么读取最新的 bricks 引擎 3. 解决 xcode 打包到手机过程中出现的错误 4. 空泛讲解整个玩一玩上传流程 5. 避免上传后台而实时跟新 android">
+<meta name="keywords" content="cocos creator,QQ玩一玩">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QQ玩一玩打包">
+<meta property="og:url" content="https://leng521.top/posts/dd666e1a/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="今天主要纪录最近对 QQPlay(玩一玩)打包的纪录. 然后这里只是纪录我目前使用的引擎(Cocos Creator version 2.x.x),精力有限. QQPlay官方文档 大纲1. 玩一玩包体中缺少`Utils`文件 2. 怎么读取最新的 bricks 引擎 3. 解决 xcode 打包到手机过程中出现的错误 4. 空泛讲解整个玩一玩上传流程 5. 避免上传后台而实时跟新 android">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/dd666e1a/1.png">
+<meta property="og:image" content="https://leng521.top/posts/dd666e1a/2.png">
+<meta property="og:image" content="https://leng521.top/posts/dd666e1a/3.png">
+<meta property="og:image" content="https://leng521.top/posts/dd666e1a/4.png">
+<meta property="og:image" content="https://leng521.top/posts/dd666e1a/5.png">
+<meta property="og:image" content="https://leng521.top/posts/dd666e1a/6.png">
+<meta property="og:image" content="https://leng521.top/posts/dd666e1a/7.png">
+<meta property="og:image" content="https://leng521.top/posts/dd666e1a/8.png">
+<meta property="og:image" content="https://leng521.top/posts/dd666e1a/9.png">
+<meta property="og:image" content="https://leng521.top/posts/dd666e1a/10.png">
+<meta property="og:image" content="https://leng521.top/posts/dd666e1a/11.png">
+<meta property="og:image" content="https://leng521.top/posts/dd666e1a/12.png">
+<meta property="og:updated_time" content="2018-10-31T16:34:07.326Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="QQ玩一玩打包">
+<meta name="twitter:description" content="今天主要纪录最近对 QQPlay(玩一玩)打包的纪录. 然后这里只是纪录我目前使用的引擎(Cocos Creator version 2.x.x),精力有限. QQPlay官方文档 大纲1. 玩一玩包体中缺少`Utils`文件 2. 怎么读取最新的 bricks 引擎 3. 解决 xcode 打包到手机过程中出现的错误 4. 空泛讲解整个玩一玩上传流程 5. 避免上传后台而实时跟新 android">
+<meta name="twitter:image" content="https://leng521.top/posts/dd666e1a/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小魏的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">小魏</h5>
+          
+            <div id="mymotto" class="motto"></div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="xiaowei:2807582398@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">QQ玩一玩打包</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#大纲"><span class="post-toc-number">1.</span> <span class="post-toc-text">大纲</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#玩一玩包体中缺少Utils文件"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">玩一玩包体中缺少Utils文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#怎么读取最新的-bricks-引擎"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">怎么读取最新的 bricks 引擎</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-xcode-打包到手机过程中出现的错误"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">解决 xcode 打包到手机过程中出现的错误</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#空泛讲解整个玩一玩上传流程"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">空泛讲解整个玩一玩上传流程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#避免上传后台而实时跟新-android-机里面的逻辑为最新"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">避免上传后台而实时跟新 android 机里面的逻辑为最新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现厘米秀大部分功能"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">实现厘米秀大部分功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关于获取每个游戏用户的-openkey-的获取问题"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">关于获取每个游戏用户的 openkey 的获取问题</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-QQ玩一玩打包"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">QQ玩一玩打包</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-10-30 22:45:53" datetime="2018-10-30T14:45:53.000Z"  itemprop="datePublished">2018-10-30</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/QQ玩一玩/">QQ玩一玩</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">5</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>今天主要纪录最近对 QQPlay(玩一玩)打包的纪录. 然后这里只是纪录我目前使用的引擎(Cocos Creator version 2.x.x),精力有限.</p>
+<p><a href="https://hudong.qq.com/docs/access/">QQPlay官方文档</a></p>
+<h1 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a><strong>大纲</strong></h1><pre><code>1. 玩一玩包体中缺少`Utils`文件
+2. 怎么读取最新的 bricks 引擎
+3. 解决 xcode 打包到手机过程中出现的错误
+4. 空泛讲解整个玩一玩上传流程
+5. 避免上传后台而实时跟新 android 机里面的逻辑为最新
+6. 实现厘米秀大部分功能
+7. 关于获取每个游戏用户的 openkey 的获取问题
+</code></pre><a id="more"></a>
+<blockquote>
+<p>未完待续<br>厘米秀游戏性能审核标准<br>自建后台 前后端需要注意什么<br>审核前游戏应该准备些什么<br>玩一玩后台需要的一些配置</p>
+</blockquote>
+<h2 id="玩一玩包体中缺少Utils文件"><a href="#玩一玩包体中缺少Utils文件" class="headerlink" title="玩一玩包体中缺少Utils文件"></a><strong>玩一玩包体中缺少<code>Utils</code>文件</strong></h2><p>在你上传厘米秀后台的时候如果只是单纯使用<code>Cocos Creator</code> 发布<code>QQPlay</code> 平台的时候,在 ~/build/qqplay/libs/element/ 这个路径下缺少一个 Utils.js 的脚本文件 但是引擎团队在2.x.x 版本中 还一直没有修复这个问题,原因在 ~/build/qqplay/libs/qqplay-adapter.js 中又引入过这个文件.<br><img src="/posts/dd666e1a/1.png" title="Utils引入报错点"><br>在论坛中搜到的解决方案是 将 qqplay-adapter.js 脚本中的这一行代码注释掉,这个在前期没用到对应功能的时候不会报错,但是等用到Utils.js 里面的功能是就会发现会再次报错.</p>
+<p>报错的原因:加载远程图片会使用 libs/element/HTMLImageElement.js 脚本<br><img src="/posts/dd666e1a/2.png" title="报错点"></p>
+<p>解决方案: </p>
+<ol>
+<li>使用CocosCreator(1.x.x) 版本随便打包个 QQPlay 平台,将其中的<code>Utils.js</code>粘到当前工程中 的 <code>~/build/qqplay/libs/element/</code> 目录中</li>
+<li>修改<code>Utils.js</code>中对其他库的引用路径(CocosCreator(2.x.x)中将第三方引来的脚本归类到<code>~build/qqplay/libs/other/</code>这个目录下了), 修改的点如下:<img src="/posts/dd666e1a/3.png" title="修改Utils.js脚本"></li>
+<li>建立一个和 <code>~/build</code> 同级的目录(<code>build-templates</code>) 将上一步的 <code>Utils.js</code>文件也复制一份到 <code>~/build-templates/qqplay/libs/element/</code> 中, 类似于下面的这样<img src="/posts/dd666e1a/4.png" title="复制Utils.js脚本到构建模板中">
+(这样做的目的是可以每次构建的时候,打的玩一玩的包都含有 Utils.js 脚本);</li>
+</ol>
+<a href="/posts/dd666e1a/Utils.js.txt" title="Utils.js.txt">Utils.js.txt</a> 
+<p>1.9.3 打包的 Utils.js 脚本 可以参考 这里面我已经修改过了,可以直接使用.</p>
+<h2 id="怎么读取最新的-bricks-引擎"><a href="#怎么读取最新的-bricks-引擎" class="headerlink" title="怎么读取最新的 bricks 引擎"></a><strong>怎么读取最新的 bricks 引擎</strong></h2><p>下面这是引擎团队的说法 和 玩一玩官方文档的说法<br><img src="/posts/dd666e1a/5.png" title="引擎团队的说法"><br>玩一玩 官方说法<br><img src="/posts/dd666e1a/6.png" title="玩一玩官方文档的说法"></p>
+<p>需要科学上网<br><a href="https://bitbucket.org/">bitbucket官网</a><br>解决方案:</p>
+<ol>
+<li>登录官网注册账号</li>
+<li>将自己的账号发给 <code>hudong@tencent.com</code>  邮件的主题写 <code>引擎申请权限</code><br>等待大概 4 天左右 腾讯的相关工作人员会给你这个账号添加权限,你就可以试试获取最新的xcode工程</li>
+</ol>
+<blockquote>
+<p>10.25 玩一玩官网 给出了 bricks 引擎的下载地址,也就是说你可以不用申请了<br><a href="https://hudong.qq.com/docs/engine/debug/PublicBrickEngineGame.zip">bricks XCode 工程</a><br><a href="https://hudong.qq.com/docs/engine/debug/tools.html">bricks 下载页面</a></p>
+</blockquote>
+<h2 id="解决-xcode-打包到手机过程中出现的错误"><a href="#解决-xcode-打包到手机过程中出现的错误" class="headerlink" title="解决 xcode 打包到手机过程中出现的错误"></a><strong>解决 xcode 打包到手机过程中出现的错误</strong></h2><p>这里主要是 苹果签名 出的错误<br>这里面 会有 详细的 解决方案(我不想重复造轮子)<br><a href="https://blog.csdn.net/zyw_java/article/details/80531380">解决打包签名报错问题</a><br>他这里面用的是 将 com.tencent.PublicBrickEngineGame 修改为 com.test.PublicBrickEngineGame 你会发现还是报错 ,,, 那就将 test 修改为被人很难想到的名字就行了 ,,, 然后 try again</p>
+<h2 id="空泛讲解整个玩一玩上传流程"><a href="#空泛讲解整个玩一玩上传流程" class="headerlink" title="空泛讲解整个玩一玩上传流程"></a><strong>空泛讲解整个玩一玩上传流程</strong></h2><ol>
+<li>引擎打包 QQPlay 平台的包</li>
+<li>修复引擎包内缺少的文件 <code>gameConfig.json</code> 里面需要的填充的内容如下<img src="/posts/dd666e1a/7.png" title="gameConfig.json">
+<a href="https://hudong.qq.com/docs/engine/engine/native/framework/intro.html#2">gameConfig.json|官方解释地址</a></li>
+<li><p>在你调试期间可以先 不把 构建面板的 MD5 开始 , 这样你可以,先将 gameConfig.json 放入到 <code>~/build-templates/qqplay/</code> 中 ,,, 测试完毕后将 MD5 开启, 然后打正式包的时候需要手动填充 gameConfig.json 文件.<br>gameConfig.json 内容如下:</p>
+<img src="/posts/dd666e1a/8.png" title="gameConfig.json">
+</li>
+<li><p>在后台创建测试版</p>
+</li>
+</ol>
+<h2 id="避免上传后台而实时跟新-android-机里面的逻辑为最新"><a href="#避免上传后台而实时跟新-android-机里面的逻辑为最新" class="headerlink" title="避免上传后台而实时跟新 android 机里面的逻辑为最新"></a><strong>避免上传后台而实时跟新 android 机里面的逻辑为最新</strong></h2><p><a href="https://blog.csdn.net/zyw_java/article/details/80203707">参考文档</a><br>这个讲解的也很详细 ,,, 我就不重复造轮子了.<br><img src="/posts/dd666e1a/9.png" title="android 测试"><br><img src="/posts/dd666e1a/10.png" title="android 测试"></p>
+<blockquote>
+<p>我到现在都还不知道怎么看 log 哪位大神知道 可以在下面评论 我加 QQ ,, 请教请教.</p>
+</blockquote>
+<h2 id="实现厘米秀大部分功能"><a href="#实现厘米秀大部分功能" class="headerlink" title="实现厘米秀大部分功能"></a><strong>实现厘米秀大部分功能</strong></h2><p><a href="https://blog.csdn.net/zyw_java/article/details/82964711">参考文章</a><br><a href="https://hudong.qq.com/docs/engine/">官方文档</a><br>程序员主要是一些细节,,,可能会困扰你,这里我就不说啥了,,,官方也提供的挺详细的,,,你也可以借鉴.<br><a href="/posts/dd666e1a/QQPlay.js.txt" title="QQPlay.js.txt">QQPlay.js.txt</a><br>我这里在提供一份我封装好的 里面(获取 openId, 获取QQ名字, 获取QQ头像地址, 分数上传, 获取好友分数排行榜, 各个时间点的绑定, 公众号跳转, 分享, 分享链接, 生成快捷方式传参, 储存/读取个人云端数据,存储游戏数据到本地,获取openkey,创建 banner广告, 创建激励视频广告, Post 请求)<br>还有一些功能 未完成(暂时项目没有需求就写, 后面会持续更新);</p>
+<h2 id="关于获取每个游戏用户的-openkey-的获取问题"><a href="#关于获取每个游戏用户的-openkey-的获取问题" class="headerlink" title="关于获取每个游戏用户的 openkey 的获取问题"></a><strong>关于获取每个游戏用户的 openkey 的获取问题</strong></h2><p>获取 openkey 是验证当前用户是否是手Q环境,,,避免有些模拟请求,,,使其更安全.</p>
+<p>这个 openkey 比较的坑,,, 这是官方文档<br><img src="/posts/dd666e1a/11.png" title="获取openkey"><br>你会发现 这里面 没啥 这个 game.json 是个啥东西,,, needOpenkey 又是个啥 ,,, 然后点击游戏上架章节 嗯哼 Not Found ,,, 于是 又去找了找,<br><img src="/posts/dd666e1a/12.png" title="获取openkey"><br>你会发现这里还有点提示信息 到最后也没说 到底要放在哪里?</p>
+<p>解决方案:<br>在和gameConfig.json 同目录里面 创建一个 game.json 文件 里面内容为<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"needOpenkey"</span>: <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后随同到包内.</p>
+<p>然后就是调用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BK.QQ.fetchOpenKey(<span class="function"><span class="keyword">function</span> (<span class="params">errCode, cmd, data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (errCode == <span class="number">0</span>) &#123;</span><br><span class="line">         <span class="keyword">var</span> openKey = data.openKey;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这个借口去获取用户的 openkey</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2018-10-31T16:34:07.326Z" itemprop="dateUpdated">2018-11-01 00:34:07</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/dd666e1a/" target="_blank" rel="external">https://leng521.top/posts/dd666e1a/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://leng521.top'">
+            <img src="/img/head.jpg" alt="小魏">
+            <a>小魏</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QQ玩一玩/">QQ玩一玩</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos-creator/">cocos creator</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/dd666e1a/&title=《QQ玩一玩打包》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/dd666e1a/&title=《QQ玩一玩打包》 — 小魏的博客&source=今天主要纪录最近对 QQPlay(玩一玩)打包的纪录. 然后这里只是纪录我目前使用的引擎(Cocos Creator version 2.x.x),精力有..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/dd666e1a/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《QQ玩一玩打包》 — 小魏的博客&url=https://leng521.top/posts/dd666e1a/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/dd666e1a/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/ba881459/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：微信小游戏记录长连接(websocket)">下一篇：微信小游戏记录长连接(websocket)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "VuMjQqCGIaGKlNSxkQYjregm-gzGzoHsz",
+            appKey: "HbpDPI0yYswQ7SEDXvzILkIi",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://leng521.top">leng521.top</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/dd666e1a/&title=《QQ玩一玩打包》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/dd666e1a/&title=《QQ玩一玩打包》 — 小魏的博客&source=今天主要纪录最近对 QQPlay(玩一玩)打包的纪录. 然后这里只是纪录我目前使用的引擎(Cocos Creator version 2.x.x),精力有..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/dd666e1a/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《QQ玩一玩打包》 — 小魏的博客&url=https://leng521.top/posts/dd666e1a/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/dd666e1a/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABzUlEQVR42u3aQWrDQAwFUN//0i50VWjtfGmiiSlvViEk8XMWwvrSccTn/D73758/zu/PXL1/TBxcXNxl7nl7rljJLZ3ByQ24uLj7udUi9eJHb7+18hfg4uI+jZvfUgLFxcX9H9z7cvauAoeLi/scbt6c5I8veVAy0qvh4uIucKuB6cTrwXwXFxe3yD2LJ2lykms1r46Li7uFez8C6bVDK8UxKnO4uLjbudX2pjdSza/7IsXBxcUd4CaXrz6m9EYskQQXF3cLN88fJmKUPPcoxyW4uLjL3F6oUV256DVRUSyCi4s7wM0jkt6AJCmIzdKJi4s7xs3bj+qiVW8xCxcX97Pc3nJVUpKSCDUvZ3/MhHFxcce4vdii2sb0VjdwcXE/xe0tYFWjkN6o9XLyg4uLO8zNW5fqbfS4yQoILi7uNLdavPLljJU1LFxc3Cdwe8PUQqUs7k5cenBxcTdyV9qbagaTL14U9rZwcXHfyq0WlOp4tTp0qcYluLi4c9xeDFptXao3houL+wRuvkiRlLNqQcwjVFxc3Kdx86CkOdVJ/gJcXNwHc3sxR2FwcnVdXFzcjdzqD+WPKSuFcqlXw8XF3R6Y9hYsep/HxcXdyP0COo6VjAl5BTMAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/01/17");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+    elasticText({
+        id: "mymotto",
+        duration: 100,
+        effact: "easeOut",
+        content: ""
+    });
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "小魏");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>
