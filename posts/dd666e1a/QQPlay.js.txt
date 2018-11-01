@@ -70,12 +70,46 @@ let QQPlay = {
     _initData(sysInfo) {
         // GameStatusInfo
         this._sysInfo = sysInfo;
+
         this._exitGameFunc = null;
         this._onShareCompleteFunc = null;
         this._onShareFunc = null;
+        this._enterForegroundFunc = null;
+        this._enterBackgroundFunc = null;
+        this._maximizeFunc = null;
+        this._minimizeFunc = null;
+        this._networkChangeFunc = null;
+
         this._curBannerAd = null;
         this._curVideoAd = null;
         this._startGameTime = Utils.getCurTimestamp().toString();
+    },
+
+    _onQQPlayEvent() {
+        BK.onGameShare(()=>{
+            if(this._onShareFunc) this._onShareFunc();
+        });
+        BK.onGameShareComplete((data)=>{
+            if(this._onShareCompleteFunc) this._onShareCompleteFunc(data);
+        });
+        BK.onGameClose(()=>{
+            if(this._exitGameFunc) this._exitGameFunc();
+        })
+        BK.onEnterForeground(()=>{
+            if(this._enterForegroundFunc) this._enterForegroundFunc();
+        })
+        BK.onEnterBackground(()=>{
+            if(this._enterBackgroundFunc) this._enterBackgroundFunc();
+        })
+        BK.onMaximize(()=>{
+            if(this._maximizeFunc) this._maximizeFunc();
+        })
+        BK.onMinimize(()=>{
+            if(this._minimizeFunc) this._minimizeFunc();
+        })
+        BK.onNetworkChange((data)=>{
+            if(this._networkChangeFunc) this._networkChangeFunc(data);
+        })
     },
 
     /**
@@ -120,17 +154,51 @@ let QQPlay = {
             case 'onShareComplete':
                 this._onShareCompleteFunc = func;
                 break;
+            case 'onEnterForeground':
+                this._enterForegroundFunc = func;
+                break;
+            case 'onEnterBackground':
+                this._enterBackgroundFunc = func;
+                break;
+            case 'onMaximize':
+                this._maximizeFunc = func;
+                break;
+            case 'onMinimize':
+                this._minimizeFunc = func;
+                break;
+            case 'onNetworkChange':
+                this._networkChangeFunc = func;
+                break;
         }
     },
 
+    /**
+     * 设置数据到本地
+     * @param {string} key 
+     * @param {Object} obj 
+     */
     setLocalData(key,obj) {
-        if(!(this.checkIsQQPlay())) return;
+        if(!(this.checkIsQQPlay()) || !key || !obj) return;
 
         if(key) {
             BK.localStorage.getItem(key,JSON.stringify(obj));
         }
     },
 
+    /**
+     * 获取本地数据
+     * @param {string} key 
+     */
+    getLocalDataByKey(key) {
+        if(!(this.checkIsQQPlay()) || !key) return;
+
+        return BK.localStorage.getItem(key);
+    },
+
+    /**
+     * 移除本地数据
+     * @param {string} key 
+     */
     removeLocalDataByKey(key) {
         if(!(this.checkIsQQPlay())) return;
 
@@ -139,13 +207,16 @@ let QQPlay = {
         }
     },
 
+    /**
+     * 清楚本地数据
+     */
     clearLocalData() {
         if(!(this.checkIsQQPlay())) return;
         BK.localStorage.clear();
     },
 
     /**
-     * 
+     * 创建Banner广告
      * @param {Number} id 1001 1002 1003
      */
     createBannerAd(id, loadSuccessFunc, failFunc) {
@@ -331,7 +402,11 @@ let QQPlay = {
         });
     },
 
-    share(imgUrl) {
+    /**
+     * 分享
+     * @param {string} imgUrl 分享图的地址
+     */
+    share(imgUrl,successFunc,failFunc,completeFunc) {
         if(!(this.checkIsQQPlay())) return;
 
         BK.Share.share({
@@ -342,20 +417,28 @@ let QQPlay = {
             extendInfo: '游戏内',
             isToFriend: true, // 是否发送给好友，可选，只对 H5游戏 或 低于7.6.3版本的手Q 有效
             success: (code,data) => {
-                //data  QQ {"reqCode":1,"ret":0,"gameId":3603,"aioType":1,"shareTo":0,"isFirstTimeShare":0}
-                //QQ空间  {"reqCode":1,"ret":0,"gameId":3603,"aioType":0,"shareTo":1,"isFirstTimeShare":1}
+                //data  QQ {"reqCode":1,"ret":0,"gameId":3740,"aioType":1,"shareTo":0,"isFirstTimeShare":0}
+                //QQ空间  {"reqCode":1,"ret":0,"gameId":3740,"aioType":0,"shareTo":1,"isFirstTimeShare":1}
                 Utils.log('share success', code, JSON.stringify(data));
+                if(successFunc) successFunc(code,data);
             },
             fail: (code,msg) => {
                 Utils.log('share fail', code, msg);
+                if(failFunc) failFunc(code,msg);
             },
             complete: () => {
                 Utils.log('share complete');
+                if(completeFunc) completeFunc();
             }
         });
     },
 
-    shareLink(imgUrl,msgUrl) {
+    /**
+     * 分享链接
+     * @param {string} imgUrl 分享图的地址
+     * @param {string} msgUrl 点击分享图要跳转的链接
+     */
+    shareLink(imgUrl,msgUrl,successFunc,failFunc,completeFunc) {
         if(!(this.checkIsQQPlay())) return;
 
         BK.Share.shareLink({
@@ -369,23 +452,35 @@ let QQPlay = {
                 //data  QQ {"reqCode":1,"ret":0,"gameId":3740,"aioType":1,"shareTo":0,"isFirstTimeShare":0}
                 //QQ空间  {"reqCode":1,"ret":0,"gameId":3740,"aioType":0,"shareTo":1,"isFirstTimeShare":1}
                 Utils.log('share success', code, JSON.stringify(data));
+                if(successFunc) successFunc(code,data);
             },
             fail: (code,msg) => {
                 Utils.log('share fail', code, msg);
+                if(failFunc) failFunc(code,msg);
             },
             complete: () => {
                 Utils.log('share complete');
+                if(completeFunc) completeFunc();
             }
         });
     },
 
-    toOtherGame(desGameId,extendInfo) {
+    /**
+     * 跳转其他游戏
+     * @param {string} desGameId 目标用的 GameId
+     * @param {string} extendInfo 扩展信息 选填
+     */
+    toOtherGame(desGameId,extendInfo='') {
         if(!(this.checkIsQQPlay())) return;
 
         BK.QQ.skipGame(desGameId, extendInfo);
     },
 
-    onShortCut(extendInfo) {
+    /**
+     * 生成快捷方式是 将 扩展新加入到这个快捷方式中 待测试
+     * @param {string} extendInfo 
+     */
+    onShortCut(extendInfo='') {
         if(!(this.checkIsQQPlay())) return;
 
         BK.QQ.createShortCut(extendInfo);
@@ -393,7 +488,7 @@ let QQPlay = {
     
     /**
      * 获取 QQ 网名
-     * @param {function} cb 获取成功回调
+     * @param {function} cb => (openId,nick)获取成功回调
      * @param {string} openId 选填参数| 可通过 QQPlay.getUserOpneId() 获取
      */
     getNick(cb,openId = GameStatusInfo.openId) {
@@ -402,6 +497,11 @@ let QQPlay = {
         BK.MQQ.Account.getNick(openId,cb);
     },
 
+    /**
+     * 获取用户头像
+     * @param {function} cb => (code,image)
+     * @param {string} openId 用户的openId 这个有默认值
+     */
     getHead(cb,openId = GameStatusInfo.openId) {
         if(!(this.checkIsQQPlay()) || !cb) return;
 
@@ -473,6 +573,10 @@ let QQPlay = {
         });
     },
 
+    /**
+     * 获取排行榜信息
+     * @param {function} cb (code,data,cmd)
+     */
     getRankList(cb) {
         if(!(this.checkIsQQPlay()) || !cb) return;
 
@@ -495,6 +599,11 @@ let QQPlay = {
         });
     },
 
+    /**
+     * 创建Image
+     * @param {string} url 
+     * @param {function} cb => (code,image) 
+     */
     createImg(url,cb) {
         let image = new Image();
         image.onload = function () {
@@ -503,6 +612,11 @@ let QQPlay = {
         image.src = url;
     },
 
+    /**
+     * 储存用户数据到云端
+     * @param {Object} data 
+     * @param {function} cb =>(code,data,cmd) 
+     */
     storeSelfDataToCloud(data, cb) {
         if(!(this.checkIsQQPlay()) || !data) return;
 
@@ -514,6 +628,10 @@ let QQPlay = {
         });
     },
 
+    /**
+     * 获取用户自定义的云数据
+     * @param {function} cb => (code,data,cmd)
+     */
     getSelfCloudData(cb) {
         if(!(this.checkIsQQPlay()) || !cb) return;
 
@@ -552,6 +670,12 @@ let QQPlay = {
         BK.QQ.enterPubAccountCard(puin);
     },
 
+    /**
+     * 发送post请求
+     * @param {string} url 
+     * @param {Object} params 
+     * @param {function} cb => (code,data)
+     */
     post(url,params,cb) {
         if(!(this.checkIsQQPlay()) || !url || !params) return;
 
@@ -559,6 +683,10 @@ let QQPlay = {
         Utils.post(url,params,cb);
     },
 
+    /**
+     * 拉去用户的 openKey
+     * @param {function} cb => (code,data,cmd)
+     */
     fetchOpenKey(cb) {
         if(!(this.checkIsQQPlay()) || !cb) return;
 
@@ -567,5 +695,4 @@ let QQPlay = {
         });
     },
 }
-
 module.exports = QQPlay;
