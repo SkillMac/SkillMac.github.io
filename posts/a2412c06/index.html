@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://leng521.top/posts/a2412c06/">
+    
+    
+    <title>AndroidStudio打包Cocos2dx | 小魏的博客 | 摔倒了爬起来就好。</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="cocos2dx,android studio">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+	<script src="//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209"></script>
+
+
+    
+    <meta name="description" content="前几天闲着没事,去弄了一下AndroidStudio打包最新版 cocos2dx 系列原生平台的安装包. 引擎版本: 3.17AndroidStudio版本: 3.2.1SDK: 27NDK: android-ndk-r16bgradle: 4.1 首先提供这几个下载地址,有的可能需要翻墙,这个你们自己解决. gradleandroid sdk android studio 自带有下载的管理器an">
+<meta name="keywords" content="cocos2dx,android studio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AndroidStudio打包Cocos2dx">
+<meta property="og:url" content="https://leng521.top/posts/a2412c06/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="前几天闲着没事,去弄了一下AndroidStudio打包最新版 cocos2dx 系列原生平台的安装包. 引擎版本: 3.17AndroidStudio版本: 3.2.1SDK: 27NDK: android-ndk-r16bgradle: 4.1 首先提供这几个下载地址,有的可能需要翻墙,这个你们自己解决. gradleandroid sdk android studio 自带有下载的管理器an">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/a2412c06/1.png">
+<meta property="og:updated_time" content="2018-12-08T03:31:10.126Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AndroidStudio打包Cocos2dx">
+<meta name="twitter:description" content="前几天闲着没事,去弄了一下AndroidStudio打包最新版 cocos2dx 系列原生平台的安装包. 引擎版本: 3.17AndroidStudio版本: 3.2.1SDK: 27NDK: android-ndk-r16bgradle: 4.1 首先提供这几个下载地址,有的可能需要翻墙,这个你们自己解决. gradleandroid sdk android studio 自带有下载的管理器an">
+<meta name="twitter:image" content="https://leng521.top/posts/a2412c06/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小魏的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">小魏</h5>
+          
+            <div id="mymotto" class="motto"></div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="xiaowei:2807582398@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">AndroidStudio打包Cocos2dx</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#报错记录"><span class="post-toc-number">1.</span> <span class="post-toc-text">报错记录</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Gradle-sync-failed-SSL-peer-shut-down-incorrectly"><span class="post-toc-number">1.0.0.1.</span> <span class="post-toc-text">Gradle sync failed: SSL peer shut down incorrectly</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#No-cached-version-of-com-android-tools-build-gradle-3-0-0-available-for-offline-mode"><span class="post-toc-number">1.0.0.2.</span> <span class="post-toc-text">No cached version of com.android.tools.build:gradle:3.0.0 available for offline mode.</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#替换proj-adnroid-build-gradle-中的地址"><span class="post-toc-number">1.0.0.3.</span> <span class="post-toc-text">替换proj.adnroid/build.gradle 中的地址</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#官方提供的打包配置-地址"><span class="post-toc-number">1.0.0.4.</span> <span class="post-toc-text">官方提供的打包配置 地址</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#No-toolchains-found-in-the-NDK-toolchains-folder-for-ABI-with-prefix-mips64el-linux-android"><span class="post-toc-number">1.0.0.5.</span> <span class="post-toc-text">No toolchains found in the NDK toolchains folder for ABI with prefix: mips64el-linux-android</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ndk-r9-下载路径"><span class="post-toc-number">1.0.0.6.</span> <span class="post-toc-text">ndk r9 下载路径</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#配置NDK-环境变量"><span class="post-toc-number">1.0.0.7.</span> <span class="post-toc-text">配置NDK 环境变量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#编译externalNativeBuildDebug出错"><span class="post-toc-number">1.0.0.8.</span> <span class="post-toc-text">编译externalNativeBuildDebug出错</span></a></li></ol></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-AndroidStudio打包Cocos2dx"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">AndroidStudio打包Cocos2dx</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-12-08 11:05:57" datetime="2018-12-08T03:05:57.000Z"  itemprop="datePublished">2018-12-08</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/cocos2dx/">cocos2dx</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">3</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>前几天闲着没事,去弄了一下AndroidStudio打包最新版 cocos2dx 系列原生平台的安装包.</p>
+<p>引擎版本: 3.17<br>AndroidStudio版本: 3.2.1<br>SDK: 27<br>NDK: android-ndk-r16b<br>gradle: 4.1</p>
+<p>首先提供这几个下载地址,有的可能需要翻墙,这个你们自己解决.</p>
+<p><a href="http://services.gradle.org/distributions/">gradle</a><br>android sdk android studio 自带有下载的管理器<br><a href="https://developer.android.com/ndk/downloads/">anroid ndk</a><br><a href="https://developer.android.com/studio/">android studio</a><br><a href="https://www.cocos.com/">cocos2dx-系列</a></p>
+<a id="more"></a>
+<h1 id="报错记录"><a href="#报错记录" class="headerlink" title="报错记录"></a>报错记录</h1><h4 id="Gradle-sync-failed-SSL-peer-shut-down-incorrectly"><a href="#Gradle-sync-failed-SSL-peer-shut-down-incorrectly" class="headerlink" title="Gradle sync failed: SSL peer shut down incorrectly"></a>Gradle sync failed: SSL peer shut down incorrectly</h4><blockquote>
+<p>查这个路径下 gradle–&gt;wrapper–&gt;gradle-wrapper.properties</p>
+<p>要下载 gradle 版本</p>
+<p>ej:distributionUrl=https\://services.gradle.org/distributions/gradle-4.1-all.zip</p>
+<p><a href="http://services.gradle.org/distributions/">gradle下载地址</a></p>
+<p>删除原先的资源</p>
+<p>存放到下面路径下 C:\Users\Administrator.gradle\wrapper\dists\gradle-4.1-all\bzyivzo6n839fup2jbap0tjew</p>
+<p>记住一定要放到这个乱码的文件夹中</p>
+</blockquote>
+<p>如果上面的步骤你你把android随机生成的文件夹(bzyivzo6n839fup2jbap0tjew) 删了 你可以执行下面的步骤</p>
+<blockquote>
+<p>D:\pro\cocos_pro\testCocosJs\frameworks\runtime-src\proj.android\gradlew.bat 执行这个脚本也可以.</p>
+</blockquote>
+<p>执行你这里面的这个预处理脚本,它会重新生成一个类似于上面个文件夹,不要希望这个脚本能够下载好你想要的 gradle 版本.这会很慢,可以直接停掉这个批处理.<br>执行这一步的目的是为了生成 上面类似的文件夹(bzyivzo6n839fup2jbap0tjew).</p>
+<p>当然如果你有更好的方案也可以.</p>
+<hr>
+<h4 id="No-cached-version-of-com-android-tools-build-gradle-3-0-0-available-for-offline-mode"><a href="#No-cached-version-of-com-android-tools-build-gradle-3-0-0-available-for-offline-mode" class="headerlink" title="No cached version of com.android.tools.build:gradle:3.0.0 available for offline mode."></a>No cached version of com.android.tools.build:gradle:3.0.0 available for offline mode.</h4><blockquote>
+<p>File/setting/build…/gradle/Offline work 禁掉</p>
+</blockquote>
+<hr>
+<p><code>如果 gradle 同步的很慢可以使用 镜像工程</code></p>
+<h4 id="替换proj-adnroid-build-gradle-中的地址"><a href="#替换proj-adnroid-build-gradle-中的地址" class="headerlink" title="替换proj.adnroid/build.gradle 中的地址"></a>替换proj.adnroid/build.gradle 中的地址</h4><p>替换为镜像库</p>
+<blockquote>
+<p>maven { url ‘<a href="https://maven.aliyun.com/repository/google">https://maven.aliyun.com/repository/google</a>‘ }</p>
+<p>maven { url ‘<a href="https://maven.aliyun.com/repository/jcenter">https://maven.aliyun.com/repository/jcenter</a>‘ }</p>
+<p>maven { url ‘<a href="http://maven.aliyun.com/nexus/content/groups/public">http://maven.aliyun.com/nexus/content/groups/public</a>‘ }</p>
+</blockquote>
+<p>我这个下面有截图</p>
+<img src="/posts/a2412c06/1.png" title="build.gradle配置">
+<hr>
+<h4 id="官方提供的打包配置-地址"><a href="#官方提供的打包配置-地址" class="headerlink" title="官方提供的打包配置 地址"></a>官方提供的打包配置 地址</h4><blockquote>
+<p><a href="http://docs.cocos2d-x.org/cocos2d-x/en/installation/Android-Studio.html">官方打包配置</a></p>
+</blockquote>
+<hr>
+<h4 id="No-toolchains-found-in-the-NDK-toolchains-folder-for-ABI-with-prefix-mips64el-linux-android"><a href="#No-toolchains-found-in-the-NDK-toolchains-folder-for-ABI-with-prefix-mips64el-linux-android" class="headerlink" title="No toolchains found in the NDK toolchains folder for ABI with prefix: mips64el-linux-android"></a>No toolchains found in the NDK toolchains folder for ABI with prefix: mips64el-linux-android</h4><blockquote>
+<p>在 ndk 的根目录里面有个 toolchains 的文件夹 里面没有 这个文件 mips64el-linux-android 原因是我用的是 r18 的 但是那里面没有这个东西,我去使用r16 里面就有这个东西.</p>
+</blockquote>
+<hr>
+<h4 id="ndk-r9-下载路径"><a href="#ndk-r9-下载路径" class="headerlink" title="ndk r9 下载路径"></a>ndk r9 下载路径</h4><blockquote>
+<p>提供一下r9的下载路径 因为之前打包 3.15 是用的是 r9 所以这里记录一下地址 防止后面找不到了, 上面ndk 归档 只是到了 r10.</p>
+</blockquote>
+<p>NDK r9d：</p>
+<p><a href="http://dl.google.com/android/ndk/android-ndk-r9d-windows-x86.zip">r9-x86-window</a><br><a href="http://dl.google.com/android/ndk/android-ndk-r9d-windows-x86_64.zip">r9-x86_64-window</a><br>[r9-x86-mac]<a href="http://dl.google.com/android/ndk/android-ndk-r9d-darwin-x86.tar.bz2（Mac环境）">http://dl.google.com/android/ndk/android-ndk-r9d-darwin-x86.tar.bz2（Mac环境）</a><br><a href="http://dl.google.com/android/ndk/android-ndk-r9d-linux-x86.tar.bz2">r9-x86-linux</a><br><a href="http://dl.google.com/android/ndk/android-ndk-r9d-linux-x86_64.tar.bz2">r9-x86_64-linux</a><br><a href="http://dl.google.com/android/ndk/android-ndk-r9d-cxx-stl-libs-with-debug-info.zip">r9d-cxx-stl-libs-with-debug-info</a></p>
+<hr>
+<h4 id="配置NDK-环境变量"><a href="#配置NDK-环境变量" class="headerlink" title="配置NDK 环境变量"></a>配置NDK 环境变量</h4><blockquote>
+<p>ANDROID_NDK_ROOT</p>
+</blockquote>
+<hr>
+<h4 id="编译externalNativeBuildDebug出错"><a href="#编译externalNativeBuildDebug出错" class="headerlink" title="编译externalNativeBuildDebug出错"></a>编译externalNativeBuildDebug出错</h4><blockquote>
+<p>可能出现路径太长导致 文件 查找失败(win10)<br>下面路径有个大神写了个补丁.</p>
+<p>[修复ndk打包长路径查找失败]<a href="https://discuss.cocos2d-x.org/t/the-solution-of-ndk-compile-system-longpaths-issue-on-windows-platform/42705">https://discuss.cocos2d-x.org/t/the-solution-of-ndk-compile-system-longpaths-issue-on-windows-platform/42705</a></p>
+</blockquote>
+<p>这个打包记录是纯净的打包没有介入任何 sdk(如,微信的sdk facebook 第三方广告平台(admob) 等);</p>
+<p>我的每篇文章都不希望写的太长,不然看着都烦人. 这里之所以记录时间是为了 提醒一下 阅读者这里也许不是最新的,如果已过很长时间,那就给你提供,经验的借鉴吧.</p>
+<p>时间: 2018年12月7日22:28:49</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-12-08T03:31:10.126Z" itemprop="dateUpdated">2018-12-08 11:31:10</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/a2412c06/" target="_blank" rel="external">https://leng521.top/posts/a2412c06/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://leng521.top'">
+            <img src="/img/head.jpg" alt="小魏">
+            <a>小魏</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-studio/">android studio</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2dx/">cocos2dx</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/a2412c06/&title=《AndroidStudio打包Cocos2dx》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/a2412c06/&title=《AndroidStudio打包Cocos2dx》 — 小魏的博客&source=前几天闲着没事,去弄了一下AndroidStudio打包最新版 cocos2dx 系列原生平台的安装包.
+引擎版本: 3.17AndroidStudio版..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/a2412c06/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《AndroidStudio打包Cocos2dx》 — 小魏的博客&url=https://leng521.top/posts/a2412c06/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/a2412c06/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/90e70f70/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：记录TweenLite库">下一篇：记录TweenLite库</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "VuMjQqCGIaGKlNSxkQYjregm-gzGzoHsz",
+            appKey: "HbpDPI0yYswQ7SEDXvzILkIi",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://leng521.top">leng521.top</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/a2412c06/&title=《AndroidStudio打包Cocos2dx》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/a2412c06/&title=《AndroidStudio打包Cocos2dx》 — 小魏的博客&source=前几天闲着没事,去弄了一下AndroidStudio打包最新版 cocos2dx 系列原生平台的安装包.
+引擎版本: 3.17AndroidStudio版..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/a2412c06/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《AndroidStudio打包Cocos2dx》 — 小魏的博客&url=https://leng521.top/posts/a2412c06/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/a2412c06/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABwUlEQVR42u3awa6DMAwEQP7/p3nXdwHWDrGKNDlVLYVpD5bXyXHE6/y3rj69f/+8WMeOhYuLu8w9b9cV6J6Sfys34OLiznOTMpTjrq5P7v9gw8XF/UlutQGqFjVcXNxvcZOSdN884eLifoubhJ98kFENNluyGi4u7gK39/h3X2+Z7+Li4ra4Z3FVI021qD08HRcXd4S7Yyslf6e5iYuLi7uZ22tEqi1LsukSPREXF3eEWw0q1WK0Uv4eWhxcXNxt3HxzdGW4WY1Pl38QLi7uCPf+8dVDWr3SlkxEyxfh4uK+yl0JP9Ui1TzmhYuLO8JdbztWjnYlBfSBjouL+yq3F2ySElOFRi0RLi7uCHd9kzUZi9xX0HLdxcXFHeFWD2jmty7HmLhQ4uLiznPzUeZbY5FmCcPFxd3GzQemZ7Dy9qXZPOHi4g5yV45K9LZUmy0OLi7uZu5ZXNVtlWTUUrg/Li7uCLcXfvJElUej/GgXLi7uDDffSskDUv5jymNWXFzcQW4vFOUtzssRCBcX98e41QK3HrFwcXG/y80DzNKBDFxc3EHuynAzj0MvbN7g4uKOcKulZD3eVEtec76Li4vb4f4BFyILCS6AloEAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/01/17");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+    elasticText({
+        id: "mymotto",
+        duration: 100,
+        effact: "easeOut",
+        content: ""
+    });
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "小魏");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>
