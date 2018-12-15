@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://leng521.top/posts/41d43874/">
+    
+    
+    <title>cocos2dx-JS-OC-Java互相调用 | 小魏的博客 | 摔倒了爬起来就好。</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+	<script src="//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209"></script>
+
+
+    
+    <meta name="description" content="cocos2dx js java oc 和 js 的相互调用引擎版本: 3.17语言: jsXcode: 10.1AndroidStudio: 3.2.1时间: 2018年12月14日16:23:47  看这篇文章需要 会一些 android java oc ios 的一些知识的基础 不然看着可能有点费劲.  js调用javajs 调用 java java中声名的方法需要是静态方法(static">
+<meta name="keywords" content="前端,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cocos2dx-JS-OC-Java互相调用">
+<meta property="og:url" content="https://leng521.top/posts/41d43874/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="cocos2dx js java oc 和 js 的相互调用引擎版本: 3.17语言: jsXcode: 10.1AndroidStudio: 3.2.1时间: 2018年12月14日16:23:47  看这篇文章需要 会一些 android java oc ios 的一些知识的基础 不然看着可能有点费劲.  js调用javajs 调用 java java中声名的方法需要是静态方法(static">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-15T02:35:32.345Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cocos2dx-JS-OC-Java互相调用">
+<meta name="twitter:description" content="cocos2dx js java oc 和 js 的相互调用引擎版本: 3.17语言: jsXcode: 10.1AndroidStudio: 3.2.1时间: 2018年12月14日16:23:47  看这篇文章需要 会一些 android java oc ios 的一些知识的基础 不然看着可能有点费劲.  js调用javajs 调用 java java中声名的方法需要是静态方法(static">
+    
+        <link rel="alternate" type="application/atom+xml" title="小魏的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">小魏</h5>
+          
+            <div id="mymotto" class="motto"></div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="xiaowei:2807582398@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">cocos2dx-JS-OC-Java互相调用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Búsqueda">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#cocos2dx-js-java-oc-和-js-的相互调用"><span class="post-toc-number">1.</span> <span class="post-toc-text">cocos2dx js java oc 和 js 的相互调用</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#js调用java"><span class="post-toc-number"></span> <span class="post-toc-text">js调用java</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Android-平台下"><span class="post-toc-number">0.1.</span> <span class="post-toc-text">Android 平台下</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#支持传递的数据类型"><span class="post-toc-number">0.2.</span> <span class="post-toc-text">支持传递的数据类型</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#java调用js"><span class="post-toc-number"></span> <span class="post-toc-text">java调用js</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#问题记录"><span class="post-toc-number">1.</span> <span class="post-toc-text">问题记录</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#js调用-java-没反应"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">js调用 java 没反应</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#js-调用-oc"><span class="post-toc-number"></span> <span class="post-toc-text">js 调用 oc</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#oc-调用-js"><span class="post-toc-number"></span> <span class="post-toc-text">oc 调用 js</span></a>
+        </nav>
+    </aside>
+   
+<article id="post-cocos2dx-JS-OC-Java互相调用"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">cocos2dx-JS-OC-Java互相调用</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-12-15 10:21:49" datetime="2018-12-15T02:21:49.000Z"  itemprop="datePublished">2018-12-15</time>
+
+            <br id="mybreak"/>
+            
+<script>
+	mybreak.style="display:none";
+</script>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">3</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h4 id="cocos2dx-js-java-oc-和-js-的相互调用"><a href="#cocos2dx-js-java-oc-和-js-的相互调用" class="headerlink" title="cocos2dx js java oc 和 js 的相互调用"></a>cocos2dx js java oc 和 js 的相互调用</h4><p>引擎版本: 3.17<br>语言: js<br>Xcode: 10.1<br>AndroidStudio: 3.2.1<br>时间: 2018年12月14日16:23:47</p>
+<blockquote>
+<p>看这篇文章需要 会一些 android java oc ios 的一些知识的基础 不然看着可能有点费劲.</p>
+</blockquote>
+<h2 id="js调用java"><a href="#js调用java" class="headerlink" title="js调用java"></a>js调用java</h2><p>js 调用 java java中声名的方法需要是静态方法(static method)</p>
+<a id="more"></a>
+<h5 id="Android-平台下"><a href="#Android-平台下" class="headerlink" title="Android 平台下"></a>Android 平台下</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(cc.sys.os == cc.sys.OS_ANDROID)&#123;</span><br><span class="line">    jsb.reflection.callStaticMethod(<span class="string">'类名加全路径'</span>,<span class="string">'方法名字'</span>,<span class="string">'方法的签名'</span>,<span class="string">'传递参数'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ej: js</span><br><span class="line">    jsb.reflection.callStaticMethod(<span class="string">'org/cocos2dx/javascript/AppActivity'</span>,<span class="string">'getStrVdong'</span>,<span class="string">'(Ljava/lang/String;)V'</span>,<span class="string">'haha'</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ej: java</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getStrVdong</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    log.i(<span class="string">'cocso2dx-js js call java'</span>, str);</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">其他方法签名的写法</span><br><span class="line">ej:</span><br><span class="line">    (Ljava/lang/String;)V <span class="comment">//参数是字符串 没有返回值</span></span><br><span class="line">    (I)V <span class="comment">// void(int);</span></span><br><span class="line">    ()V <span class="comment">// void();</span></span><br><span class="line">    (IZ)V <span class="comment">// void(int,boolean);</span></span><br><span class="line">    (IZ)Z <span class="comment">// boolean(int,boolean);</span></span><br><span class="line">    ()Ljava/lang/String; <span class="comment">//String();</span></span><br></pre></td></tr></table></figure>
+<h5 id="支持传递的数据类型"><a href="#支持传递的数据类型" class="headerlink" title="支持传递的数据类型"></a>支持传递的数据类型</h5><ul>
+<li>Z 布尔</li>
+<li>I int</li>
+<li>F float</li>
+<li>字符串 Ljava/lang/String;</li>
+</ul>
+<blockquote>
+<p>注意这里有个字符串是有个分号的</p>
+</blockquote>
+<h2 id="java调用js"><a href="#java调用js" class="headerlink" title="java调用js"></a>java调用js</h2><p>java调用js 实际是 将字符串转成 function 然后调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 导入需要的包 */</span></span><br><span class="line"><span class="keyword">import</span> org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;</span><br><span class="line"><span class="keyword">import</span> org.cocos2dx.lib.Cocos2dxHelper;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这里需要注意的是调用 js 代码需要运行在 GL 线程中</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">这里实现的逻辑是 将回调的逻辑移交到 js 代码层中, 这样就可以在 js 中 写逻辑 java 在合适的时机去执行这个调用 比如在做支付的时候 需要在之后响应后在 做游戏逻辑的处理.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">callFuncVdong</span><span class="params">(<span class="keyword">final</span> String code)</span> </span>&#123;</span><br><span class="line">    Cocos2dxHelper.runOnGLThread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            Cocos2dxJavascriptJavaBridge.evalString(code);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">写一下 js 调用的例子</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">ej:</span><br><span class="line">    jsb.reflection.callStaticMethod(</span><br><span class="line">    <span class="string">"org/cocos2dx/javascript/AppActivity"</span>,</span><br><span class="line">    <span class="string">"callFuncVdong"</span>,</span><br><span class="line">    <span class="string">"(Ljava/lang/String;)V"</span>,</span><br><span class="line">    <span class="string">"g_funcList.callFunc()"</span>); <span class="comment">/*呼叫一个全局函数*/</span></span><br></pre></td></tr></table></figure>
+<h4 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h4><h5 id="js调用-java-没反应"><a href="#js调用-java-没反应" class="headerlink" title="js调用 java 没反应"></a>js调用 java 没反应</h5><blockquote>
+<p>有很大的几率是 js调用中 方法签名没有写正确 你需要检查你的写法 具体的写法上面有写的.</p>
+</blockquote>
+<hr>
+<h2 id="js-调用-oc"><a href="#js-调用-oc" class="headerlink" title="js 调用 oc"></a>js 调用 oc</h2><p>js 调用 oc 其实和 Java的写法是大同小异的</p>
+<ul>
+<li>在 ios/AppController.h 中声名 静态函数</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+(NSString *) showVdong:(NSString *)str title:(NSString *)tit;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>在 ios/AppController.mm 文件中实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@implementation</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在这个之间实现函数</span></span><br><span class="line"></span><br><span class="line">+(NSString *) showVdong:(NSString *)str title:(NSString *)tit &#123;</span><br><span class="line">    <span class="keyword">return</span> @<span class="string">"haha"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>js 调用用例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(cc.sys.os == cc.sys.OS_IOS || cc.sys.os == cc.sys.OS_OSX) &#123;</span><br><span class="line">    <span class="keyword">var</span> ret = jsb.reflection.callStaticMethod(<span class="string">"AppController"</span>,<span class="string">"showVdong:title"</span>,<span class="string">"你是谁???"</span>,<span class="string">"天呢"</span>);</span><br><span class="line">    cc.log(<span class="string">'****************'</span>,ret);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="oc-调用-js"><a href="#oc-调用-js" class="headerlink" title="oc 调用 js"></a>oc 调用 js</h2><ul>
+<li><p>在 ios/AppController.mm 文件中实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"cocos/scripting/js-bindings/manual/ScriptingCore.h"</span></span></span><br><span class="line"></span><br><span class="line">+(NSString *) showVdong:(NSString *)str title:(NSString *)tit &#123;</span><br><span class="line">    </span><br><span class="line">    ScriptingCore::getInstance()-&gt;evalString(<span class="string">"test"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> @<span class="string">"haha"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>js 中的测试用例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    cc.log(<span class="string">"OC call JS success !!!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>参考地址(这个是CocosCreator原生游戏调用) &gt; <a href="https://www.cnblogs.com/billyrun/articles/8529503.html">https://www.cnblogs.com/billyrun/articles/8529503.html</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Última actualización<time datetime="2018-12-15T02:35:32.345Z" itemprop="dateUpdated">2018-12-15 10:35:32</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/41d43874/" target="_blank" rel="external">https://leng521.top/posts/41d43874/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://leng521.top'">
+            <img src="/img/head.jpg" alt="小魏">
+            <a>小魏</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/41d43874/&title=《cocos2dx-JS-OC-Java互相调用》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/41d43874/&title=《cocos2dx-JS-OC-Java互相调用》 — 小魏的博客&source=cocos2dx js java oc 和 js 的相互调用引擎版本: 3.17语言: jsXcode: 10.1AndroidStudio: 3.2.1..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/41d43874/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《cocos2dx-JS-OC-Java互相调用》 — 小魏的博客&url=https://leng521.top/posts/41d43874/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/41d43874/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/a2412c06/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：AndroidStudio打包Cocos2dx">下一篇：AndroidStudio打包Cocos2dx</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "VuMjQqCGIaGKlNSxkQYjregm-gzGzoHsz",
+            appKey: "HbpDPI0yYswQ7SEDXvzILkIi",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://leng521.top">leng521.top</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">Este blog está licenciado bajo una <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">licencia internacional Creative Commons Attribution 4.0</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/41d43874/&title=《cocos2dx-JS-OC-Java互相调用》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/41d43874/&title=《cocos2dx-JS-OC-Java互相调用》 — 小魏的博客&source=cocos2dx js java oc 和 js 的相互调用引擎版本: 3.17语言: jsXcode: 10.1AndroidStudio: 3.2.1..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/41d43874/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《cocos2dx-JS-OC-Java互相调用》 — 小魏的博客&url=https://leng521.top/posts/41d43874/&via=https://leng521.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/41d43874/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABv0lEQVR42u3aQQ6DMAxEUe5/6fQAiDAzxi5IP6sK1OTBwkrGHIc81mlkd8/Xj44BFy7cMndthwLaz3NF3M9/uRZcuHAHuVfL60VHobjzw4UL9ytctxgpDwAXLtyvc/UDTLbdgQsX7nu4ehlyQ43scPXAWQ0uXLgFrr5k3++WfBcuXLgRd5lD3xhlwejN6nDhwh3humGoskFxr+jrwoULd5K7jzCeOuRUGq5G4gIXLtwyV//EKtuOKEQjHIELF+4g1500a4fsX400M1y4cEe4laOL+2DKv6RHggsXbjO3EnbYbyW6e/le4cKF28bVP7RyGypu7JI9Nly4cDu4erShhJtu+bNDW7hw4Q5y3Y2FvtFRCqVdyODChdvMrX9m8VST1Q1h4cKF2811m6NKSdI3N3YICxcu3HGuu2RHbHrz+uDChfsnrl5i3OBDj1bD5BUuXLhl7jJHFmdkRRAuXLj/4rrFZV/Ism8ksuYuXLhwu7l60XGPLlkpvClwcOHCHeTqhabems0asXDhwv0WNzvwlE5scOHCfSVXL0nKhskQwoULd5CbFaBKayRr28CFC3eGmy2ZhaduPFrKd+HChZtwf70qSOd+EdN0AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/01/17");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+    elasticText({
+        id: "mymotto",
+        duration: 100,
+        effact: "easeOut",
+        content: ""
+    });
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "小魏");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>
