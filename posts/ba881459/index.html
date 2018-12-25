@@ -1,49 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
-    <meta http-equiv="Content-Language" content="zh-cn">
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="https://leng521.top/posts/ba881459/">
-    
-    
-    <title>微信小游戏记录长连接(websocket) | 小魏的博客 | 摔倒了爬起来就好。</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    
-    <meta name="theme-color" content="#77AAFF">
-    
-    
-    <meta name="keywords" content="微信小游戏,websocket">
-    
-    
-
-    
-
-    <!-- Baidu Push -->
-<script>
-	(function(){
-		var bp = document.createElement('script');
-		var curProtocol = window.location.protocol.split(':')[0];
-		if (curProtocol === 'https') {
-			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-		}
-		else {
-			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-		}
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(bp, s);
-	})();
-
-	var _hmt = _hmt || [];
-</script>
-
-
-	<script src="//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209"></script>
-
-
-    
-    <meta name="description" content="哎,距离上次写博客竟然一个月了,真是时间不等人呀,好了废话不多说,直接进入正题.今天主要记录这几个问题:  websocket 端口问题, http(短连接) 端口问题,  由于公司的云服务器都是使用的是阿里云,但是小游戏是腾讯的,腾讯云又推出了一堆有利于小游戏的服务,但是我们用不来了,那就自己去解决里面会遇到的问题,">
+  <meta charset="utf-8">
+  
+  <title>微信小游戏记录长连接(websocket) | 小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="哎,距离上次写博客竟然一个月了,真是时间不等人呀,好了废话不多说,直接进入正题.今天主要记录这几个问题:  websocket 端口问题, http(短连接) 端口问题,  由于公司的云服务器都是使用的是阿里云,但是小游戏是腾讯的,腾讯云又推出了一堆有利于小游戏的服务,但是我们用不来了,那就自己去解决里面会遇到的问题,">
 <meta name="keywords" content="微信小游戏,websocket">
 <meta property="og:type" content="article">
 <meta property="og:title" content="微信小游戏记录长连接(websocket)">
@@ -55,176 +17,266 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微信小游戏记录长连接(websocket)">
 <meta name="twitter:description" content="哎,距离上次写博客竟然一个月了,真是时间不等人呀,好了废话不多说,直接进入正题.今天主要记录这几个问题:  websocket 端口问题, http(短连接) 端口问题,  由于公司的云服务器都是使用的是阿里云,但是小游戏是腾讯的,腾讯云又推出了一堆有利于小游戏的服务,但是我们用不来了,那就自己去解决里面会遇到的问题,">
-    
-        <link rel="alternate" type="application/atom+xml" title="小魏的博客" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/img/favicon.png">
-    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
-    <script>window.lazyScripts=[]</script>
-
-    <!-- custom head -->
-    
-            
-</head>
-
+  
+    <link rel="alternative" href="/atom.xml" title="小魏的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
 <body>
-    <div id="loading" class="active"></div>
-    <aside id="menu" class="hide">
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/head.jpg" alt="avatar">
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/assets/img/head.jpg" class="js-avatar">
+            
         </a>
-        <hgroup class="introduce">
-          <h5 class="nickname" id="name">小魏</h5>
-          
-            <div id="mymotto" class="motto"></div>
-          
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
-        
-              <li class="waves-block waves-effect">
-                  <a href="/">
-                    <i class="icon icon-lg icon-home"></i>
-                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
-                  </a>
-              </li>
-            
-              <li class="waves-block waves-effect">
-                  <a href="/archives">
-                    <i class="icon icon-lg icon-archives"></i>
-                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
-                  </a>
-              </li>
-            
-              <li class="waves-block waves-effect">
-                  <a href="/categories">
-                    <i class="icon icon-lg icon-th-list"></i>
-                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
-                  </a>
-              </li>
-            
-              <li class="waves-block waves-effect">
-                  <a href="/tags">
-                    <i class="icon icon-lg icon-tags"></i>
-                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
-                  </a>
-              </li>
-            
-              <li class="waves-block waves-effect">
-                  <a href="/about">
-                    <i class="icon icon-lg icon-smile-o"></i>
-                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
-                  </a>
-              </li>
-            
-      <div class="nav2">
-          
-              <a class="nav2item" data-title="Email" href="xiaowei:2807582398@qq.com" target="_parent" title="Email">
-                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
-              </a>
-          
-              <a class="nav2item" data-title="Github" href="https://github.com/" target="_blank" title="Github">
-                <i class="icon icon-lg icon-github github"></i>
-              </a>
-          
 
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">小魏</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">摔倒了爬起来就好。</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
             </div>
         
-      </ul>
-        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/Home">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="#" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="#" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="#" title="weibo">weibo</a>
+                            
+                                <a class="fl google" target="_blank" href="#" title="google">google</a>
+                            
+                                <a class="fl twitter" target="_blank" href="#" title="twitter">twitter</a>
+                            
+                                <a class="fl linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
+                            
+                                <a class="fl rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/CocosCreator/" style="font-size: 10px;">CocosCreator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12.5px;">c++</a> <a href="/tags/cocos-creator/" style="font-size: 15px;">cocos creator</a> <a href="/tags/cocos2dx/" style="font-size: 12.5px;">cocos2dx</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/scons/" style="font-size: 12.5px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 20px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://luuman.github.io/FrontEndGuideV2/FrontEndGuide/#/Index">tools</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中.&lt;-- QQ 2807582398 --&gt;</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
     </div>
-  </div>
- 
-</aside>
-
-
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">微信小游戏记录长连接(websocket)</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">小魏</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/assets/img/head.jpg" class="js-avatar">
+                
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">小魏</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">摔倒了爬起来就好。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/Home">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="#" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="#" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+                    
+                        <a class="google" target="_blank" href="#" title="google">google</a>
+                    
+                        <a class="twitter" target="_blank" href="#" title="twitter">twitter</a>
+                    
+                        <a class="linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-微信小游戏记录长连接-websocket" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/posts/ba881459/" class="article-date">
+      <time datetime="2018-09-15T02:55:43.000Z" itemprop="datePublished">2018-09-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
         
-        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
-            <i class="icon icon-lg icon-rss"></i>
-        </a>
-    </div>
-</header>
-<header class="content-header post-header">
-    
-    
-    <div class="container fade-scale">
-        <div id="myheader">
-            <h1 class="title">
-                
-            </h1>
-            <h5 class="subtitle">
-                
-                
-            </h5>
-        </div>
+  
+    <h1 class="article-title" itemprop="name">
+      微信小游戏记录长连接(websocket)
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/微信小游戏/">微信小游戏</a>
     </div>
 
-</header>
 
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/websocket/">websocket</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信小游戏/">微信小游戏</a></li></ul>
+    </div>
 
-<div class="container body-wrap">
+        <div class="clearfix"></div>
+      </div>
+      
     
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#websocket-端口问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">websocket 端口问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#http-短连接端口问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">http 短连接端口问题</span></a></li></ol>
-        </nav>
-    </aside>
-   
-<article id="post-微信小游戏记录长连接-websocket" class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">微信小游戏记录长连接(websocket)</h1>
-        <div class="post-meta">
-            <i class="icon icon-lg icon-calendar-o"></i>
-            发表于
-            <time class="post-time" title="2018-09-15 10:55:43" datetime="2018-09-15T02:55:43.000Z" itemprop="datePublished">2018-09-15</time>
-
-            <br id="mybreak">
-            
-	<i class="icon icon-lg icon-folder-o"></i>
-	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/微信小游戏/">微信小游戏</a></li></ul>
-
-
-            <i>·</i>
-            
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
-</span>
-
-
-        </div>
-        <div class="post-count-custom">
-            <i class="icon icon-lg icon-comment-o"></i>
-            阅读本文可能花费您&nbsp;<span class="post-count">3</span>&nbsp;分钟
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <p>哎,距离上次写博客竟然一个月了,真是时间不等人呀,好了废话不多说,直接进入正题.<br>今天主要记录这几个问题:</p>
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>哎,距离上次写博客竟然一个月了,真是时间不等人呀,好了废话不多说,直接进入正题.<br>今天主要记录这几个问题:</p>
 <ul>
 <li>websocket 端口问题,</li>
 <li>http(短连接) 端口问题,</li>
@@ -240,369 +292,225 @@
 <h2 id="http-短连接端口问题"><a href="#http-短连接端口问题" class="headerlink" title="http 短连接端口问题"></a>http 短连接端口问题</h2><p>微信小游戏短连接是使用的是 https 协议 一般 https 的默认端口是 443 , 一般你在浏览器没有加端口,那是浏览器默认为443 ,,, 但是前面说了可以使用 nginx 来实现反向代理的问题, 如果是短连接的话 有个简单的 方法 ,, 经过我测试, 在微信后台配置其他端口在手机上是可以访问,所以 如果项目只是 短连接请求的话可以直接在后台配置你服务器开启的端口,这种方法只适用于 短连接,,, 长连接是不行, 长连接在 后台配置 会出现 在 微信开发工具上测试正常,到手机上测试会出现操作失败的错误,,,而且也连接不上.</p>
 <p>好了,这篇文章就先这样. 我也不想 让文章的篇幅过长.</p>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    <div class="content">
-        
-<span class="post-time">
-    Last updated: <time datetime="2018-09-15T10:06:12.658Z" itemprop="dateUpdated">2018-09-15 18:06:12</time>
-</span>
-
-
-        
-        原文链接：<a href="/posts/ba881459/" target="_blank" rel="external">https://leng521.top/posts/ba881459/</a>
-        
+      
+      
     </div>
-    <footer>
-        <div onclick="location.href='https://leng521.top'">
-            <img src="/img/head.jpg" alt="小魏">
-            <a>小魏</a>
-        </div>
-    </footer>
-</blockquote>
-
-        
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/websocket/">websocket</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信小游戏/">微信小游戏</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
     
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/ba881459/&title=《微信小游戏记录长连接(websocket)》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/ba881459/&title=《微信小游戏记录长连接(websocket)》 — 小魏的博客&source=哎,距离上次写博客竟然一个月了,真是时间不等人呀,好了废话不多说,直接进入正题.今天主要记录这几个问题:
-
-websocket 端口问题,
-http(短连..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/ba881459/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏记录长连接(websocket)》 — 小魏的博客&url=https://leng521.top/posts/ba881459/&via=https://leng521.top" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/ba881459/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/posts/ba881459/">微信小游戏记录长连接(websocket)</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 小魏 的个人博客">小魏</a></p>
+        <p><span>发布时间:</span>2018年09月15日 - 10时55分</p>
+        <p><span>最后更新:</span>2018年09月15日 - 18时06分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/posts/ba881459/" title="微信小游戏记录长连接(websocket)">https://leng521.top/posts/ba881459/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://leng521.top/posts/ba881459/　　作者: 小魏" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
 
 
 
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
+<nav id="article-nav">
+  
+    <a href="/posts/dd666e1a/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          QQ玩一玩打包
+        
+      </div>
     </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
   
-    <div class="waves-block waves-effect prev">
-      <a href="/posts/dd666e1a/" id="post-prev" class="post-nav-link">
-        <h4 class="title">
-          上一篇：QQ玩一玩打包
-        </h4>
-      </a>
-    </div>
   
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/posts/967bbd27/" id="post-next" class="post-nav-link">
-        <h4 class="title" data-hover="下一篇：微信小游戏接入广告">下一篇：微信小游戏接入广告</h4>
-      </a>
-    </div>
+    <a href="/posts/967bbd27/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微信小游戏接入广告</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
-
-
-    
-    
-
-    
-
-    
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script -->
-    <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'false' == 'true',
-            verify: 'false' == 'true',
-            appId: "VuMjQqCGIaGKlNSxkQYjregm-gzGzoHsz",
-            appKey: "HbpDPI0yYswQ7SEDXvzILkIi",
-            avatar: "mm",
-            placeholder: "Just go go",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
-        })
-    </script>
-    <!-- Valine Comments end -->
-
-
-
+  
 </article>
 
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#websocket-端口问题"><span class="toc-number">1.</span> <span class="toc-text">websocket 端口问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http-短连接端口问题"><span class="toc-number">2.</span> <span class="toc-text">http 短连接端口问题</span></a></li></ol>
 </div>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
 
-        <footer class="footer">
-    <div class="footer-content">
-        <span class="power">
-            <i class="icon icon-lg icon-copyright"></i>
-            2018
-            <i class="icon icon-lg icon-heart"></i>
-            <a href="https://leng521.top">leng521.top</a>
-            <br>
-            Power by
-            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
-            Theme
-            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
-        </span>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
 
-        <br>
-
-        <span id="RunTime" style="color:#a7a7a2;"></span>
-        <br>
-
-        <span>
-            
-	<i class="icon icon-lg icon-user">
-<span id="busuanzi_container_site_uv" style="display:none">
-       访问用户：<span id="busuanzi_value_site_uv"></span>
-    </span>人</i>
-    ·
-    <i class="icon icon-lg icon-eye">
-    <span id="busuanzi_container_site_pv" style="display:none">
-      访问次数：<span id="busuanzi_value_site_pv"></span>
-    </span>次
-    </i>
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
 
 
-        </span>
-        <br>
 
-        <span class="license">This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNDA0MC8xMDU3OA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/posts/dd666e1a/" title="上一篇: QQ玩一玩打包">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/posts/967bbd27/" title="下一篇: 微信小游戏接入广告">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
     </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/66615451/">scons自动构建工具(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/79065537/">scons自动构建工具</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/41d43874/">cocos2dx-JS-OC-Java互相调用</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/a2412c06/">AndroidStudio打包Cocos2dx</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/90e70f70/">记录TweenLite库</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/dd666e1a/">QQ玩一玩打包</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/ba881459/">微信小游戏记录长连接(websocket)</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/967bbd27/">微信小游戏接入广告</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/4ec7de9/">微信小游戏开发问题总结</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/da41a120/">微信小游戏发布流程</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/777fe656/">微信小游戏开发记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/8e17853e/">解决运行exe时缺少dll问题</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/b1de475b/">给sublime写自定义的插件</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/f62a7c7d/">linux升级gcc</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/1e09c0f5/">9宫格纹理的更新问题</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/87435431/">python-闭包问题</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/a9ff66a6/">记录使用hexo写博客的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/ce1d3b12/">python_optionparser模块</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/82a402af/">git命令的记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/c4c0a180/">优化cocos2dxSpine库</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/6743743b/">Using-Hexo</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/4a17b156/">Hello World</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 小魏
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit">海贼到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+    
 </footer>
 
-    </main>
-    
-        
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
-    
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-
-
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/ba881459/&title=《微信小游戏记录长连接(websocket)》 — 小魏的博客&pic=https://leng521.top/img/head.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/ba881459/&title=《微信小游戏记录长连接(websocket)》 — 小魏的博客&source=哎,距离上次写博客竟然一个月了,真是时间不等人呀,好了废话不多说,直接进入正题.今天主要记录这几个问题:
-
-websocket 端口问题,
-http(短连..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/ba881459/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏记录长连接(websocket)》 — 小魏的博客&url=https://leng521.top/posts/ba881459/&via=https://leng521.top" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/ba881459/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p class="wechatshare">扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxElEQVR42u3aO27DMBAFQN//0k6bRvJ7XJNKgGFlyIo5TLHgfl6veL1/rfad++evHQsXF3fMfd+u+TtXxPb3cXFxz3OvIsb955aSvP/BhouL+ye590/uw9zVAXBxcf87N9nm6gAPx11cXNySm4ehp+oYuLi4J7n5lvs+b6nv4uLiLnHf5UraKnnaU++Oi4t7hJsHlElrpC2FfNgXFxd3M3ct7UlC2HcbrqMsDRcXt+R+K2C1w1tJsIvQuLi4G7hJoGnTmLaVUjRycHFxj3DXhifyy00bzooj4eLibuMmuPkBJt9+yNVwcXE3cPOEJ9+sHdKq4y4uLu5mbpKutOhv/eZlroaLi7uZmw9LTQYykuPVcRcXF3czNwlD+bdt2KpLpbi4uEe4bRqTXGXy0Y38X4CLi/sUN7m+TAJTe+mJkh9cXNxt3KShMimk5uEyuoXh4uJu477LNW+U5k0UXFzcp7hrLdK24Tqp1iweBhcXd8xNgldbNm3bJEWAw8XFPciddGDy6Lj2TlTfxcXFfZSbj2JMntcnxsXFfZSbtz3ysc5CiIuLe5A7Gcqc/FWbUOHi4p7hrjU+8zLKZCBjVN/FxcVd4f4AZFl7ilLyueMAAAAASUVORK5CYII=" alt="微信分享二维码">
-</div>
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
 
 
 
 
-    <!-- waves按钮特效 -->
-<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
 
-<!-- 主题配置脚本 -->
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
-</script>
-
-<!-- jquery -->
-<script src="/js/jquery.min.js?v=3.0"></script>
-
-<!-- 搜索 -->
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item waves-block waves-effect" onclick="location.href='{path}'">
-    <div class="title ellipsis" title="{title}">{title}</div>
-</li>
-</template>
-
-
-<!-- main博客脚本 -->
-<script src="/js/main.min.js?v=3.0"></script>
-
-<!-- 动画&配置 -->
-<script src="/js/script.min.js?v=3.0"></script>
-
-<!-- 脚本管理 -->
-<script>
-
-if(window.innerWidth > 800){
-	/* 3D标题 */
-	$(".content-header").on("mousemove", threedee);
-
-	/* 底部追随鼠标 */
-	$(".footer").hover(2);
-
-	/* gotop键的涟漪 */
-	$("#gotop").hover(1);
-
-	/* 赞赏的粒子雨 */
-	$("#reward").hover(3);
-
-	/* 微信公众号的底部渲染 */
-	$("#wechat").hover(4);
-
-    /* 标题跳动 */
-    $(".archivestitle").bumpyText();
-
-	/* 图片点击放大 */
-	const postimg = jQuery(".post-content img:not(.github-emoji)");
-	postimg.on("click",function(){
-
-		mask.classList.add("in");
-		main.classList.add("Mask");
-		menu.classList.add("Mask");
-		var myimg = this.cloneNode(true);
-		myimg.classList.add("imgShow");
-
-		setTimeout(function(){
-			jQuery(myimg).animate({
-				opacity:"1"
-			},1000);
-		},0);
-
-		document.body.appendChild(myimg);
-
-		myimg.onclick=function(){
-			document.body.removeChild(myimg);
-			mask.classList.remove("in");
-			main.classList.remove("Mask");
-			menu.classList.remove("Mask");
-		};
-
-	});
-
-}
-
-/* 名字跳动 */
-$("#name").bumpyText();
-
-
-/* 网站运行时间 */
-setInterval(function () {
-	setTime("2018/01/17");
-}, 1000);
-
-/* 文章块的淡出 */
-postshow();
-
-/* 座右铭 */
-
-    elasticText({
-        id: "mymotto",
-        duration: 100,
-        effact: "easeOut",
-        content: ""
-    });
-
-
-
-/* 粘贴提示 */
-G($(".post-content"), location.href, "小魏");
-
-
-/* 控制台 */
-if (window.console && window.console.log) {
-	setTimeout(function () {
-		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
-	}, 0);
-}
-
-</script>
-
-
-
-
-<!-- 公式渲染 -->
-
-<!-- mathjax config similar to math.stackexchange -->
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -616,19 +524,76 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
 
-<!-- 不蒜子 -->
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
 
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
 
 
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
+      }
+    </script>
+
+
+  </div>
 </body>
 </html>
