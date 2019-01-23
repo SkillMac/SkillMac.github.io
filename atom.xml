@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://leng521.top/"/>
-  <updated>2018-12-25T14:14:22.021Z</updated>
+  <updated>2019-01-23T13:14:14.034Z</updated>
   <id>https://leng521.top/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git操作命令记录(二)</title>
+    <link href="https://leng521.top//posts/b0c8e6a5/"/>
+    <id>https://leng521.top//posts/b0c8e6a5/</id>
+    <published>2019-01-23T13:01:07.000Z</published>
+    <updated>2019-01-23T13:14:14.034Z</updated>
+    
+    <content type="html"><![CDATA[<hr><p>时间: 2019年1月23日18:51:03</p><p>后面的格式是,在每篇文章开头都会加上时间,好比较你现在的时间和这篇博客书写的时间,你好判定你是借鉴还是可以直接用.</p><p>今天主要是介绍 git 的其他命令.</p><ul><li>git 仓库打标签(tag)</li><li>git 扩展工具 lfs(large file system)</li></ul><a id="more"></a><h2 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h2><h3 id="给分支打标签"><a href="#给分支打标签" class="headerlink" title="给分支打标签"></a>给分支打标签</h3><pre><code>git tag &lt;tagName&gt;这个命令是给本地仓库最近的一次提交打个标签.</code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag 1.0.0</span><br></pre></td></tr></table></figure></p><h2 id="—"><a href="#—" class="headerlink" title="—"></a>—</h2><h3 id="获取本地所有的标签"><a href="#获取本地所有的标签" class="headerlink" title="获取本地所有的标签"></a>获取本地所有的标签</h3><pre><code>git tag</code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br><span class="line">&gt; 1.0.0</span><br></pre></td></tr></table></figure></p><h2 id="—-1"><a href="#—-1" class="headerlink" title="—"></a>—</h2><h3 id="删除本地标签"><a href="#删除本地标签" class="headerlink" title="删除本地标签"></a>删除本地标签</h3><pre><code>git tag -d &lt;tagName&gt;</code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -d 1.0.0</span><br></pre></td></tr></table></figure></p><h2 id="—-2"><a href="#—-2" class="headerlink" title="—"></a>—</h2><h3 id="给标签添加描述信息"><a href="#给标签添加描述信息" class="headerlink" title="给标签添加描述信息"></a>给标签添加描述信息</h3><pre><code>git tag -a &lt;tagName&gt; -m &quot;&lt;decription&gt;&quot;</code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a 1.0.1 -m &quot;online version1.0.1&quot;</span><br></pre></td></tr></table></figure></p><h2 id="—-3"><a href="#—-3" class="headerlink" title="—"></a>—</h2><h3 id="给标签添加描述信息-1"><a href="#给标签添加描述信息-1" class="headerlink" title="给标签添加描述信息"></a>给标签添加描述信息</h3><pre><code>git tag -a &lt;tagName&gt; -m &quot;&lt;decription&gt;&quot;</code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a 1.0.1 -m &quot;online version1.0.1&quot;</span><br></pre></td></tr></table></figure></p><h2 id="—-4"><a href="#—-4" class="headerlink" title="—"></a>—</h2><h3 id="给指定的提交打上标签"><a href="#给指定的提交打上标签" class="headerlink" title="给指定的提交打上标签"></a>给指定的提交打上标签</h3><pre><code>git tag &lt;tagName&gt; &lt;commitId&gt;</code></pre><blockquote><p>这里查询相关的 提交Id(commitId) 可以使用 git log 去看, 但是显示的 commitId 太长了不太好看<br>可以使用下面的命令查看 git log –abbrev-commit 其实给git的 commitId 七位就可以锁定一次提交记录.</p></blockquote><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag 1.0.2 7b23fc5</span><br></pre></td></tr></table></figure></p><h2 id="—-5"><a href="#—-5" class="headerlink" title="—"></a>—</h2><h3 id="显示标签的详细情况"><a href="#显示标签的详细情况" class="headerlink" title="显示标签的详细情况"></a>显示标签的详细情况</h3><pre><code>git show &lt;tagName&gt;</code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show 1.0.2</span><br></pre></td></tr></table></figure></p><h2 id="—-6"><a href="#—-6" class="headerlink" title="—"></a>—</h2><blockquote><pre><code>上面这些都是本地的操作,你肯定还需要将你这些,tag提交上去.</code></pre></blockquote><h3 id="推送指定标签到远端"><a href="#推送指定标签到远端" class="headerlink" title="推送指定标签到远端"></a>推送指定标签到远端</h3><pre><code>git push origin &lt;tagName&gt;</code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin 1.0.1</span><br></pre></td></tr></table></figure></p><h2 id="—-7"><a href="#—-7" class="headerlink" title="—"></a>—</h2><h3 id="推送本地所有的标签"><a href="#推送本地所有的标签" class="headerlink" title="推送本地所有的标签"></a>推送本地所有的标签</h3><pre><code>git push origin --tags</code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --tags</span><br></pre></td></tr></table></figure></p><h2 id="—-8"><a href="#—-8" class="headerlink" title="—"></a>—</h2><h3 id="删除远端标签"><a href="#删除远端标签" class="headerlink" title="删除远端标签"></a>删除远端标签</h3><pre><code>git push origin :refs/tags/&lt;tagName&gt;git push origin --delete tag &lt;tagName&gt;</code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push origin :refs/tags/1.0.1</span><br><span class="line">git push origin --delete tag 1.0.1</span><br></pre></td></tr></table></figure></p><h2 id="—-9"><a href="#—-9" class="headerlink" title="—"></a>—</h2><p>也许有些人会疑惑,怎么去查看远程的 tag,这个你就不用纠结了,因为每次<code>git pull</code>的时候,都会将别人推送上去的 tag 给拉取到本地再次使用 git tag 查看就行了.</p><blockquote><p>删除远端 tag 的工作流(workflow) 先删除本地的tag 然后在删除远端的 tag.</p></blockquote><h2 id="git-lfs"><a href="#git-lfs" class="headerlink" title="git lfs"></a>git lfs</h2><p><a href="https://git-lfs.github.com/">git-lfs参考地址</a></p><img src="/posts/b0c8e6a5/1.gif" title="git-lfs示意图"><p>这个扩展工具是解决 主仓库日渐庞大的时候 拉取缓慢的问题.</p><p>每次提交都会使仓库的总体积变的原来越大.尤其是一些大的项目这一点会体现的越来越明显,导致别人在拉取的时候会变得很缓慢.</p><p>git lfs 的解决方案是 将一些大的文件 储存在另外的仓库中,保证你的主仓库的体积不会很大.正如,git-lfs 中说到的 更快的拉取速度.但是它并没有解决仓库体积的问题.</p><h3 id="git-lfs-的工作流-workflow"><a href="#git-lfs-的工作流-workflow" class="headerlink" title="git-lfs 的工作流(workflow)"></a>git-lfs 的工作流(workflow)</h3><p>1.先去安装 这个扩展工具.<br>2.然后在你的仓库目录下,打开 git 执行 <code>git lfs install</code><br>3.添加你要追踪的大尺寸文件,它这里支持模糊匹配 <code>git lfs track &quot;*.extName&quot;</code><br>4.执行 <code>git lfs install</code>的时候会产生一个.gitattributes的文件 确保他被提交被追踪 <code>git add .gitattributes</code></p><ol><li>使用 <code>git lfs track</code> 查看现有的文件追踪模式</li><li>提交后执行<code>git lfs ls-files</code> 可以显示当前跟踪的文件列表</li><li>其他的文件添加跟正常的git 工作流是保持一致.</li><li>拉取代码直接就是 git pull , 注意不需要使用 git lfs pull了.</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;p&gt;时间: 2019年1月23日18:51:03&lt;/p&gt;
+&lt;p&gt;后面的格式是,在每篇文章开头都会加上时间,好比较你现在的时间和这篇博客书写的时间,你好判定你是借鉴还是可以直接用.&lt;/p&gt;
+&lt;p&gt;今天主要是介绍 git 的其他命令.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;git 仓库打标签(tag)&lt;/li&gt;
+&lt;li&gt;git 扩展工具 lfs(large file system)&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="git" scheme="https://leng521.top/categories/git/"/>
+    
+    
+      <category term="git" scheme="https://leng521.top/tags/git/"/>
+    
+      <category term="git 扩展工具" scheme="https://leng521.top/tags/git-%E6%89%A9%E5%B1%95%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>scons自动构建工具(二)</title>
