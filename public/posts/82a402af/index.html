@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>git命令的记录 | 小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
+  <meta name="description" content="现在对git也使用快一年了现在总结一下常用的一些命令。 本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit">
+<meta name="keywords" content="git命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git命令的记录">
+<meta property="og:url" content="https://leng521.top/posts/82a402af/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="现在对git也使用快一年了现在总结一下常用的一些命令。 本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-25T07:53:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git命令的记录">
+<meta name="twitter:description" content="现在对git也使用快一年了现在总结一下常用的一些命令。 本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit">
+  
+  
+    <link rel="icon" href="images/head.jpg">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com/">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com/">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-git命令的记录" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      git命令的记录
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-03-07
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>现在对git也使用快一年了现在总结一下常用的一些命令。</p>
+<h3 id="本文的大纲"><a href="#本文的大纲" class="headerlink" title="本文的大纲"></a><strong>本文的大纲</strong></h3><p>对以下命令做一些记录<br>1.git clone<br>2.git pull<br>3.git commit<br><a id="more"></a><br>4.git push<br>5.git branch<br>6.git remote<br>7.git checkout<br>8.git reset<br>9.git stash<br>10.git配置一些外部工具<br>11.git merge<br>12.git log<br>13.git show</p>
+<h2 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a><strong>git clone</strong></h2><pre><code>git clone 是克隆别的仓库
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;repo&gt; &lt;directory&gt;</span><br><span class="line">参数说明：</span><br><span class="line">    repo:Git 仓库</span><br><span class="line">    directory:本地目录</span><br></pre></td></tr></table></figure>
+<pre><code>ej:比如，要克隆 Ruby 语言的 Git 代码仓库 Grit，可以用下面的命令：
+git clone git://github.com/schacon/grit.git
+或者是这样的
+git clone git://github.com/schacon/grit.git test
+这个就会克隆到 ../test 和目录
+</code></pre><h2 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a><strong>git pull</strong></h2><pre><code>拉取别人在远程仓库更新的内容 
+默认是远程的 origin 分支
+</code></pre><h2 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a><strong>git add</strong></h2><pre><code>将本地的改变提交到缓存区
+</code></pre><p><strong>git add -u</strong></p>
+<blockquote>
+<p>是将本地追踪的文件提交到缓存区</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">git add -u *.png</span><br><span class="line">--添加所有追踪的文件提交到缓存区 前提是以.png 为结尾的文件</span><br></pre></td></tr></table></figure>
+<p><strong>git add -A</strong></p>
+<blockquote>
+<p>是将本地未追踪的文件提交到缓存区</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">git add -A .</span><br><span class="line">--添加所有的未追踪的文件提交到缓存区</span><br></pre></td></tr></table></figure>
+<h2 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a><strong>git commit</strong></h2><blockquote>
+<p>将本地的改变提交到缓存区的内容到本地版本库</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">git commit -m &quot;test&quot;</span><br><span class="line">-- -m 是对此次的提交内容的描述(desc)</span><br></pre></td></tr></table></figure>
+<h2 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a><strong>git push</strong></h2><blockquote>
+<p>将本地的改变提交到本地版本库的内容推送到远程版本库</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">git push</span><br><span class="line">-- 默认是主为分支(origin)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>git push 将本地分支推送到云端</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin/远程分支的名字 本地分支的名字</span><br></pre></td></tr></table></figure>
+<h2 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a><strong>git branch</strong></h2><blockquote>
+<p>有关分支的一些使用</p>
+</blockquote>
+<p><strong>git branch</strong></p>
+<blockquote>
+<p>查看本地分支</p>
+</blockquote>
+<p><strong>git branch -vv</strong></p>
+<blockquote>
+<p>查看本地分支 与 远程分支的映射关系</p>
+</blockquote>
+<p><strong>git branch -a</strong></p>
+<blockquote>
+<p>查看 本地和远程分支</p>
+</blockquote>
+<p><strong>git branch -r</strong></p>
+<blockquote>
+<p>查看远程分支</p>
+</blockquote>
+<p><strong>git branch xx</strong></p>
+<blockquote>
+<p>创建新的xx分支</p>
+</blockquote>
+<p><strong>git branch -D xx</strong></p>
+<blockquote>
+<p>删除xx分支</p>
+</blockquote>
+<h2 id="git-branch-upstream-git-分支的映射关系"><a href="#git-branch-upstream-git-分支的映射关系" class="headerlink" title="git branch upstream(git 分支的映射关系)"></a><strong>git branch upstream(git 分支的映射关系)</strong></h2><pre><code>建立本地分支与远程分支的映射关系（或者为跟踪关系track）。这样使用`git pull`或者`git push`时就不必每次都要指定从远程的哪个分支拉取合并和推送到远程的哪个分支了。
+</code></pre><p>ej:<br><br>从这上面可以看到本地分支与远程分支的映射关系<br>若没有映射关系 <code>git pull 或是 git push</code> 会失败</p>
+<p><strong>与远程分支建立映射关系</strong></p>
+<p>使用 <code>git branch -u origin/xx</code> 与远程分支 建立 映射关系<br>xx 为 远程分支的名字</p>
+<p><strong>与远程分支取消映射关系</strong><br>使用 <code>git branch --unset-upstream</code></p>
+<blockquote>
+<p>补充：不同名字客之间也是可以建立映射关系的</p>
+</blockquote>
+<p><strong>删除远程的分支</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete xxx</span><br><span class="line">-- xxx 为远程分支的名字</span><br></pre></td></tr></table></figure></p>
+<h2 id="git-fetch"><a href="#git-fetch" class="headerlink" title="git fetch"></a><strong>git fetch</strong></h2><blockquote>
+<p>来一个关系式 <code>git pull = git fecth + git merge</code><br>拉取别人远程仓库的内容到自己本地的一个分支上</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">    git fecth origin test:temp</span><br><span class="line">    -- 拉取远程分支 test 到 本地 temp 分支上</span><br><span class="line">    -- 注意这种拉取 本地分支和远程分支 是没有映射关系的</span><br></pre></td></tr></table></figure>
+<h2 id="git-remote"><a href="#git-remote" class="headerlink" title="git remote"></a><strong>git remote</strong></h2><p><strong>git remote and git remote -v</strong></p>
+<blockquote>
+<p>git remote用来管理本地工作目录对应的远程代码仓库，在一般的工作目录下，执行git remote结果如下：<br></p>
+</blockquote>
+<p><strong>git remote add</strong></p>
+<blockquote>
+<p>我们可以使用git remote add命令来增加一个远程仓库，这个远程仓库可以是ssh地址（如上面这种），可以是本地目录，也可以是git协议或者http协议的地址。 例如，我要把liming的仓库作为我的远程仓库之一，可以执行git remote add 来增加仓库，例如：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add liming /home/liming/repo</span><br><span class="line">$ git remote</span><br><span class="line">liming</span><br><span class="line">origin</span><br><span class="line">$ git remote -v</span><br><span class="line">liming  /home/liming/repo (fetch)</span><br><span class="line">liming  /home/liming/repo (push)</span><br><span class="line">origin  git@remoteRepo (fetch)</span><br><span class="line">origin  git@remoteRepo (push)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>相应的，可以使用git remote rm或者git remote rename对远程代码仓库的名称进行修改（本地的，不会影响到对方的目录）</p>
+</blockquote>
+<h2 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a><strong>git checkout</strong></h2><pre><code>作用：
+1.切换分支
+2.放弃对某个文件的修改
+3.创建新的分支
+</code></pre><p><strong>git checkout xx</strong></p>
+<blockquote>
+<p>切换到xx分支</p>
+</blockquote>
+<p><strong>git checkout -b xx</strong></p>
+<blockquote>
+<p>在没有的时候 创建的新的分支xx 并跳转到 xx 分支上</p>
+</blockquote>
+<p><strong>git checkout xx.ext</strong></p>
+<blockquote>
+<p>放弃修改直接还原和版本库保持一致</p>
+</blockquote>
+<p><strong>拉取远程方法</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b 本地分支名x origin/远程分支名x</span><br><span class="line">Note:使用该方式会在本地新建分支x，并自动切换到该本地分支x。</span><br><span class="line">     采用此种方法建立的本地分支会和远程分支建立映射关系。</span><br></pre></td></tr></table></figure></p>
+<h2 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a><strong>git reset</strong></h2><pre><code>作用：
+1.文件从暂存区回退到工作区
+2.版本回退
+</code></pre><p>作用1：<br>    git reset HEAD filename(xx)<br>作用2:<br>    我就直接转载一篇文章写的挺好的<br>    <a href="http://blog.csdn.net/hbwindy/article/details/51519999" target="_blank" rel="noopener">git reset的使用</a></p>
+<p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">git 中文的教程</a> –貌似要科学上网</p>
+<h2 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a><strong>git stash</strong></h2><p>你当前正在开发的分支上面，还有未提交的代码，你又不想把代码提交了，怎么办呢？<br>作用：<br>    将本地的改变存储起来，切换到另外的分支上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br><span class="line">-- 将本地的改变存储起来</span><br><span class="line">git stash list</span><br><span class="line">-- 查看本地存储的列表</span><br></pre></td></tr></table></figure>
+<p><strong>如何恢复工作现场呢？</strong></p>
+<pre><code>第一种方案，用`git stash apply`恢复，但是恢复后，stash内容不删除，需要用`git stash drop`来删除
+第二种方案，用`git stash pop`,恢复的同时把stash内容也删除了。
+</code></pre><h2 id="git配置一些外部工具"><a href="#git配置一些外部工具" class="headerlink" title="git配置一些外部工具"></a><strong>git配置一些外部工具</strong></h2><h3 id="配置代码对比工具"><a href="#配置代码对比工具" class="headerlink" title="配置代码对比工具"></a>配置代码对比工具</h3><pre><code>我配置了一个叫diffuse的工具
+我这里给你提供一个下载地址，当然你也可以自己去下载别的
+</code></pre><p><a href="http://www.skycn.com/soft/appid/11557.html" target="_blank" rel="noopener">download diffuse</a></p>
+<ul>
+<li><p>1.git查看有哪些对比工具可以设置命令：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git difftool --tool-help</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2.然后再设置对比工具，如：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global diff.tool diffuse</span><br><span class="line">git config --global difftool.diffuse.path &quot;E:\Program Files (x86)\Diffuse\diffuse.exe&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>3.设置好后，使用命令是 <code>git difftool</code> 而不是之前的 <code>git diff</code> 了</p>
+</li>
+</ul>
+<h2 id="git-Problem"><a href="#git-Problem" class="headerlink" title="git Problem"></a><strong>git Problem</strong></h2><p>Problem :<br>    1.为什么在切换分支的时,会出现有时要你提交本地的改变才可以切换，有的时候却不需要？</p>
+<p><code>出现融合的时候是你当前分支改变的内容与你将要切换分支的内容有冲突，这个时候不知要你融合。</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">解决的方法有我种：</span><br><span class="line">    1.使用 git stash 保存当前的改变   git stash 的用法在上面</span><br><span class="line">    2.使用 git merge  融合要切换的分支到当前的分支</span><br><span class="line">    3.使用 git checkout 还原当前冲突的文件</span><br></pre></td></tr></table></figure>
+<h2 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a><strong>git merge</strong></h2><p>– 2018年3月20日14:36:34<br>git 融合：是融合你当前版本库没有的东西。<br>你可以选择本地的分支也可以是远程的分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- 融合远程分支</span><br><span class="line">ej:</span><br><span class="line">    git merge origin/分支的名字</span><br><span class="line">-- 融合本地分支</span><br><span class="line">ej:</span><br><span class="line">    git merge 分支的名字</span><br></pre></td></tr></table></figure>
+<h2 id="git-更高级的用法"><a href="#git-更高级的用法" class="headerlink" title="git 更高级的用法"></a><strong>git 更高级的用法</strong></h2><p>问题: 在你的使用 git merge 的时候也会出现冲突.</p>
+<h2 id="git-merge-–abort"><a href="#git-merge-–abort" class="headerlink" title="git merge –abort"></a><strong>git merge –abort</strong></h2><p>选项会尝试恢复到你运行合并前的状态。 但当运行命令前，在工作目录中有未储藏、未提交的修改时它不能完美处理，除此之外它都工作地很好</p>
+<h2 id="git-status-sb"><a href="#git-status-sb" class="headerlink" title="git status -sb"></a><strong>git status -sb</strong></h2><p>罗列出需要解决冲突的文件.</p>
+<p>在你合并的时候 你可以将远端共同祖先的文件, 自己本地的文件, 要融合分支的文件,都下载到本地,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git show :1:hello.rb &gt; hello.common.rb</span><br><span class="line">git show :2:hello.rb &gt; hello.ours.rb</span><br><span class="line">git show :3:hello.rb &gt; hello.theirs.rb</span><br></pre></td></tr></table></figure>
+<h2 id="git-clean-f"><a href="#git-clean-f" class="headerlink" title="git clean -f"></a><strong>git clean -f</strong></h2><p>在这时我们可以使用 git clean 命令来清理我们为手动合并而创建但不再有用的额外文件。<br>就是通过上面的命令 git  show :1 …  这个命令产出的文件.</p>
+<!-- 这里面会记录我使用不知过程中的问题
+[git 问题总结](http://leng521.top/2018/03/07/git%E5%91%BD%E4%BB%A4%E7%9A%84%E8%AE%B0%E5%BD%95/) -->
+<h2 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a><strong>git log</strong></h2><p>这里在更新一下 git log 的一些命令的使用</p>
+<h3 id="git-log-n"><a href="#git-log-n" class="headerlink" title="git log -n"></a><strong>git log -n</strong></h3><p>罗列出最近 n 次提交</p>
+<blockquote>
+<p>ej: git log -3 // 罗列出最近三次的提交信息</p>
+</blockquote>
+<h2 id="git-show"><a href="#git-show" class="headerlink" title="git show"></a><strong>git show</strong></h2><p>显示一些提交的状态信息</p>
+<h3 id="git-show-–stat-commitId"><a href="#git-show-–stat-commitId" class="headerlink" title="git show –stat [commitId]"></a><strong>git show –stat [commitId]</strong></h3><blockquote>
+<p>ej: git show –stat 96daa2f6bb9b413ae3ce5a1ccf3f58ee22b32b42<br>它会罗列出当前这次提交的信息,以文件更改列表的形式显示,如下图<br></p>
+</blockquote>
+<h3 id="git-show-commitId"><a href="#git-show-commitId" class="headerlink" title="git show [commitId]"></a><strong>git show [commitId]</strong></h3><p>这个命令和上个命令很相似 , 只是去掉一个 –stat </p>
+<blockquote>
+<p>ej git show 96daa2f6bb9b413ae3ce5a1ccf3f58ee22b32b42 src/a.lua<br>显示这次这个文件提交的内容</p>
+</blockquote>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年05月25日 15:53</p>
+        <p>原始链接： <a class="post-url" href="/posts/82a402af/" title="git命令的记录">https://leng521.top/posts/82a402af/</a></p>
+        <footer>
+            <a href="https://leng521.top">
+                <img src="/images/head.jpg" alt="小魏">
+                小魏
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/82a402af/&title=《git命令的记录》 — 小魏的博客&pic=https://leng521.topimages/head.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/82a402af/&title=《git命令的记录》 — 小魏的博客&source=现在对git也使用快一年了现在总结一下常用的一些命令。
+本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/82a402af/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《git命令的记录》 — 小魏的博客&url=https://leng521.top/posts/82a402af/&via=https://leng521.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/82a402af/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://leng521.top/posts/82a402af/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/git命令/" class="color1">git命令</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#本文的大纲"><span class="post-toc-text">本文的大纲</span></a></li></ol><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-clone"><span class="post-toc-text">git clone</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-pull"><span class="post-toc-text">git pull</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-add"><span class="post-toc-text">git add</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-commit"><span class="post-toc-text">git commit</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-push"><span class="post-toc-text">git push</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-branch"><span class="post-toc-text">git branch</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-branch-upstream-git-分支的映射关系"><span class="post-toc-text">git branch upstream(git 分支的映射关系)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-fetch"><span class="post-toc-text">git fetch</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-remote"><span class="post-toc-text">git remote</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-checkout"><span class="post-toc-text">git checkout</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-reset"><span class="post-toc-text">git reset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-stash"><span class="post-toc-text">git stash</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git配置一些外部工具"><span class="post-toc-text">git配置一些外部工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置代码对比工具"><span class="post-toc-text">配置代码对比工具</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-Problem"><span class="post-toc-text">git Problem</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-merge"><span class="post-toc-text">git merge</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-更高级的用法"><span class="post-toc-text">git 更高级的用法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-merge-–abort"><span class="post-toc-text">git merge –abort</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-status-sb"><span class="post-toc-text">git status -sb</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-clean-f"><span class="post-toc-text">git clean -f</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-log"><span class="post-toc-text">git log</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-log-n"><span class="post-toc-text">git log -n</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-show"><span class="post-toc-text">git show</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-show-–stat-commitId"><span class="post-toc-text">git show –stat [commitId]</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-show-commitId"><span class="post-toc-text">git show [commitId]</span></a></li></ol>
+        </li></nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/posts/ce1d3b12/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          python_optionparser模块
+        
+      </span>
+    </a>
+  
+  
+    <a href="/posts/c4c0a180/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">优化cocos2dxSpine库</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNDA0MC8xMDU3OA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/Shader/" style="font-size: 10px;">Shader</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/Shader/" style="font-size: 10px;">Shader</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
