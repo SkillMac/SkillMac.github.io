@@ -5,6 +5,9 @@
   
   <title>git操作命令记录(二) | 小魏的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
   <meta name="description" content="时间: 2019年1月23日18:51:03 后面的格式是,在每篇文章开头都会加上时间,好比较你现在的时间和这篇博客书写的时间,你好判定你是借鉴还是可以直接用. 今天主要是介绍 git 的其他命令.  git 仓库打标签(tag) git 扩展工具 lfs(large file system)">
 <meta name="keywords" content="git,git 扩展工具">
 <meta property="og:type" content="article">
@@ -13,272 +16,147 @@
 <meta property="og:site_name" content="小魏的博客">
 <meta property="og:description" content="时间: 2019年1月23日18:51:03 后面的格式是,在每篇文章开头都会加上时间,好比较你现在的时间和这篇博客书写的时间,你好判定你是借鉴还是可以直接用. 今天主要是介绍 git 的其他命令.  git 仓库打标签(tag) git 扩展工具 lfs(large file system)">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://leng521.top/posts/b0c8e6a5/1.gif">
-<meta property="og:updated_time" content="2019-02-19T12:27:35.889Z">
+<meta property="og:updated_time" content="2019-02-19T12:27:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git操作命令记录(二)">
 <meta name="twitter:description" content="时间: 2019年1月23日18:51:03 后面的格式是,在每篇文章开头都会加上时间,好比较你现在的时间和这篇博客书写的时间,你好判定你是借鉴还是可以直接用. 今天主要是介绍 git 的其他命令.  git 仓库打标签(tag) git 扩展工具 lfs(large file system)">
-<meta name="twitter:image" content="https://leng521.top/posts/b0c8e6a5/1.gif">
-  
-    <link rel="alternative" href="/atom.xml" title="小魏的博客" type="application/atom+xml">
   
   
-    <link rel="icon" href="/img/favicon.png">
+    <link rel="icon" href="images/head.jpg">
   
-  
-      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
-  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script src="/js/pace.min.js"></script>
   
+
   
-      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
   
-  <!-- 加载特效 -->
-    <script src="/js/pace.js"></script>
-    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
-  <script>
-      var yiliaConfig = {
-          rootUrl: '/',
-          fancybox: true,
-          animate: true,
-          isHome: false,
-          isPost: true,
-          isArchive: false,
-          isTag: false,
-          isCategory: false,
-          open_in_new: false
-      }
-  </script>
-</head></html>
+
+</head>
+</html>
 <body>
   <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
-            
-            <img lazy-src="/assets/img/head.jpg" class="js-avatar">
-            
-        </a>
-
-        <hgroup>
-          <h1 class="header-author"><a href="/" title="Hi Mate">小魏</a></h1>
-        </hgroup>
-
-        
-        <p class="header-subtitle">摔倒了爬起来就好。</p>
-        
-        
-            <form>
-                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
-            </form>
-        
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
                     
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        <li>友情链接</li>
-                        
-                        
-                        <li>关于我</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="/Home">首页</a></li>
-                        
-                            <li><a href="/archives">归档</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fl mail" target="_blank" href="#" title="mail">mail</a>
-                            
-                                <a class="fl github" target="_blank" href="#" title="github">github</a>
-                            
-                                <a class="fl zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
-                            
-                                <a class="fl weibo" target="_blank" href="#" title="weibo">weibo</a>
-                            
-                                <a class="fl google" target="_blank" href="#" title="google">google</a>
-                            
-                                <a class="fl twitter" target="_blank" href="#" title="twitter">twitter</a>
-                            
-                                <a class="fl linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
-                            
-                                <a class="fl rss" target="_blank" href="/atom.xml" title="rss">rss</a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12.5px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 15px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/scons/" style="font-size: 12.5px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 20px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://luuman.github.io/FrontEndGuideV2/FrontEndGuide/#/Index">tools</a>
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
                     
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中.&lt;-- QQ 2807582398 --&gt;</div>
-                </section>
-                
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
             </div>
         </div>
-    </header>                
-</div>
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">小魏</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                
-                    <img lazy-src="/assets/img/head.jpg" class="js-avatar">
-                
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="Me">小魏</a></h1>
-            </hgroup>
-            
-            <p class="header-subtitle">摔倒了爬起来就好。</p>
-            
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="/Home">首页</a></li>
-                
-                    <li><a href="/archives">归档</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
             <nav class="header-nav">
                 <div class="social">
                     
-                        <a class="mail" target="_blank" href="#" title="mail">mail</a>
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
                     
-                        <a class="github" target="_blank" href="#" title="github">github</a>
+                        <a title="Github" target="_blank" href="//github.com/">
+                            <i class="fa fa-github fa-2x"></i></a>
                     
-                        <a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+                        <a title="Weibo" target="_blank" href="//weibo.com/">
+                            <i class="fa fa-weibo fa-2x"></i></a>
                     
-                        <a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
-                    
-                        <a class="google" target="_blank" href="#" title="google">google</a>
-                    
-                        <a class="twitter" target="_blank" href="#" title="twitter">twitter</a>
-                    
-                        <a class="linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
-                    
-                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                        <a title="Twitter" target="_blank" href="//twitter.com/">
+                            <i class="fa fa-twitter fa-2x"></i></a>
                     
                 </div>
             </nav>
-        </header>                
+        </div>
     </div>
-</nav>
-      <div class="body-wrap"><article id="post-git操作命令记录-二" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/posts/b0c8e6a5/" class="article-date">
-      <time datetime="2019-01-23T13:01:07.000Z" itemprop="datePublished">2019-01-23</time>
-</a>
-    </div>
-  
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-git操作命令记录-二" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="post-title" itemprop="name">
       git操作命令记录(二)
     </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/git/">git</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-01-23
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
   
 
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/git/">git</a>
-    </div>
-
-
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git-扩展工具/">git 扩展工具</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
           
-        <p>时间: 2019年1月23日18:51:03</p>
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>时间: 2019年1月23日18:51:03</p>
 <p>后面的格式是,在每篇文章开头都会加上时间,好比较你现在的时间和这篇博客书写的时间,你好判定你是借鉴还是可以直接用.</p>
 <p>今天主要是介绍 git 的其他命令.</p>
 <ul>
@@ -289,139 +167,184 @@
 <h2 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h2><h3 id="给分支打标签"><a href="#给分支打标签" class="headerlink" title="给分支打标签"></a>给分支打标签</h3><pre><code>git tag &lt;tagName&gt;
 这个命令是给本地仓库最近的一次提交打个标签.
 </code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag 1.0.0</span><br></pre></td></tr></table></figure></p>
-<h2 id="—"><a href="#—" class="headerlink" title="—"></a>—</h2><h3 id="获取本地所有的标签"><a href="#获取本地所有的标签" class="headerlink" title="获取本地所有的标签"></a>获取本地所有的标签</h3><pre><code>git tag
+<hr>
+<hr>
+<h3 id="获取本地所有的标签"><a href="#获取本地所有的标签" class="headerlink" title="获取本地所有的标签"></a>获取本地所有的标签</h3><pre><code>git tag
 </code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br><span class="line">&gt; 1.0.0</span><br></pre></td></tr></table></figure></p>
-<h2 id="—-1"><a href="#—-1" class="headerlink" title="—"></a>—</h2><h3 id="删除本地标签"><a href="#删除本地标签" class="headerlink" title="删除本地标签"></a>删除本地标签</h3><pre><code>git tag -d &lt;tagName&gt;
+<hr>
+<hr>
+<h3 id="删除本地标签"><a href="#删除本地标签" class="headerlink" title="删除本地标签"></a>删除本地标签</h3><pre><code>git tag -d &lt;tagName&gt;
 </code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -d 1.0.0</span><br></pre></td></tr></table></figure></p>
-<h2 id="—-2"><a href="#—-2" class="headerlink" title="—"></a>—</h2><h3 id="给标签添加描述信息"><a href="#给标签添加描述信息" class="headerlink" title="给标签添加描述信息"></a>给标签添加描述信息</h3><pre><code>git tag -a &lt;tagName&gt; -m &quot;&lt;decription&gt;&quot;
+<hr>
+<hr>
+<h3 id="给标签添加描述信息"><a href="#给标签添加描述信息" class="headerlink" title="给标签添加描述信息"></a>给标签添加描述信息</h3><pre><code>git tag -a &lt;tagName&gt; -m &quot;&lt;decription&gt;&quot;
 </code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a 1.0.1 -m &quot;online version1.0.1&quot;</span><br></pre></td></tr></table></figure></p>
-<h2 id="—-3"><a href="#—-3" class="headerlink" title="—"></a>—</h2><h3 id="给标签添加描述信息-1"><a href="#给标签添加描述信息-1" class="headerlink" title="给标签添加描述信息"></a>给标签添加描述信息</h3><pre><code>git tag -a &lt;tagName&gt; -m &quot;&lt;decription&gt;&quot;
+<hr>
+<hr>
+<h3 id="给标签添加描述信息-1"><a href="#给标签添加描述信息-1" class="headerlink" title="给标签添加描述信息"></a>给标签添加描述信息</h3><pre><code>git tag -a &lt;tagName&gt; -m &quot;&lt;decription&gt;&quot;
 </code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a 1.0.1 -m &quot;online version1.0.1&quot;</span><br></pre></td></tr></table></figure></p>
-<h2 id="—-4"><a href="#—-4" class="headerlink" title="—"></a>—</h2><h3 id="给指定的提交打上标签"><a href="#给指定的提交打上标签" class="headerlink" title="给指定的提交打上标签"></a>给指定的提交打上标签</h3><pre><code>git tag &lt;tagName&gt; &lt;commitId&gt;
+<hr>
+<hr>
+<h3 id="给指定的提交打上标签"><a href="#给指定的提交打上标签" class="headerlink" title="给指定的提交打上标签"></a>给指定的提交打上标签</h3><pre><code>git tag &lt;tagName&gt; &lt;commitId&gt;
 </code></pre><blockquote>
 <p>这里查询相关的 提交Id(commitId) 可以使用 git log 去看, 但是显示的 commitId 太长了不太好看<br>可以使用下面的命令查看 git log –abbrev-commit 其实给git的 commitId 七位就可以锁定一次提交记录.</p>
 </blockquote>
 <p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag 1.0.2 7b23fc5</span><br></pre></td></tr></table></figure></p>
-<h2 id="—-5"><a href="#—-5" class="headerlink" title="—"></a>—</h2><h3 id="显示标签的详细情况"><a href="#显示标签的详细情况" class="headerlink" title="显示标签的详细情况"></a>显示标签的详细情况</h3><pre><code>git show &lt;tagName&gt;
+<hr>
+<hr>
+<h3 id="显示标签的详细情况"><a href="#显示标签的详细情况" class="headerlink" title="显示标签的详细情况"></a>显示标签的详细情况</h3><pre><code>git show &lt;tagName&gt;
 </code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show 1.0.2</span><br></pre></td></tr></table></figure></p>
-<h2 id="—-6"><a href="#—-6" class="headerlink" title="—"></a>—</h2><blockquote>
+<hr>
+<hr>
+<blockquote>
 <pre><code>上面这些都是本地的操作,你肯定还需要将你这些,tag提交上去.
 </code></pre></blockquote>
 <h3 id="推送指定标签到远端"><a href="#推送指定标签到远端" class="headerlink" title="推送指定标签到远端"></a>推送指定标签到远端</h3><pre><code>git push origin &lt;tagName&gt;
 </code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin 1.0.1</span><br></pre></td></tr></table></figure></p>
-<h2 id="—-7"><a href="#—-7" class="headerlink" title="—"></a>—</h2><h3 id="推送本地所有的标签"><a href="#推送本地所有的标签" class="headerlink" title="推送本地所有的标签"></a>推送本地所有的标签</h3><pre><code>git push origin --tags
+<hr>
+<hr>
+<h3 id="推送本地所有的标签"><a href="#推送本地所有的标签" class="headerlink" title="推送本地所有的标签"></a>推送本地所有的标签</h3><pre><code>git push origin --tags
 </code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --tags</span><br></pre></td></tr></table></figure></p>
-<h2 id="—-8"><a href="#—-8" class="headerlink" title="—"></a>—</h2><h3 id="删除远端标签"><a href="#删除远端标签" class="headerlink" title="删除远端标签"></a>删除远端标签</h3><pre><code>git push origin :refs/tags/&lt;tagName&gt;
+<hr>
+<hr>
+<h3 id="删除远端标签"><a href="#删除远端标签" class="headerlink" title="删除远端标签"></a>删除远端标签</h3><pre><code>git push origin :refs/tags/&lt;tagName&gt;
 git push origin --delete tag &lt;tagName&gt;
 </code></pre><p>ej:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push origin :refs/tags/1.0.1</span><br><span class="line">git push origin --delete tag 1.0.1</span><br></pre></td></tr></table></figure></p>
-<h2 id="—-9"><a href="#—-9" class="headerlink" title="—"></a>—</h2><p>也许有些人会疑惑,怎么去查看远程的 tag,这个你就不用纠结了,因为每次<code>git pull</code>的时候,都会将别人推送上去的 tag 给拉取到本地再次使用 git tag 查看就行了.</p>
+<hr>
+<hr>
+<p>也许有些人会疑惑,怎么去查看远程的 tag,这个你就不用纠结了,因为每次<code>git pull</code>的时候,都会将别人推送上去的 tag 给拉取到本地再次使用 git tag 查看就行了.</p>
 <blockquote>
 <p>删除远端 tag 的工作流(workflow) 先删除本地的tag 然后在删除远端的 tag.</p>
 </blockquote>
-<h2 id="git-lfs"><a href="#git-lfs" class="headerlink" title="git lfs"></a>git lfs</h2><p><a href="https://git-lfs.github.com/">git-lfs参考地址</a></p>
-<img src="/posts/b0c8e6a5/1.gif" title="git-lfs示意图">
+<h2 id="git-lfs"><a href="#git-lfs" class="headerlink" title="git lfs"></a>git lfs</h2><p><a href="https://git-lfs.github.com/" target="_blank" rel="noopener">git-lfs参考地址</a></p>
+
 <p>这个扩展工具是解决 主仓库日渐庞大的时候 拉取缓慢的问题.</p>
 <p>每次提交都会使仓库的总体积变的原来越大.尤其是一些大的项目这一点会体现的越来越明显,导致别人在拉取的时候会变得很缓慢.</p>
 <p>git lfs 的解决方案是 将一些大的文件 储存在另外的仓库中,保证你的主仓库的体积不会很大.正如,git-lfs 中说到的 更快的拉取速度.但是它并没有解决仓库体积的问题.</p>
 <h3 id="git-lfs-的工作流-workflow"><a href="#git-lfs-的工作流-workflow" class="headerlink" title="git-lfs 的工作流(workflow)"></a>git-lfs 的工作流(workflow)</h3><p>1.先去安装 这个扩展工具.<br>2.然后在你的仓库目录下,打开 git 执行 <code>git lfs install</code><br>3.添加你要追踪的大尺寸文件,它这里支持模糊匹配 <code>git lfs track &quot;*.extName&quot;</code><br>4.执行 <code>git lfs install</code>的时候会产生一个.gitattributes的文件 确保他被提交被追踪 <code>git add .gitattributes</code></p>
-<ol>
+<ol start="5">
 <li>使用 <code>git lfs track</code> 查看现有的文件追踪模式</li>
 <li>提交后执行<code>git lfs ls-files</code> 可以显示当前跟踪的文件列表</li>
 <li>其他的文件添加跟正常的git 工作流是保持一致.</li>
 <li>拉取代码直接就是 git pull , 注意不需要使用 git lfs pull了.</li>
 </ol>
 
-      
-      
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年02月19日 20:27</p>
+        <p>原始链接： <a class="post-url" href="/posts/b0c8e6a5/" title="git操作命令记录(二)">https://leng521.top/posts/b0c8e6a5/</a></p>
+        <footer>
+            <a href="https://leng521.top">
+                <img src="/images/head.jpg" alt="小魏">
+                小魏
+            </a>
+        </footer>
     </div>
-    
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/b0c8e6a5/&title=《git操作命令记录(二)》 — 小魏的博客&pic=https://leng521.topimages/head.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/b0c8e6a5/&title=《git操作命令记录(二)》 — 小魏的博客&source=时间: 2019年1月23日18:51:03
+后面的格式是,在每篇文章开头都会加上时间,好比较你现在的时间和这篇博客书写的时间,你好判定你是借鉴还是可以直..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/b0c8e6a5/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《git操作命令记录(二)》 — 小魏的博客&url=https://leng521.top/posts/b0c8e6a5/&via=https://leng521.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/b0c8e6a5/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://leng521.top/posts/b0c8e6a5/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/git/" class="color4">git</a>
+      
+    <a href="/tags/git扩展工具/" class="color4">git 扩展工具</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
   </div>
-  
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-tag"><span class="post-toc-text">git tag</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#给分支打标签"><span class="post-toc-text">给分支打标签</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#获取本地所有的标签"><span class="post-toc-text">获取本地所有的标签</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除本地标签"><span class="post-toc-text">删除本地标签</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#给标签添加描述信息"><span class="post-toc-text">给标签添加描述信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#给标签添加描述信息-1"><span class="post-toc-text">给标签添加描述信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#给指定的提交打上标签"><span class="post-toc-text">给指定的提交打上标签</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#显示标签的详细情况"><span class="post-toc-text">显示标签的详细情况</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#推送指定标签到远端"><span class="post-toc-text">推送指定标签到远端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#推送本地所有的标签"><span class="post-toc-text">推送本地所有的标签</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除远端标签"><span class="post-toc-text">删除远端标签</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-lfs"><span class="post-toc-text">git lfs</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-lfs-的工作流-workflow"><span class="post-toc-text">git-lfs 的工作流(workflow)</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
     
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/posts/b0c8e6a5/">git操作命令记录(二)</a></p>
-        <p><span>文章作者:</span><a href="/" title="访问 小魏 的个人博客">小魏</a></p>
-        <p><span>发布时间:</span>2019年01月23日 - 21时01分</p>
-        <p><span>最后更新:</span>2019年02月19日 - 20时27分</p>
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/posts/b0c8e6a5/" title="git操作命令记录(二)">https://leng521.top/posts/b0c8e6a5/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://leng521.top/posts/b0c8e6a5/　　作者: 小魏" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script src="/js/clipboard.min.js"></script>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
-        </p>
-    </div>
-
-
 
 <nav id="article-nav">
   
     <a href="/posts/7f7eba5/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
         
           CocosCreator一些简单的优化记录
         
-      </div>
+      </span>
     </a>
   
   
     <a href="/posts/66615451/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">scons自动构建工具(二)</div>
-      <strong class="article-nav-caption">></strong>
+      <span class="article-nav-title">scons自动构建工具(二)</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
 </nav>
-
-  
-</article>
-
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#git-tag"><span class="toc-number">1.</span> <span class="toc-text">git tag</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#给分支打标签"><span class="toc-number">1.1.</span> <span class="toc-text">给分支打标签</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#—"><span class="toc-number">2.</span> <span class="toc-text">—</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取本地所有的标签"><span class="toc-number">2.1.</span> <span class="toc-text">获取本地所有的标签</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#—-1"><span class="toc-number">3.</span> <span class="toc-text">—</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#删除本地标签"><span class="toc-number">3.1.</span> <span class="toc-text">删除本地标签</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#—-2"><span class="toc-number">4.</span> <span class="toc-text">—</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#给标签添加描述信息"><span class="toc-number">4.1.</span> <span class="toc-text">给标签添加描述信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#—-3"><span class="toc-number">5.</span> <span class="toc-text">—</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#给标签添加描述信息-1"><span class="toc-number">5.1.</span> <span class="toc-text">给标签添加描述信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#—-4"><span class="toc-number">6.</span> <span class="toc-text">—</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#给指定的提交打上标签"><span class="toc-number">6.1.</span> <span class="toc-text">给指定的提交打上标签</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#—-5"><span class="toc-number">7.</span> <span class="toc-text">—</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#显示标签的详细情况"><span class="toc-number">7.1.</span> <span class="toc-text">显示标签的详细情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#—-6"><span class="toc-number">8.</span> <span class="toc-text">—</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#推送指定标签到远端"><span class="toc-number">8.1.</span> <span class="toc-text">推送指定标签到远端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#—-7"><span class="toc-number">9.</span> <span class="toc-text">—</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#推送本地所有的标签"><span class="toc-number">9.1.</span> <span class="toc-text">推送本地所有的标签</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#—-8"><span class="toc-number">10.</span> <span class="toc-text">—</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#删除远端标签"><span class="toc-number">10.1.</span> <span class="toc-text">删除远端标签</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#—-9"><span class="toc-number">11.</span> <span class="toc-text">—</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-lfs"><span class="toc-number">12.</span> <span class="toc-text">git lfs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-lfs-的工作流-workflow"><span class="toc-number">12.1.</span> <span class="toc-text">git-lfs 的工作流(workflow)</span></a></li></ol></li></ol>
-</div>
-<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
-
-<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-<script>
-    var valueHide = "隐藏目录";
-    var valueShow = "显示目录";
-
-    if ($(".left-col").is(":hidden")) {
-        $("#tocButton").attr("value", valueShow);
-    }
-    $("#tocButton").click(function() {
-        if ($("#toc").is(":hidden")) {
-            $("#tocButton").attr("value", valueHide);
-            $("#toc").slideDown(320);
-        }
-        else {
-            $("#tocButton").attr("value", valueShow);
-            $("#toc").slideUp(350);
-        }
-    })
-    if ($(".toc").length < 1) {
-        $("#toc, #tocButton").hide();
-    }
-</script>
-
-
-
-
-
-<div class="bdsharebuttonbox">
-	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
-	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
-	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
-	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
 
 
 
@@ -444,194 +367,145 @@ git push origin --delete tag &lt;tagName&gt;
 <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
 </div>
 <!-- City版安装代码已完成 -->
-
     
-
-
-
-    <div class="scroll" id="post-nav-button">
+</section>
         
-            <a href="/posts/7f7eba5/" title="上一篇: CocosCreator一些简单的优化记录">
-                <i class="fa fa-angle-left"></i>
-            </a>
-        
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
-        
-            <a href="/posts/66615451/" title="下一篇: scons自动构建工具(二)">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        
-    </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/7f7eba5/">CocosCreator一些简单的优化记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/b0c8e6a5/">git操作命令记录(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/66615451/">scons自动构建工具(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/79065537/">scons自动构建工具</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/41d43874/">cocos2dx-JS-OC-Java互相调用</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/a2412c06/">AndroidStudio打包Cocos2dx</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/90e70f70/">记录TweenLite库</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/dd666e1a/">QQ玩一玩打包</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/ba881459/">微信小游戏记录长连接(websocket)</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/967bbd27/">微信小游戏接入广告</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/4ec7de9/">微信小游戏开发问题总结</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/da41a120/">微信小游戏发布流程</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/777fe656/">微信小游戏开发记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/8e17853e/">解决运行exe时缺少dll问题</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/b1de475b/">给sublime写自定义的插件</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/f62a7c7d/">linux升级gcc</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/1e09c0f5/">9宫格纹理的更新问题</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/87435431/">python-闭包问题</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/a9ff66a6/">记录使用hexo写博客的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/ce1d3b12/">python_optionparser模块</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/82a402af/">git命令的记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/c4c0a180/">优化cocos2dxSpine库</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/6743743b/">Using-Hexo</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/4a17b156/">Hello World</a></li></ul>
-    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-    <script>
-        $(".post-list").addClass("toc-article");
-        $(".post-list-item a").attr("target","_blank");
-        $("#post-nav-button > a:nth-child(2)").click(function() {
-            $(".fa-bars, .fa-times").toggle();
-            $(".post-list").toggle(300);
-            if ($(".toc").length > 0) {
-                $("#toc, #tocButton").toggle(200, function() {
-                    if ($(".switch-area").is(":visible")) {
-                        $("#tocButton").attr("value", valueHide);
-                        }
-                    })
-            }
-            else {
-            }
-        })
-    </script>
-
-
-
-    <script>
-        
-    </script>
-
-</div>
+      </div>
       <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                &copy; 2019 小魏
-            </div>
-            <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
-            </div>
-        </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style="display:none">
-                        <span id="site-visit">海贼到访数: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style="display:none">
-                        <span id="page-visit">本页阅读量: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
-    </div>
-    
-</footer>
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
 
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
     </div>
-    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/Shader/" style="font-size: 10px;">Shader</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/Shader/" style="font-size: 10px;">Shader</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
 <script src="/js/main.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            var backgroundnum = 24;
-            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
-            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
-        })
-    </script>
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
 
 
 
 
-	<script>
-	var _hmt = _hmt || [];
-	(function() {
-	  var hm = document.createElement("script");
-	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
-	  var s = document.getElementsByTagName("script")[0]; 
-	  s.parentNode.insertBefore(hm, s);
-	})();
-	</script>
 
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
 
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
 
 
-<div class="scroll" id="scroll">
-    <a href="#"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
-</div>
-<script>
-    $(document).ready(function() {
-        if ($("#comments").length < 1) {
-            $("#scroll > a:nth-child(2)").hide();
-        };
-    })
-</script>
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-
-  <script language="javascript">
-    $(function() {
-        $("a[title]").each(function() {
-            var a = $(this);
-            var title = a.attr('title');
-            if (title == undefined || title == "") return;
-            a.data('title', title).removeAttr('title').hover(
-
-            function() {
-                var offset = a.offset();
-                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
-                    top: offset.top - a.outerHeight() - 15,
-                    left: offset.left + a.outerWidth()/2 + 1
-                }).fadeIn(function() {
-                    var pop = $(this);
-                    setTimeout(function() {
-                        pop.remove();
-                    }, pop.text().length * 800);
-                });
-            }, function() {
-                $("#anchortitlecontainer").remove();
-            });
-        });
-    });
-</script>
-
-
-    <script type="text/javascript">
-      window.onload = function(){
-        document.getElementById("search").onclick = function(){
-            console.log("search")
-            search();
-        }
-      }
-      function search(){
-        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
-      }
-    </script>
-
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
 
   </div>
 </body>
