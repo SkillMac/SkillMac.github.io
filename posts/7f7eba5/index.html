@@ -16,10 +16,14 @@
 <meta property="og:site_name" content="小魏的博客">
 <meta property="og:description" content="cocos creator 一些简单的优化记录目标: 微信小游戏引擎版本: 2.0.8语言: js时间: 2019年2月19日15:50:29 大纲: - 缩小包体 - 优化 drawcall - 增加游戏编译后包体的安全性(防止反编译) - 优化游戏的计算量 微信小游戏对包体的大小控制的很严格只有4M后面又提出了分包加载的机制,但是能自己优化一些还是更好的一些做法.">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/7f7eba5/sp6.jpg">
+<meta property="og:image" content="https://leng521.top/posts/7f7eba5/module.png">
+<meta property="og:image" content="https://leng521.top/posts/7f7eba5/sp8.jpg">
 <meta property="og:updated_time" content="2019-02-19T12:35:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CocosCreator一些简单的优化记录">
 <meta name="twitter:description" content="cocos creator 一些简单的优化记录目标: 微信小游戏引擎版本: 2.0.8语言: js时间: 2019年2月19日15:50:29 大纲: - 缩小包体 - 优化 drawcall - 增加游戏编译后包体的安全性(防止反编译) - 优化游戏的计算量 微信小游戏对包体的大小控制的很严格只有4M后面又提出了分包加载的机制,但是能自己优化一些还是更好的一些做法.">
+<meta name="twitter:image" content="https://leng521.top/posts/7f7eba5/sp6.jpg">
   
   
     <link rel="icon" href="images/head.jpg">
@@ -182,7 +186,7 @@
 <p>进入命令行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gulp</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <p>这个操作执行完会在 <code>{projectPath/res/dest}</code> 当然你也可以直接输出到本目录,它会直接进行替换的.(或者更改成你想要的目录)<br>大概纹理会减小 30% ~ 40%.</p>
-
+<img src="/posts/7f7eba5/sp6.jpg" title="x">
 <p>2.这里你可以使用<a href="https://www.codeandweb.com/texturepacker" target="_blank" rel="noopener">TexturePacker</a>这些第三方的辅助工具进行纹理压缩,你也可以使用<code>CocosCreator</code>内置的<code>auto atlas</code>(自动图集)的工具进行合图.</p>
 <ul>
 <li>做第二步的目的是:<ul>
@@ -201,7 +205,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="移除不需要的模块"><a href="#移除不需要的模块" class="headerlink" title="移除不需要的模块"></a>移除不需要的模块</h2><p>在打包前，找到项目设置–&gt;模块设置，将项目中没有用到的模块移除（取消勾选状态），如下图所示。<br></p>
+<h2 id="移除不需要的模块"><a href="#移除不需要的模块" class="headerlink" title="移除不需要的模块"></a>移除不需要的模块</h2><p>在打包前，找到项目设置–&gt;模块设置，将项目中没有用到的模块移除（取消勾选状态），如下图所示。<br><img src="/posts/7f7eba5/module.png" title="x"></p>
 <ul>
 <li><code>注意</code><ul>
 <li>这个也许不能优化游戏的运行速度但是能有效的减少你的包体大小.</li>
@@ -233,7 +237,7 @@
 <p>下面说一下这两种工具在开发的过程中的优缺点.</p>
 <p>1.TexturePacker 的 drawcall的优化在浏览器中可以直接看到, 后者需要打包后才能看到.<br>2.在开发过程中如果纹理更换的频繁,前者需要不停的打包,开发效率低下,后者则不用管(因为是在打包后才能看的见合图的图集).</p>
 <h2 id="fnt的图片-和-游戏资源进行合图"><a href="#fnt的图片-和-游戏资源进行合图" class="headerlink" title="fnt的图片 和 游戏资源进行合图"></a>fnt的图片 和 游戏资源进行合图</h2><p><a href="https://docs.cocos.com/creator/manual/zh/advanced-topics/ui-auto-batch.html" target="_blank" rel="noopener">官方描述</a></p>
-
+<img src="/posts/7f7eba5/sp8.jpg" title="x">
 <ul>
 <li>将需要自动合图的图片放在同一个目录下，并在此目录下创建一个<code>自动图集配置（AutoAtlas）</code></li>
 <li><p>可以勾选不包含未引用的资源 要管理好自己的资源目录避免一些没用的资源也打包到一个图集里面.</p>

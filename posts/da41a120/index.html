@@ -16,10 +16,17 @@
 <meta property="og:site_name" content="小魏的博客">
 <meta property="og:description" content="今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.  个人发布 和 企业发布的流程 代码上传的注意的问题 代码审核会出现的问题">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/da41a120/1.png">
+<meta property="og:image" content="https://leng521.top/posts/da41a120/2.png">
+<meta property="og:image" content="https://leng521.top/posts/da41a120/3.png">
+<meta property="og:image" content="https://leng521.top/posts/da41a120/4.png">
+<meta property="og:image" content="https://leng521.top/posts/da41a120/5.png">
+<meta property="og:image" content="https://leng521.top/posts/da41a120/6.png">
 <meta property="og:updated_time" content="2019-02-19T12:29:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微信小游戏发布流程">
 <meta name="twitter:description" content="今天主要说一下微信小游戏发布流程吧,这篇文章不会写的太长,涉及的东西不多.  个人发布 和 企业发布的流程 代码上传的注意的问题 代码审核会出现的问题">
+<meta name="twitter:image" content="https://leng521.top/posts/da41a120/1.png">
   
   
     <link rel="icon" href="images/head.jpg">
@@ -172,8 +179,8 @@
 <pre><code>- 游戏自审查报告
 - 计算机软件著作权登记书(简称 软著)
 - Apple ID (苹果开发者账号)
-</code></pre>
-
+</code></pre><img src="/posts/da41a120/1.png" title="发布信息截图1">
+<img src="/posts/da41a120/2.png" title="发布信息截图2">
 <p>1.最上面就是你最基础的配置信息,你的游戏类型,你使用的游戏引擎,<br>2.然后就是上传 刚才提到的那两份材料.<br>3.填写你本次跟新的内容.<br>4.如果你的游戏自己账号系统,需要提供一份给微信团队做测试的账号,密码,没有可以不填写.<br>5.最后一项 Apple ID(必须是开发者账号).</p>
 <blockquote>
 <p>至于怎么申请 成为 苹果的开发者 上百度自己查</p>
@@ -185,18 +192,18 @@
 - 广电总局版号批文(简称版号)
 - 文化部备案信息
 - Apple ID (苹果开发者账号)
-</code></pre>
+</code></pre><img src="/posts/da41a120/3.png" title="发布信息截图3">
 <h2 id="差异"><a href="#差异" class="headerlink" title="差异"></a><em>差异</em></h2><p>如果是以个人发布的话 你的权限会受到影响,个人不支持内置支付,唯一盈利的途径就是接入广告,</p>
 <p>以企业发布 可以接入支付 , 但是 需要版号(申请时间周期长) , 比较的麻烦</p>
 <p>上面的信息 填写完毕后 可以直接提交发布.</p>
 <h1 id="代码上传的注意的问题"><a href="#代码上传的注意的问题" class="headerlink" title="代码上传的注意的问题"></a><em>代码上传的注意的问题</em></h1><p>你只有提交代码后才可以向微信提交审核,</p>
-<p>上传代码的步骤很简单, 打开你的微信开发者工具 点击上传<br></p>
-<p>然后会弹出如下的弹窗<br></p>
+<p>上传代码的步骤很简单, 打开你的微信开发者工具 点击上传<br><img src="/posts/da41a120/4.png" title="上传代码"></p>
+<p>然后会弹出如下的弹窗<br><img src="/posts/da41a120/5.png" title="上传代码"></p>
 <p>填写你的这次的版本信息 和 这次游戏更新的内容或则是修复的bug</p>
 <p>这里如果是使用 cocos creator 的话 ,,由于creator的js文件过大 导致 ES6 转换成 ES5 失败 ,你可以自己在网上找 软件去解决这个问题 ,, 当然也可以先直接提交. ,, 这个问题不大,, </p>
 <p>然后在微信后台 的 <code>开发管理里面</code> 会有你提交的小游戏版本信息 ,</p>
 <p>这里你可以把你刚才提交的小游戏设置为体验版本,这样做的好处是,产生的二维码不会过期.</p>
-
+<img src="/posts/da41a120/6.png" title="后台版本信息">
 <blockquote>
 <p>这里需要注意的是,你每次上传代码都会覆盖掉后台上已经存在的版本,也就是说你的后台,只能存在一个版本.不会同时出现多个不同的版本.</p>
 </blockquote>

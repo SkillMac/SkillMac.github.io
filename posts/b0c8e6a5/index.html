@@ -16,10 +16,12 @@
 <meta property="og:site_name" content="小魏的博客">
 <meta property="og:description" content="时间: 2019年1月23日18:51:03 后面的格式是,在每篇文章开头都会加上时间,好比较你现在的时间和这篇博客书写的时间,你好判定你是借鉴还是可以直接用. 今天主要是介绍 git 的其他命令.  git 仓库打标签(tag) git 扩展工具 lfs(large file system)">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/b0c8e6a5/1.gif">
 <meta property="og:updated_time" content="2019-02-19T12:27:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git操作命令记录(二)">
 <meta name="twitter:description" content="时间: 2019年1月23日18:51:03 后面的格式是,在每篇文章开头都会加上时间,好比较你现在的时间和这篇博客书写的时间,你好判定你是借鉴还是可以直接用. 今天主要是介绍 git 的其他命令.  git 仓库打标签(tag) git 扩展工具 lfs(large file system)">
+<meta name="twitter:image" content="https://leng521.top/posts/b0c8e6a5/1.gif">
   
   
     <link rel="icon" href="images/head.jpg">
@@ -217,7 +219,7 @@ git push origin --delete tag &lt;tagName&gt;
 <p>删除远端 tag 的工作流(workflow) 先删除本地的tag 然后在删除远端的 tag.</p>
 </blockquote>
 <h2 id="git-lfs"><a href="#git-lfs" class="headerlink" title="git lfs"></a>git lfs</h2><p><a href="https://git-lfs.github.com/" target="_blank" rel="noopener">git-lfs参考地址</a></p>
-
+<img src="/posts/b0c8e6a5/1.gif" title="git-lfs示意图">
 <p>这个扩展工具是解决 主仓库日渐庞大的时候 拉取缓慢的问题.</p>
 <p>每次提交都会使仓库的总体积变的原来越大.尤其是一些大的项目这一点会体现的越来越明显,导致别人在拉取的时候会变得很缓慢.</p>
 <p>git lfs 的解决方案是 将一些大的文件 储存在另外的仓库中,保证你的主仓库的体积不会很大.正如,git-lfs 中说到的 更快的拉取速度.但是它并没有解决仓库体积的问题.</p>

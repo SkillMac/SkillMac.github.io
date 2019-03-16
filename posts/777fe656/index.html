@@ -16,10 +16,19 @@
 <meta property="og:site_name" content="小魏的博客">
 <meta property="og:description" content="刚换个新工作,是做微信小游戏的.已经好长时间没有写一些东西了,今天就在这总结一下我这个月的做的事吧,我也是刚使用 cocos creator 时间不长,以前一直用的是 cocos2dx-lua ,写的不好请多多指教,好了废话不多说. 本片文章主要是对微信小游戏开发和总结.引擎: cocos creator发布平台: 微信小游戏(微信sdk ver:2.1.1) 本文大纲  使用 cocos cre">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/2.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/3.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/4.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/6.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/7.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/8.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/9.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/10.png">
 <meta property="og:updated_time" content="2019-02-19T12:29:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微信小游戏开发记录">
 <meta name="twitter:description" content="刚换个新工作,是做微信小游戏的.已经好长时间没有写一些东西了,今天就在这总结一下我这个月的做的事吧,我也是刚使用 cocos creator 时间不长,以前一直用的是 cocos2dx-lua ,写的不好请多多指教,好了废话不多说. 本片文章主要是对微信小游戏开发和总结.引擎: cocos creator发布平台: 微信小游戏(微信sdk ver:2.1.1) 本文大纲  使用 cocos cre">
+<meta name="twitter:image" content="https://leng521.top/posts/777fe656/2.png">
   
   
     <link rel="icon" href="images/head.jpg">
@@ -173,24 +182,24 @@
 <li>微信开发工具</li>
 </ul>
 <p>appid:<br>是你注册微信小程序公众号时候能够得到的,这个是你发布的时候要用的东西,当然你也可以使用 cocos creator 提供的默认的账号,(使用这个账号的弊端是你项目相关人员没办法测试,只有你的微信账号可以做测试)<br><a href="https://developers.weixin.qq.com/minigame/introduction/index.html#%E5%BC%80%E9%80%9A%E8%99%9A%E6%8B%9F%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98" target="_blank" rel="noopener">微信团队注册和接入微信小游戏的教程</a><br>在这里注册你的微信公众号账号 <a href="https://mp.weixin.qq.com/" target="_blank" rel="noopener">微信公众平台</a>在这里选择小程序进行注册,然后按照流程进行注册,你可以是个体,也可以是以企业身份进行注册,(个人注册在后期发布上线的时候要做的事情比较少,企业注册就需要东西比个人多两样,后面详细介绍.)</p>
-
+<img src="/posts/777fe656/2.png" title="注册类型">
 <p>一般这些东西注册比较简单,这里就仔细叙述了,如果你是管理员的话,你可微信扫码直接登录,如果不是可以让管理员给你直接加一下权限.</p>
-
+<img src="/posts/777fe656/3.png" title="成员权限">
 <p>你需要配置的信息如下:</p>
-
+<img src="/posts/777fe656/4.png" title="小游戏配置信息">
 <p>这里要注意的就是我第二张图里面指向的地方, 这些你都填写完毕后就可以拿到 appid 了,有了这个id后你可以给其他的项目相关测试人员在微信后台添加 成员并给他们相应的权限,这样他们也可以进行测试你现在开发的小游戏了.</p>
-
+<img src="/posts/777fe656/6.png" title="小游戏的appid">
 <p>然后在 cocos creator 引擎中去填写,</p>
-
+<img src="/posts/777fe656/7.png" title="发布设置">
 <p>我这里指向了几个地方,这里你们要是明白的话就更好,要是不明白,先这样做,我只是不想要这篇文章篇幅过长.</p>
 <p>至于下面的 开放数据域, 服务器地址, 现在可以先不配置, 到后面我会去介绍的.</p>
 <p>在这里再说一下,在点击运行的时候需要先配置,微信开发工具,<br><a href="https://developers.weixin.qq.com/minigame/dev/devtools/download.html" target="_blank" rel="noopener">微信开发工具 download</a></p>
-
+<img src="/posts/777fe656/8.png" title="微信开发工具配置">
 <blockquote>
 <p>那里面有配置的完整路径.^-^</p>
 </blockquote>
 <p>然后引擎会在构建完成之后,点击运行,微信开发者工具启动后,点击预览会生成一个二维码,然后在微信后台,成员管理里面的成员只要有测试权限的都可以通过这个二维码进行游戏测试.</p>
-
+<img src="/posts/777fe656/9.png" title="编译预览">
 <p>好了到这里你就发布成功了.</p>
 <p><a href="http://docs.cocos.com/creator/manual/zh/publish/publish-wechatgame.html" target="_blank" rel="noopener">这个是 cocos creator 官方团队提供发布微信小游戏的教程</a></p>
 <p>如果运行出现错误可以到这里看看有没有<a href="http://forum.cocos.com/t/faq/54828" target="_blank" rel="noopener">微信小游戏问题总汇</a></p>
@@ -209,9 +218,9 @@
 <p>开放数据域的代码</p>
 <p>这里我直接放一个文件的链接,我就不接去部分代码了,你可以直接修改然后自己使用.</p>
 <p>开放数据域代码</p>
-
+<a href="/posts/777fe656/openContentData.txt" title="openContentData.txt">openContentData.txt</a>
 <p>这里在你发布开放数据域的工程的时候</p>
-
+<img src="/posts/777fe656/10.png" title="开放数据域的配置">
 <blockquote>
 <p>好了开放数据域 介绍结束 ^-^</p>
 </blockquote>

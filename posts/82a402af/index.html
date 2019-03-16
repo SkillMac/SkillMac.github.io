@@ -16,10 +16,13 @@
 <meta property="og:site_name" content="小魏的博客">
 <meta property="og:description" content="现在对git也使用快一年了现在总结一下常用的一些命令。 本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/82a402af/git_branch_vv.png">
+<meta property="og:image" content="https://leng521.top/posts/82a402af/git_remote_v.png">
 <meta property="og:updated_time" content="2018-05-25T07:53:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git命令的记录">
 <meta name="twitter:description" content="现在对git也使用快一年了现在总结一下常用的一些命令。 本文的大纲对以下命令做一些记录1.git clone2.git pull3.git commit">
+<meta name="twitter:image" content="https://leng521.top/posts/82a402af/git_branch_vv.png">
   
   
     <link rel="icon" href="images/head.jpg">
@@ -211,7 +214,7 @@ git clone git://github.com/schacon/grit.git test
 <p>删除xx分支</p>
 </blockquote>
 <h2 id="git-branch-upstream-git-分支的映射关系"><a href="#git-branch-upstream-git-分支的映射关系" class="headerlink" title="git branch upstream(git 分支的映射关系)"></a><strong>git branch upstream(git 分支的映射关系)</strong></h2><pre><code>建立本地分支与远程分支的映射关系（或者为跟踪关系track）。这样使用`git pull`或者`git push`时就不必每次都要指定从远程的哪个分支拉取合并和推送到远程的哪个分支了。
-</code></pre><p>ej:<br><br>从这上面可以看到本地分支与远程分支的映射关系<br>若没有映射关系 <code>git pull 或是 git push</code> 会失败</p>
+</code></pre><p>ej:<br><img src="/posts/82a402af/git_branch_vv.png" title="git branch -vv"><br>从这上面可以看到本地分支与远程分支的映射关系<br>若没有映射关系 <code>git pull 或是 git push</code> 会失败</p>
 <p><strong>与远程分支建立映射关系</strong></p>
 <p>使用 <code>git branch -u origin/xx</code> 与远程分支 建立 映射关系<br>xx 为 远程分支的名字</p>
 <p><strong>与远程分支取消映射关系</strong><br>使用 <code>git branch --unset-upstream</code></p>
@@ -225,7 +228,7 @@ git clone git://github.com/schacon/grit.git test
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ej:</span><br><span class="line">    git fecth origin test:temp</span><br><span class="line">    -- 拉取远程分支 test 到 本地 temp 分支上</span><br><span class="line">    -- 注意这种拉取 本地分支和远程分支 是没有映射关系的</span><br></pre></td></tr></table></figure>
 <h2 id="git-remote"><a href="#git-remote" class="headerlink" title="git remote"></a><strong>git remote</strong></h2><p><strong>git remote and git remote -v</strong></p>
 <blockquote>
-<p>git remote用来管理本地工作目录对应的远程代码仓库，在一般的工作目录下，执行git remote结果如下：<br></p>
+<p>git remote用来管理本地工作目录对应的远程代码仓库，在一般的工作目录下，执行git remote结果如下：<br><img src="/posts/82a402af/git_remote_v.png" title="git remote -v"></p>
 </blockquote>
 <p><strong>git remote add</strong></p>
 <blockquote>

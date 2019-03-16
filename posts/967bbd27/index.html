@@ -16,10 +16,12 @@
 <meta property="og:site_name" content="小魏的博客">
 <meta property="og:description" content="今天主要更新微信小游戏广告接入问题… 微信小游戏现在已经开始对外测试了,只要你的 UV(累计用户超过1000) 且没有违规行为,就可以填写个人信息,如,个人银行卡相关信息等,然后提交审核.如果接过广告的程序员,应该都知道在接入广告的时候需要先创建广告位,产生相关id.">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/967bbd27/1.png">
 <meta property="og:updated_time" content="2018-08-18T15:14:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微信小游戏接入广告">
 <meta name="twitter:description" content="今天主要更新微信小游戏广告接入问题… 微信小游戏现在已经开始对外测试了,只要你的 UV(累计用户超过1000) 且没有违规行为,就可以填写个人信息,如,个人银行卡相关信息等,然后提交审核.如果接过广告的程序员,应该都知道在接入广告的时候需要先创建广告位,产生相关id.">
+<meta name="twitter:image" content="https://leng521.top/posts/967bbd27/1.png">
   
   
     <link rel="icon" href="images/head.jpg">
@@ -159,7 +161,7 @@
             <p>今天主要更新微信小游戏广告接入问题… 微信小游戏现在已经开始对外测试了,只要你的 UV(累计用户超过1000) 且没有违规行为,就可以填写个人信息,如,个人银行卡相关信息等,然后提交审核.如果接过广告的程序员,应该都知道在接入广告的时候需要先创建广告位,产生相关id.<br><a id="more"></a><br>大致流程</p>
 <p>满足条件 –&gt; 填写个人信息 –&gt; 提交申请 –&gt; 在微信后台创建广告位 –&gt; 游戏前端添加<br>相应的代码逻辑</p>
 <h2 id="填写个人信息"><a href="#填写个人信息" class="headerlink" title="填写个人信息"></a><strong>填写个人信息</strong></h2><p>主要需要填写银行相关信息,账单流水邮件接收人的相关信息,,,这里我截图了,放在公司了,后面补上.</p>
-<h2 id="创建爱你广告位"><a href="#创建爱你广告位" class="headerlink" title="创建爱你广告位"></a><strong>创建爱你广告位</strong></h2>
+<h2 id="创建爱你广告位"><a href="#创建爱你广告位" class="headerlink" title="创建爱你广告位"></a><strong>创建爱你广告位</strong></h2><img src="/posts/967bbd27/1.png" title="广告位截图">
 <p>这里主要是广告的类型,,,目前下游戏提供的广告类型,,,只有横幅广告 和 激励广告</p>
 <p>横幅广告:<br>    1.一般放在游戏的下方和游戏弹窗触发的情境下<br>    2.横幅广告组件一旦被创建里面的广告内容不会被更新,如果需要更新内容需要,需要将当前组件销毁,重新创建新的组件<br>    3.需要自己去放置位置,这里需要自己去计算位置和缩放和适配,计算不好会遮挡按钮,这个会违反微信小游戏广告规范,这样会有封号,或者是账号被冻结的问题.</p>
 <p>激励广告:<br>    1.这个一般是全屏,不需要自己去考虑组件的位置等等<br>    2.主要运用的场景是游戏复活,获取积分,获取道具,获取新关卡机会等等<br>    3.主要负责视频是否播放完毕</p>
