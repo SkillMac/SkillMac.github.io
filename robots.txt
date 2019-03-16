@@ -8,3 +8,6 @@ Disallow: /css/
 Disallow: /vendor/
 Disallow: /content.json
 Disallow: /404.html
+
+Sitemap: http://lancelot_lewis.coding.me/sitemap.xml
+Sitemap: http://lancelot_lewis.coding.me/baidusitemap.xml
