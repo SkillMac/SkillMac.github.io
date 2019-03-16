@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.leng521.top/about/index.html</loc>
+    
+    <lastmod>2019-03-16T15:02:41.553Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.leng521.top/posts/b52cbf29/</loc>
     
     <lastmod>2019-03-16T11:04:18.755Z</lastmod>
@@ -9,7 +16,7 @@
   </url>
   
   <url>
-    <loc>http://www.leng521.top/about/index.html</loc>
+    <loc>http://www.leng521.top/tags/index.html</loc>
     
     <lastmod>2019-03-16T09:17:04.589Z</lastmod>
     
@@ -17,13 +24,6 @@
   
   <url>
     <loc>http://www.leng521.top/categories/index.html</loc>
-    
-    <lastmod>2019-03-16T09:17:04.589Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.leng521.top/tags/index.html</loc>
     
     <lastmod>2019-03-16T09:17:04.589Z</lastmod>
     
