@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>linux升级gcc | 小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
+  <meta name="description" content="这一篇是对linux centos7 中 gcc 的升级.这次升级gcc的版本是 8.1.0">
+<meta name="keywords" content="gcc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux升级gcc">
+<meta property="og:url" content="https://leng521.top/posts/f62a7c7d/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="这一篇是对linux centos7 中 gcc 的升级.这次升级gcc的版本是 8.1.0">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-09T02:08:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux升级gcc">
+<meta name="twitter:description" content="这一篇是对linux centos7 中 gcc 的升级.这次升级gcc的版本是 8.1.0">
+  
+  
+    <link rel="icon" href="/head.jpg">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-linux升级gcc" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      linux升级gcc
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/linux/">linux</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-05-09
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>这一篇是对linux centos7 中 gcc 的升级.<br>这次升级gcc的版本是 8.1.0<br><a id="more"></a></p>
+<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a><strong>方法一</strong></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ su \\进入 root</span><br><span class="line"># sudo yum install libmpc-devel mpfr-devel gmp-devel</span><br><span class="line">...</span><br><span class="line"># cd 下载</span><br><span class="line"># curl ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/*   \\* 号为自己想要更新的版本号</span><br><span class="line">\\ 做法是自己将这个 地址放到浏览器中自己去选取合适的版本直接下载.</span><br><span class="line">\\ 我这里下载的是 8.1.0 </span><br><span class="line"># tar zxfv gcc-8.1.0.tar.gz</span><br><span class="line"># cd gcc-8.1.0</span><br><span class="line"># ./configure --disable-multilib --enable-languages=c,c++</span><br><span class="line"># make -j 4</span><br><span class="line">...</span><br><span class="line"># make install</span><br><span class="line">...</span><br><span class="line"># gcc -v</span><br><span class="line">...</span><br><span class="line">线程模式:posix</span><br><span class="line">gcc 版本 8.1.0(GCC)</span><br><span class="line">\\ ... 意思省略</span><br></pre></td></tr></table></figure>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a><strong>方法二</strong></h2><p>在 etc/yum.repos.d下面添加repo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch FedoraRepo.repo</span><br></pre></td></tr></table></figure></p>
+<p>然后添加下面的内容:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[warning:fedora] </span><br><span class="line">name=fedora </span><br><span class="line">mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-23&amp;arch=$basearch </span><br><span class="line">enabled=1 </span><br><span class="line">gpgcheck=1 </span><br><span class="line">gpgkey=https://getfedora.org/static/34EC9CBA.txt</span><br></pre></td></tr></table></figure>
+<p>然后更新gcc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y update gcc gcc-c++</span><br></pre></td></tr></table></figure>
+<p>然后就是新版本了<br>但是这我还不太懂.所以就没有用这个方法.</p>
+<blockquote>
+<p>我用的是方法一.<br>因为方法一可以自己选择gcc版本,并不是所有的东西都要更新到最新的版本,当然这个根据你们自己了.<br>根据情况而定. 方法二更简单一点.</p>
+</blockquote>
+<p>好了今天就先到这了.</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年05月09日 10:08</p>
+        <p>原始链接： <a class="post-url" href="/posts/f62a7c7d/" title="linux升级gcc">https://leng521.top/posts/f62a7c7d/</a></p>
+        <footer>
+            <a href="https://leng521.top">
+                <img src="/head.jpg" alt="小魏">
+                小魏
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/f62a7c7d/&title=《linux升级gcc》 — 小魏的博客&pic=https://leng521.tophead.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/f62a7c7d/&title=《linux升级gcc》 — 小魏的博客&source=这一篇是对linux centos7 中 gcc 的升级.这次升级gcc的版本是 8.1.0" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/f62a7c7d/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《linux升级gcc》 — 小魏的博客&url=https://leng521.top/posts/f62a7c7d/&via=https://leng521.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/f62a7c7d/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxElEQVR42u3aW46DQAwEQO5/6ewBEKRtzxBWqvmK8oAiHy2mzXHE63NavU/P7x87Fi4u7pj7uV3338mPcCb2joCLi/sk9yoxrr5zhb6n5Me/fB8XF/f13CQQkwvAxcX979wkpPJNES4u7pu5eQzlJ5tvrnBxcX/FzVvKfa+39Lu4uLgt7qe4VtUlvYWLi/sMNw+U3k1Prwr5MqDFxcV9nDs5ZSGMigPXo/ozXFzcMbdXfCQnmIRd+SEMXFzcDdy1/cOX25R4DBPdDOHi4m7g9orOaiFSDcHm5gcXF3fMzbco9zcr0WMTxQi7/F9xcXE3c5uVxGBMm2x4yrmLi4u7lNsccw5q1l6E4eLiPs9Nys1qkdErR6Igw8XF3czNS9LkAqqDkFGzi4uLu5lbHmq2BqJ5vfKlnMXFxf0Rt/eYRbVeaY5kcHFxH+TmP5gPWZOILHyMi4u7lDspTHu3KaOxDS4u7iPctSPSajwlkde8GFxc3DG3WpXmFWpOKQQcLi7ug9x8pDG5TZlHHi4u7ju5803Ugh0bLi7uK7mTerS691oQZLi4uC3uJG7KD1zGfwcuLu6vuNUo6T2U2atHR/0uLi5uh/sHOV+5aL8HHY8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/gcc/" class="color4">gcc</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方法一"><span class="post-toc-text">方法一</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方法二"><span class="post-toc-text">方法二</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/posts/b1de475b/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          给sublime写自定义的插件
+        
+      </span>
+    </a>
+  
+  
+    <a href="/posts/1e09c0f5/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">9宫格纹理的更新问题</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNDA0MC8xMDU3OA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/js/">js</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

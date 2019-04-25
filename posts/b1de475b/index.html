@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>给sublime写自定义的插件 | 小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
+  <meta name="description" content="以前总是在sublime中装各种插件,去实现某种便捷,如装一个 git 插件可以直接快速的去查看当前打开的文件与远端的这个文件的差异.但是这些插件总是满足不了你的欲望,有的时候在有一些奇葩的需求,可能没有现有的插件可用,这个时候就要自己去写插件了.">
+<meta name="keywords" content="sublime插件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给sublime写自定义的插件">
+<meta property="og:url" content="https://leng521.top/posts/b1de475b/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="以前总是在sublime中装各种插件,去实现某种便捷,如装一个 git 插件可以直接快速的去查看当前打开的文件与远端的这个文件的差异.但是这些插件总是满足不了你的欲望,有的时候在有一些奇葩的需求,可能没有现有的插件可用,这个时候就要自己去写插件了.">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/b1de475b/1.png">
+<meta property="og:image" content="https://leng521.top/posts/b1de475b/2.png">
+<meta property="og:image" content="https://leng521.top/posts/b1de475b/3.png">
+<meta property="og:image" content="https://leng521.top/posts/b1de475b/4.png">
+<meta property="og:image" content="https://leng521.top/posts/b1de475b/5.png">
+<meta property="og:updated_time" content="2018-05-10T08:33:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="给sublime写自定义的插件">
+<meta name="twitter:description" content="以前总是在sublime中装各种插件,去实现某种便捷,如装一个 git 插件可以直接快速的去查看当前打开的文件与远端的这个文件的差异.但是这些插件总是满足不了你的欲望,有的时候在有一些奇葩的需求,可能没有现有的插件可用,这个时候就要自己去写插件了.">
+<meta name="twitter:image" content="https://leng521.top/posts/b1de475b/1.png">
+  
+  
+    <link rel="icon" href="/head.jpg">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-给sublime写自定义的插件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      给sublime写自定义的插件
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/插件/">插件</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-05-10
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>以前总是在sublime中装各种插件,去实现某种便捷,如装一个 git 插件可以直接快速的去查看当前打开的文件与远端的这个文件的差异.<br>但是这些插件总是满足不了你的欲望,有的时候在有一些奇葩的需求,可能没有现有的插件可用,这个时候就要自己去写插件了.<br><a id="more"></a><br>首先Sublime是支持自定义插件的,其次是Sublime的插件是采用python的语法,所以你要在写插件之前至少要了解python语法.不然就望而生畏了.</p>
+<h2 id="第一步-创建python脚本文件"><a href="#第一步-创建python脚本文件" class="headerlink" title="第一步 创建python脚本文件"></a><strong>第一步 创建python脚本文件</strong></h2><p>直接打开 Sublime 在最上面工具栏中 找到 Tools/Developer/New Plugin</p>
+<p>点击完成之后会有一个内容类似下面的未保存文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sublime</span><br><span class="line"><span class="keyword">import</span> sublime_plugin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExampleCommand</span><span class="params">(sublime_plugin.TextCommand)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, edit)</span>:</span></span><br><span class="line">        self.view.insert(edit, <span class="number">0</span>, <span class="string">"Hello, World!"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>关于 sublime 这两个包的 API可以去 <a href="http://www.sublimetext.com/docs/3/api_reference.html">SublimeAPI</a> 可能需要翻墙,我只是翻墙之后快了许多.</p>
+<h2 id="第二步-填充自己的python文件并保存到相应位置"><a href="#第二步-填充自己的python文件并保存到相应位置" class="headerlink" title="第二步 填充自己的python文件并保存到相应位置"></a><strong>第二步 填充自己的python文件并保存到相应位置</strong></h2><img src="/posts/b1de475b/1.png" title="package path">
+<img src="/posts/b1de475b/2.png" title="package floder">
+<p>打开上面所指向的目录自己新建一个文件夹,和你那个User目录同级就行了.<br>列如我建立一个PythonHead 的目录如下:</p>
+<img src="/posts/b1de475b/3.png" title="python head">
+<p>里面有个 head.py 的python文件,具体内容如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sublime</span><br><span class="line"><span class="keyword">import</span> sublime_plugin</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line">str_head = <span class="string">"""#!usr/bin/env python2</span></span><br><span class="line"><span class="string">#-*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">#data:%s\n</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PyHeadCommand</span><span class="params">(sublime_plugin.TextCommand)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, edit)</span>:</span></span><br><span class="line">        self.view.insert(edit, <span class="number">0</span>,str_head % (datetime.datetime.now().strftime(<span class="string">"%y-%m-%d %H:%m:%s"</span>)))</span><br></pre></td></tr></table></figure>
+<p>这个自定义的功能主要是给自己python文件定义加了一些通用的注释而已.<br>样子就如下面这样</p>
+<img src="/posts/b1de475b/4.png" title="开头加自动加注释例子">
+<p>这一写完之后你可以直接打开 Sublime 的命令行 快捷键 ctrl+` 如果快捷键冲突可以直接 View/Show Console 这个也可以</p>
+<p>直接在这里面输入如下代码</p>
+<img src="/posts/b1de475b/5.png" title="打开Sublime的命令行">
+<p>就会向上面显示的那样.</p>
+<p>当然这样肯定是不行的因为这个效率太低下,这里我们直接使用快捷键</p>
+<h2 id="第三步-绑定快捷键"><a href="#第三步-绑定快捷键" class="headerlink" title="第三步 绑定快捷键"></a><strong>第三步 绑定快捷键</strong></h2><p>在上面的那个PyHead的文件夹下面有个 <code>Default (Windows).sublime-keymap</code> </p>
+<blockquote>
+<p>它这个分了一些平台 如 Default (OSX).sublime-keymap Default (Linux).sublime-keymap<br>这样的文件夹,这个是你绑定快捷键到你这个 功能上面.<br>里面的内容如下(使用json的数据格式):</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;<span class="attr">"keys"</span>: [<span class="string">"ctrl+alt+h"</span>], <span class="attr">"command"</span>: <span class="string">"py_head"</span>&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>如果不熟悉json的话可以自己去补一下.</p>
+<p>前面这个定义快捷键,后面是你要调用的函数,这里你可能有疑问了,为啥定义是<code>PyHeadCommand</code> 这个名字 却写个这,<br>那是因为在Sublime中 函数的绑定都是小写, 如果你是大写就像上面那样驼峰式命名<br>在绑定的时候是以下划线开头在这个大写字母前面,然后全部小写.<br>举一个例子吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如 函数名 PyHead  绑定的 command 是 py_head</span><br><span class="line">函数名 pyhead 绑定的 command 是 pyhead </span><br><span class="line">函数名 PYHead 绑定的 command 是 p_y_head</span><br></pre></td></tr></table></figure></p>
+<p>这下应该明白了吧.</p>
+<p>这样你就成功的写了一个 Sublime 插件的 hello world,如果你要写更厉害的插件你还得去学习 正则表达式,至于这个是啥怎么用自己去找,网上一大堆.</p>
+<p>好了今天就先到这.有时间我在接着写一些其他的文档如 Sublime的API文档.</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年05月10日 16:33</p>
+        <p>原始链接： <a class="post-url" href="/posts/b1de475b/" title="给sublime写自定义的插件">https://leng521.top/posts/b1de475b/</a></p>
+        <footer>
+            <a href="https://leng521.top">
+                <img src="/head.jpg" alt="小魏">
+                小魏
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/b1de475b/&title=《给sublime写自定义的插件》 — 小魏的博客&pic=https://leng521.tophead.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/b1de475b/&title=《给sublime写自定义的插件》 — 小魏的博客&source=以前总是在sublime中装各种插件,去实现某种便捷,如装一个 git 插件可以直接快速的去查看当前打开的文件与远端的这个文件的差异.但是这些插件总是满足..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/b1de475b/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《给sublime写自定义的插件》 — 小魏的博客&url=https://leng521.top/posts/b1de475b/&via=https://leng521.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/b1de475b/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByklEQVR42u3aS46DMBAFQO5/6USaVRbBee3GDhOVVwghU2bRoj/HEa/H33q9fr3TuX+sWLi4uG3uY7jOth4/n+x89gnGe+Li4u7k5sErD0DjY48/x+l9XFzcm3HzwyRQXFzc3+COf03ykIeLi/tfuHlykiQ/eVK0MFfDxcVtcOcKptdeL6/v4uLiXtSVmAtS1RJJ4e24uLhbuEnJYxxJ1jVuT/fHxcVdzB2/Mg9h5WAU/PpEIQwXF3cBd25M6qoD5CGsHNRwcXHb3E5hNA+I1dAZDWbh4uIu4M4VNaoNks7I15sqDi4u7hbu+KFq+zM5xmTBBRcXdwt3rnw5l9LkIQ8XF/cO3Gqqkx+7uuf48Li4uHu41YBSLYx2PgcuLu53uZ1UJG+EVFutb57BxcXdwk3SnnyEKz9ea09cXNzF3OoL8nbs3D4f9sTFxd3I7YSw/IemU2TBxcXdz622VJNXVtsthW4PLi7uYm6/QZIPWlULIuUuMS4u7qXcueCVN1SqB8PFxb0Pd24CqtN0mSyq4uLi3oybFETyRks+pPXhNLi4uDfg5kMY+SBXPsyBi4u7k9vZKE+TtpZFcHFxtxdMq8lSf7ADFxd3C/cJJo1swz0BknsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/sublime插件/" class="color5">sublime插件</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第一步-创建python脚本文件"><span class="post-toc-text">第一步 创建python脚本文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第二步-填充自己的python文件并保存到相应位置"><span class="post-toc-text">第二步 填充自己的python文件并保存到相应位置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第三步-绑定快捷键"><span class="post-toc-text">第三步 绑定快捷键</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/posts/8e17853e/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          解决运行exe时缺少dll问题
+        
+      </span>
+    </a>
+  
+  
+    <a href="/posts/f62a7c7d/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">linux升级gcc</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNDA0MC8xMDU3OA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/js/">js</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

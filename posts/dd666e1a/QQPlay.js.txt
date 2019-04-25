@@ -1,0 +1,698 @@
+let Config = {
+    isDebug: true,
+}
+
+let Utils = {
+    log() {
+        if(Config.isDebug && QQPlay.checkIsQQPlay()) {
+            for (let msg in arguments) {
+                cc.log(arguments[msg]);
+                BK.Script.log(1,1,arguments[msg]);
+                BK.Console.log(arguments[msg]);
+            }
+            
+        }
+    },
+
+    jsonToString(obj) {
+        if(!obj) return;
+
+        return JSON.stringify(obj);
+    },
+
+    stringToJson(str_) {
+        if(!str_) return;
+
+        return JSON.parse(str_);
+    },
+
+    getCurTimestamp() {
+        return (new Date()).getTime();
+    },
+
+    post(url, params, cb) {
+        if(cb === undefined) {
+            cb = params;
+            params = '';
+        }
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST',url);
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+                let response = xhr.responseText;
+                if(cb) {
+                    cb('0',this.stringToJson(response));
+                }
+            }
+        }
+
+        xhr.onerror = () => {
+            if(cb) {
+                cb('-1','网络异常');
+            }
+        }
+
+        xhr.send(params);
+    }
+}
+
+let QQPlay = {
+
+    init() {
+        if(this.checkIsQQPlay()) {
+            BK.Script.logToConsole = Number(Config.isDebug);
+            BK.Director.logToConsole = Number(Config.isDebug);
+            let sysInfo = BK.getSystemInfoSync();
+            this._initData(sysInfo);
+        }
+    },
+
+    _initData(sysInfo) {
+        // GameStatusInfo
+        this._sysInfo = sysInfo;
+
+        this._exitGameFunc = null;
+        this._onShareCompleteFunc = null;
+        this._onShareFunc = null;
+        this._enterForegroundFunc = null;
+        this._enterBackgroundFunc = null;
+        this._maximizeFunc = null;
+        this._minimizeFunc = null;
+        this._networkChangeFunc = null;
+
+        this._curBannerAd = null;
+        this._curVideoAd = null;
+        this._startGameTime = Utils.getCurTimestamp().toString();
+    },
+
+    _onQQPlayEvent() {
+        BK.onGameShare(()=>{
+            if(this._onShareFunc) this._onShareFunc();
+        });
+        BK.onGameShareComplete((data)=>{
+            if(this._onShareCompleteFunc) this._onShareCompleteFunc(data);
+        });
+        BK.onGameClose(()=>{
+            if(this._exitGameFunc) this._exitGameFunc();
+        })
+        BK.onEnterForeground(()=>{
+            if(this._enterForegroundFunc) this._enterForegroundFunc();
+        })
+        BK.onEnterBackground(()=>{
+            if(this._enterBackgroundFunc) this._enterBackgroundFunc();
+        })
+        BK.onMaximize(()=>{
+            if(this._maximizeFunc) this._maximizeFunc();
+        })
+        BK.onMinimize(()=>{
+            if(this._minimizeFunc) this._minimizeFunc();
+        })
+        BK.onNetworkChange((data)=>{
+            if(this._networkChangeFunc) this._networkChangeFunc(data);
+        })
+    },
+
+    /**
+     * 获取用的 唯一id openId
+     */
+    getUserOpneId() {
+        if(!(this.checkIsQQPlay())) return;
+
+        return this._sysInfo.openId;
+    },
+
+    /**
+     * 检查是否是 QQ玩一玩
+     */
+    checkIsQQPlay() {
+        return cc.sys.platform == cc.sys.QQ_PLAY;
+    },
+
+    /**
+     * 是否保持屏幕长亮
+     * @param {Boolean} f 
+     */
+    keepScreen(f) {
+        if(!(this.checkIsQQPlay())) return;
+
+        BK.Device.keepScreenOn({isKeepOn:f});
+    },
+
+    /**
+     * 监听几个合适的时间点
+     * @param {string} type 注册类型
+     * @param {function} func 绑定函数
+     */
+    register(type, func) {
+        switch (type) {
+            case 'exitGame':
+                this._exitGameFunc = func;
+                break;
+            case 'onShare':
+                this._onShareFunc = func;
+                break;
+            case 'onShareComplete':
+                this._onShareCompleteFunc = func;
+                break;
+            case 'onEnterForeground':
+                this._enterForegroundFunc = func;
+                break;
+            case 'onEnterBackground':
+                this._enterBackgroundFunc = func;
+                break;
+            case 'onMaximize':
+                this._maximizeFunc = func;
+                break;
+            case 'onMinimize':
+                this._minimizeFunc = func;
+                break;
+            case 'onNetworkChange':
+                this._networkChangeFunc = func;
+                break;
+        }
+    },
+
+    /**
+     * 设置数据到本地
+     * @param {string} key 
+     * @param {Object} obj 
+     */
+    setLocalData(key,obj) {
+        if(!(this.checkIsQQPlay()) || !key || !obj) return;
+
+        if(key) {
+            BK.localStorage.getItem(key,JSON.stringify(obj));
+        }
+    },
+
+    /**
+     * 获取本地数据
+     * @param {string} key 
+     */
+    getLocalDataByKey(key) {
+        if(!(this.checkIsQQPlay()) || !key) return;
+
+        return BK.localStorage.getItem(key);
+    },
+
+    /**
+     * 移除本地数据
+     * @param {string} key 
+     */
+    removeLocalDataByKey(key) {
+        if(!(this.checkIsQQPlay())) return;
+
+        if(key) {
+            BK.localStorage.removeItem(key);
+        }
+    },
+
+    /**
+     * 清楚本地数据
+     */
+    clearLocalData() {
+        if(!(this.checkIsQQPlay())) return;
+        BK.localStorage.clear();
+    },
+
+    /**
+     * 创建Banner广告
+     * @param {Number} id 1001 1002 1003
+     */
+    createBannerAd(id, loadSuccessFunc, failFunc) {
+        if(!(this.checkIsQQPlay())) return;
+
+        if(this._curBannerAd) {
+            this._curBannerAd.destory();
+            this._curBannerAd = null;
+        }
+        let banner = BK.Advertisement.createBannerAd({
+            viewId:id,
+        });
+        this._curBannerAd = banner;
+        this.showLoading('加载横幅');
+        banner.onLoad( () => { 
+           //广告加载成功
+           Utils.log('广告加载 成功');
+           this.hideLoading('加载结束');
+           banner.show();
+           if(loadSuccessFunc) {
+                loadSuccessFunc();
+            }
+        });
+        banner.onError( (err) => {
+            //加载失败
+            let msg = err.msg;
+            let code = err.code;
+            if(failFunc) {
+                failFunc(code,msg);
+            }
+        });
+    },
+
+    
+    createVideoAd(success,fail) {
+        if(!(this.checkIsQQPlay())) return;
+
+        if(this._curVideoAd) {
+            this._curVideoAd.destory();
+            this._curVideoAd = null;
+        }
+        let videoAd = BK.Advertisement.createVideoAd();
+        this._curVideoAd = videoAd;
+        this.showLoading('加载视频');
+        videoAd.onLoad(() => {
+            //加载成功
+            Utils.log("onLoad");
+            this.hideLoading('加载结束');
+            videoAd.show();
+        });
+
+        videoAd.onPlayStart( () => {
+            //开始播放
+            Utils.log("onPlayStart");
+        });
+
+        videoAd.onPlayFinish( () => {
+            //播放结束
+            Utils.log("onPlayFinish");
+            if(success) {
+                success();
+            }
+        });
+
+        videoAd.onError( (err) => {
+            //加载失败
+            Utils.log("onError code:"+err.code+" msg:"+err.msg);
+            if(fail) {
+                fail(err.code,err.msg);
+            }
+        });
+
+        videoAd.onClose( () => {
+            Utils.log('video close xxxxx');
+            if(fail) {
+                fail();
+            }
+        })
+    },
+
+    /**
+     * 创建视频广告
+     * @param {Object} obj 里面附带的参数如下 loadFunc,loadFailFunc,startPlayFunc,successFunc,closeFunc,exitGameFunc
+     */
+    createVideoAd2(obj) {
+        if(!(this.checkIsQQPlay()) || !obj) return;
+
+        let callFunc = (funcName) => {
+            if(obj[funcName]) {
+                obj[funcName]();
+            }
+        }
+        BK.Advertisement.fetchVideoAd(1, function (retCode, msg, handle) {
+            if (retCode == 0) {
+                Utils.log("拉取视频广告成功！");
+                callFunc('loadFunc');
+                handle.setEventCallack(function (code, msg) {
+                    //关闭游戏
+                    Utils.log("closeGame");
+                    callFunc('exitGameFunc');
+                }.bind(this), function (code, msg) {
+                    //code ==0 
+                    // 下发 奖励
+                    Utils.log("endVide code:" + code + " msg:" + msg);
+                    callFunc('successFunc');
+                }.bind(this), function (code, msg) {
+                    // 关闭视频
+                    //code ==0 
+                    Utils.log("endVide code:" + code + " msg:" + msg);
+                    callFunc('closeFunc');
+                }.bind(this), function (code, msg) {
+                    // 开始播放
+                    //code ==0 
+                    Utils.log("endVide code:" + code + " msg:" + msg);
+                    callFunc('startPlayFunc');
+                }.bind(this));
+                //跳转至播放界面
+                handle.jump();
+            }
+            else {
+                Utils.log("error:" + retCode + " msg:" + msg);
+                callFunc('loadFailFunc');
+            }
+        }.bind(this));
+    },
+
+    showToast(msg,cb) {
+        if(!(this.checkIsQQPlay())) return;
+
+        BK.UI.showToast({
+            title: msg,
+            duration: 1500,
+            complete: function () {
+                if(cb) cb();
+            }
+        });
+    },
+
+    showLoading(msg) {
+        if(!(this.checkIsQQPlay())) return;
+
+        BK.UI.showLoading({
+            title: msg,
+            complete: function () {
+                Utils.log("complete show");
+            }
+        });
+    },
+
+    hideLoading(msg) {
+        if(!(this.checkIsQQPlay())) return;
+
+        BK.UI.hideLoading({
+            title: msg,
+            complete: function () {
+                Utils.log("complete hide");
+            }
+        });
+    },
+
+    showAlert(titleStr, contentStr,confirmFunc,cancelFunc) {
+        if(!(this.checkIsQQPlay())) return;
+
+        BK.UI.showAlert({
+            title: titleStr,
+            content: contentStr,
+            success: function (succObj) {
+                if (succObj.confirm) {
+                    Utils.log("click confirm");
+                    if(confirmFunc) {
+                        confirmFunc();
+                    }
+                } else if (succObj.cancel) {
+                    Utils.log("click cancel");
+                    if(cancelFunc) {
+                        cancelFunc();
+                    }
+                }
+            },
+            complete: function () {
+                Utils.log("complete show");
+            }
+        });
+    },
+
+    /**
+     * 分享
+     * @param {string} imgUrl 分享图的地址
+     */
+    share(imgUrl,successFunc,failFunc,completeFunc) {
+        if(!(this.checkIsQQPlay())) return;
+
+        BK.Share.share({
+            qqImgUrl: imgUrl,
+            socialPicPath: 'GameRes://inviteIcon.png', // 分享到空间、微信、朋友圈的图片本地路径，可选，默认为游戏二维码，只对 高于7.6.3版本的手Q 有效
+            title: '萌犬分享 share',
+            summary: '一起逃离地球',
+            extendInfo: '游戏内',
+            isToFriend: true, // 是否发送给好友，可选，只对 H5游戏 或 低于7.6.3版本的手Q 有效
+            success: (code,data) => {
+                //data  QQ {"reqCode":1,"ret":0,"gameId":3740,"aioType":1,"shareTo":0,"isFirstTimeShare":0}
+                //QQ空间  {"reqCode":1,"ret":0,"gameId":3740,"aioType":0,"shareTo":1,"isFirstTimeShare":1}
+                Utils.log('share success', code, JSON.stringify(data));
+                if(successFunc) successFunc(code,data);
+            },
+            fail: (code,msg) => {
+                Utils.log('share fail', code, msg);
+                if(failFunc) failFunc(code,msg);
+            },
+            complete: () => {
+                Utils.log('share complete');
+                if(completeFunc) completeFunc();
+            }
+        });
+    },
+
+    /**
+     * 分享链接
+     * @param {string} imgUrl 分享图的地址
+     * @param {string} msgUrl 点击分享图要跳转的链接
+     */
+    shareLink(imgUrl,msgUrl,successFunc,failFunc,completeFunc) {
+        if(!(this.checkIsQQPlay())) return;
+
+        BK.Share.shareLink({
+            title: '萌犬分享 Link',
+            summary: "点击链接一起战斗",
+            qqImgUrl: imgUrl,
+            extendInfo: '游戏内分享链接',
+            msgUrl: msgUrl,
+    
+            success: (code,data) => {
+                //data  QQ {"reqCode":1,"ret":0,"gameId":3740,"aioType":1,"shareTo":0,"isFirstTimeShare":0}
+                //QQ空间  {"reqCode":1,"ret":0,"gameId":3740,"aioType":0,"shareTo":1,"isFirstTimeShare":1}
+                Utils.log('share success', code, JSON.stringify(data));
+                if(successFunc) successFunc(code,data);
+            },
+            fail: (code,msg) => {
+                Utils.log('share fail', code, msg);
+                if(failFunc) failFunc(code,msg);
+            },
+            complete: () => {
+                Utils.log('share complete');
+                if(completeFunc) completeFunc();
+            }
+        });
+    },
+
+    /**
+     * 跳转其他游戏
+     * @param {string} desGameId 目标用的 GameId
+     * @param {string} extendInfo 扩展信息 选填
+     */
+    toOtherGame(desGameId,extendInfo='') {
+        if(!(this.checkIsQQPlay())) return;
+
+        BK.QQ.skipGame(desGameId, extendInfo);
+    },
+
+    /**
+     * 生成快捷方式是 将 扩展新加入到这个快捷方式中 待测试
+     * @param {string} extendInfo 
+     */
+    onShortCut(extendInfo='') {
+        if(!(this.checkIsQQPlay())) return;
+
+        BK.QQ.createShortCut(extendInfo);
+    },
+    
+    /**
+     * 获取 QQ 网名
+     * @param {function} cb => (openId,nick)获取成功回调
+     * @param {string} openId 选填参数| 可通过 QQPlay.getUserOpneId() 获取
+     */
+    getNick(cb,openId = GameStatusInfo.openId) {
+        if(!(this.checkIsQQPlay()) || !cb) return;
+
+        BK.MQQ.Account.getNick(openId,cb);
+    },
+
+    /**
+     * 获取用户头像
+     * @param {function} cb => (code,image)
+     * @param {string} openId 用户的openId 这个有默认值
+     */
+    getHead(cb,openId = GameStatusInfo.openId) {
+        if(!(this.checkIsQQPlay()) || !cb) return;
+
+        let headPath = "GameSandBox://_head/" + openId + ".jpg";
+        let isExit = BK.FileUtil.isFileExist(headPath);
+        Utils.log(headPath + " is exit :" + isExit);
+        if (isExit) {
+            cb(1,headPath);
+        } else {
+            BK.MQQ.Account.getHeadEx(openId, (oId, imgPath) => {
+                Utils.log("openId:" + oId + " imgPath:" + imgPath);
+                this.createImg(imgPath,cb);
+            });
+        }
+    },
+
+    /**
+     * 上传分数
+     * @param {Number} score_ 要上传的分数
+     * @param {Number} type_ 储存分数的类型
+     * @param {function} cb 上传分数后的回到 ,,, 根据返回的 code 判断是否上传成功
+     * 
+     * @return {Number} code 如果 code == 0 则表示上传成功 否则都是 异常
+     * type 描述附加属性的用途
+     * order 排序的方式，
+     * 1: 从大到小，即每次上报的分数都会与本周期的最高得分比较，如果大于最高得分则覆盖，否则忽略
+     * 2: 从小到大，即每次上报的分数都会与本周期的最低得分比较，如果低于最低得分则覆盖，否则忽略
+     * 3: 累积，即每次上报的积分都会累积到本周期已上报过的积分上（本质上是从大到小的一种特例）
+     * 4: 直接覆盖，每次上报的积分都会将本周期的得分覆盖，不管大小
+     * 5: code 的 地址 https://hudong.qq.com/docs/engine/api/BK.MQQ.ErrorCode.html#5
+     */
+    uploadScore(score_, type_, cb) {
+        if(!(this.checkIsQQPlay())) return;
+
+        if(typeof score_ == 'string' && !isNaN(score_)) score_ = parseInt(score_);
+        if(isNaN(score_) || score_ == null || typeof score_ == 'undefined') {cb ? cb('-1') : ''; return };
+        let data = {
+            userData: [
+                {
+                    openId: this._sysInfo.openId,
+                    startMs: this._startGameTime,    //必填，游戏开始时间，单位为毫秒，字符串类型
+                    endMs: Utils.getCurTimestamp().toString(),  //必填，游戏结束时间，单位为毫秒，字符串类型
+                    scoreInfo: {
+                        score: score_, //分数，类型必须是整型数
+                        // 附加属性（选填），最多16个，且名称必须为a1 ~ a16，类型必须是整型数
+                        // a1: 100,
+                        // a16: 100
+                    },
+                },
+            ],
+            attr: {
+                score: {
+                    type: 'rank',
+                    order: type_ || 1,
+                },
+                // a1: {
+                //     type: 'rank',
+                //     order: 2,
+                // }
+            },
+        };
+        // gameMode: 游戏模式，如果没有模式区分，直接填 1
+        let gameMode = 1;
+        BK.QQ.uploadScoreWithoutRoom(gameMode, data, function(errCode, cmd, data) {
+            // 返回错误码信息
+            if(cb) {
+                cb(errCode,data,cmd);
+            }
+        });
+    },
+
+    /**
+     * 获取排行榜信息
+     * @param {function} cb (code,data,cmd)
+     */
+    getRankList(cb) {
+        if(!(this.checkIsQQPlay()) || !cb) return;
+
+        var attr = "score";//使用哪一种上报数据做排行，可传入score，a1，a2等
+        var order = 1;     //排序的方法：[ 1: 从大到小(单局)，2: 从小到大(单局)，3: 由大到小(累积)]
+        var rankType = 0; //要查询的排行榜类型，0: 好友排行榜
+
+        BK.QQ.getRankListWithoutRoom(attr, order, rankType, function(errCode, cmd, data) {
+            Utils.log("getRankListWithoutRoom callback  cmd" + cmd + " errCode:" + errCode + "  data:" + JSON.stringify(data));
+            // 返回错误码信息
+            if (errCode !== 0) {
+                Utils.log('获取排行榜数据失败!错误码：' + errCode);
+                if(cb) cb(errCode,[],cmd);
+                return;
+            }
+            // 解析数据
+            if (data) {
+                cb(errCode,data.data.ranking_list,cmd);
+            }
+        });
+    },
+
+    /**
+     * 创建Image
+     * @param {string} url 
+     * @param {function} cb => (code,image) 
+     */
+    createImg(url,cb) {
+        let image = new Image();
+        image.onload = function () {
+            if(cb) cb(0,image);
+        }
+        image.src = url;
+    },
+
+    /**
+     * 储存用户数据到云端
+     * @param {Object} data 
+     * @param {function} cb =>(code,data,cmd) 
+     */
+    storeSelfDataToCloud(data, cb) {
+        if(!(this.checkIsQQPlay()) || !data) return;
+
+        BK.QQ.saveGameData(data, function(errCode, cmd, data) {
+            Utils.log('keep self data to Cloud', data);
+            if(cb) {
+                cb(errCode,data,cmd);
+            }
+        });
+    },
+
+    /**
+     * 获取用户自定义的云数据
+     * @param {function} cb => (code,data,cmd)
+     */
+    getSelfCloudData(cb) {
+        if(!(this.checkIsQQPlay()) || !cb) return;
+
+        BK.QQ.loadGameData(function(errCode, cmd, data) {
+            Utils.log('get self Cloud data', errCode, data);
+            if(cb) {
+                cb(errCode,data,cmd);
+            }
+        });
+    },
+
+    /**
+     * 检查用户是否关注了公众号
+     * @param {string} puin 
+     * @param {function} cb 
+     */
+    checkPubAccountState(puin, cb) {
+        if(!(this.checkIsQQPlay()) || !puin || !cb) return;
+
+        BK.QQ.checkPubAccountState(puin ,function(errCode, cmd, data) {
+            Utils.log('checkPubAccountState ', errCode, data, cmd);
+            if(cb) {
+                // true: 已关注  false : 未关注
+                cb(data.is_follow == 1)
+            }
+        });
+    },
+
+    /**
+     * 跳转公众号
+     * @param {string} puin 
+     */
+    enterPubAccountCard(puin) {
+        if(!(this.checkIsQQPlay()) || !puin) return;
+
+        BK.QQ.enterPubAccountCard(puin);
+    },
+
+    /**
+     * 发送post请求
+     * @param {string} url 
+     * @param {Object} params 
+     * @param {function} cb => (code,data)
+     */
+    post(url,params,cb) {
+        if(!(this.checkIsQQPlay()) || !url || !params) return;
+
+        params = Utils.stringToJson(params);
+        Utils.post(url,params,cb);
+    },
+
+    /**
+     * 拉去用户的 openKey
+     * @param {function} cb => (code,data,cmd)
+     */
+    fetchOpenKey(cb) {
+        if(!(this.checkIsQQPlay()) || !cb) return;
+
+        BK.QQ.fetchOpenKey(function (errCode, cmd, data) {
+            cb(errCode,data,cmd);
+        });
+    },
+}
+module.exports = QQPlay;

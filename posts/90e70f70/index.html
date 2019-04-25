@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>记录TweenLite库 | 小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
+  <meta name="description" content="今天主要记录一下 TweenLite 这个补间动画库,他们的官方地址TweenLite官方网址 库版本是:2.0.2 这里面有几个文件可以使用 TweenLite TimelineLite TweenlineMax TweenMax 我这里就简单说一下这几个文件都做了什么事情,说先说明一下我这里主要研究跟 CocosCreator 相关的功能,它里面还有一些关于h5的东西,感兴趣的可以了解一下.">
+<meta name="keywords" content="Cocos Creator,TweenLite">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录TweenLite库">
+<meta property="og:url" content="https://leng521.top/posts/90e70f70/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="今天主要记录一下 TweenLite 这个补间动画库,他们的官方地址TweenLite官方网址 库版本是:2.0.2 这里面有几个文件可以使用 TweenLite TimelineLite TweenlineMax TweenMax 我这里就简单说一下这几个文件都做了什么事情,说先说明一下我这里主要研究跟 CocosCreator 相关的功能,它里面还有一些关于h5的东西,感兴趣的可以了解一下.">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-19T12:29:47.305Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记录TweenLite库">
+<meta name="twitter:description" content="今天主要记录一下 TweenLite 这个补间动画库,他们的官方地址TweenLite官方网址 库版本是:2.0.2 这里面有几个文件可以使用 TweenLite TimelineLite TweenlineMax TweenMax 我这里就简单说一下这几个文件都做了什么事情,说先说明一下我这里主要研究跟 CocosCreator 相关的功能,它里面还有一些关于h5的东西,感兴趣的可以了解一下.">
+  
+  
+    <link rel="icon" href="/head.jpg">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-记录TweenLite库" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      记录TweenLite库
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/CocosCreator/">Cocos Creator</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-11-21
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>今天主要记录一下 TweenLite 这个补间动画库,他们的官方地址<br><a href="https://greensock.com">TweenLite官方网址</a></p>
+<p>库版本是:2.0.2</p>
+<p>这里面有几个文件可以使用 TweenLite TimelineLite TweenlineMax TweenMax</p>
+<p>我这里就简单说一下这几个文件都做了什么事情,说先说明一下我这里主要研究跟 <code>CocosCreator</code> 相关的功能,它里面还有一些关于h5的东西,感兴趣的可以了解一下.<br><a id="more"></a></p>
+<h2 id="讲解每个文件的功能"><a href="#讲解每个文件的功能" class="headerlink" title="讲解每个文件的功能"></a>讲解每个文件的功能</h2><h3 id="TweenLite"><a href="#TweenLite" class="headerlink" title="TweenLite"></a>TweenLite</h3><p>这个是 Tween 动画的基础库, 所有的其他更丰富的功能都是在这个基础上封装的.</p>
+<p>里面主要使用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TweenLite.to(target:<span class="built_in">Object</span>, <span class="attr">duration</span>:<span class="built_in">Number</span>, <span class="attr">vars</span>:<span class="built_in">Object</span>)</span><br></pre></td></tr></table></figure></p>
+<p>第一个是操作的对象,第二个是执行的时间,第三个是要进行补间的属性.</p>
+<p>首先你们要导入这个文件(TweenLite.js)<br>你下载的文件里面应该是有个压缩后的文件 (TweenLite.min.js) 这个更省空间</p>
+<p>例如如下的例子<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> TweenLite <span class="keyword">from</span> <span class="string">"TweenLite.min"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    TweenLite.to(<span class="keyword">this</span>.node,<span class="number">2</span>,&#123;<span class="attr">x</span>:<span class="number">100</span>,<span class="attr">y</span>:<span class="string">"+=100"</span>,<span class="attr">rotation</span>:<span class="number">45</span>,<span class="attr">opacity</span>:<span class="string">"+=255"</span>,<span class="attr">onComplete</span>:<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'执行结束'</span>);</span><br><span class="line">    &#125;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main();</span><br></pre></td></tr></table></figure></p>
+<p>上面这个例子是 让一个node 同时执行 位置, 旋转 和透明度的 变换,<br>这种写法要比 CocosCreator 的那套 Action 要简洁</p>
+<p>其他的 API 我就捡着几个重要的说一下吧,其他的你们可以看一下他们的<a href="https://greensock.com/docs/">官文文档</a>讲解的很清楚</p>
+<p>主要说第三个参数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    x:<span class="number">100</span>,<span class="comment">// 跑到当前坐标系下 x=100 的位置</span></span><br><span class="line">    y:<span class="string">"+=100"</span>, <span class="comment">// 自身值 增加100</span></span><br><span class="line">    ...,</span><br><span class="line"></span><br><span class="line">    onStartParams:[<span class="string">'123'</span>],</span><br><span class="line">    onStart:<span class="function">(<span class="params">p1</span>)=&gt;</span>&#123;<span class="built_in">console</span>.log(p1)&#125;,<span class="comment">// 输出 123  在这个动画开始执行的时候调用</span></span><br><span class="line">    onCompleteParams:[<span class="string">'123'</span>],</span><br><span class="line">    onComplete:<span class="function">(<span class="params">p1</span>)=&gt;</span>&#123;<span class="built_in">console</span>.log(p1)&#125;,<span class="comment">// 输出入123 在这个动画结束的时候调用</span></span><br><span class="line">    onReverseComplete:<span class="function"><span class="params">()</span>=&gt;</span>&#123;&#125;, <span class="comment">// 调用翻转函数的说 这个动画结束后 会调用</span></span><br><span class="line">    delay:<span class="number">2</span>,<span class="comment">// 开始延时</span></span><br><span class="line">    ease: Elastic.easeOut, <span class="comment">// 要使用这东西要导入 easeing 文件下的那个 easePack.js 文件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>调用TweenLite.to 函数的时候是会去返回一个对象的, 在这个补间动画库中 使用的是链式(chain)调用, 这个对象使用几个 api 的</p>
+<blockquote>
+<p>pause 暂停当前的动画<br>play 播放当前动画<br>resume 恢复当前动画<br>reverse 在任意时间都可以调用这个 翻转函数 翻转当前动画<br>restart 从新开始<br>progress 它的取值区间是[0,1] 指定当前动画处开始播放<br>seek 跳转到指定位置 和 progress 函数有点相似 这个指的是时间的位置点</p>
+</blockquote>
+<p>例子如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Ease <span class="keyword">from</span> <span class="string">"EasePack.min"</span>;</span><br><span class="line"><span class="keyword">import</span> TweenLite <span class="keyword">from</span> <span class="string">"TweenLite.min"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> tl = TweenLite.to(<span class="keyword">this</span>.node,<span class="number">2</span>,&#123;</span><br><span class="line">    x:<span class="number">100</span>,</span><br><span class="line">    ease: Elastic.easeOut</span><br><span class="line">&#125;);</span><br><span class="line">tl.play();</span><br><span class="line">tl.pause();</span><br><span class="line">tl.resume();</span><br><span class="line">tl.restart();</span><br><span class="line">tl.progress(<span class="number">0.5</span>);</span><br><span class="line">tl.seek(<span class="number">0.5</span>);</span><br><span class="line">tl.progress(<span class="number">0.5</span>).pause();</span><br></pre></td></tr></table></figure></p>
+<p>因为他是链式调用所以 最后一个的写法是不会报错的.<br>你们要是想要使用 ease 这个属性的话 是需要将 EasePack.min.js 导入到工程中 不需要在代码中导入, 至于为什么可以自己去看他们 uncompressed 文件下对应的代码文件.</p>
+<p>后面那三个文件都是在这个基础上扩展的所以需要理解这个文件的用法.</p>
+<blockquote>
+<p>TweenLite 还有其他的几个静态函数 TweenLite.to TweenLite.from TweenLite.fromTo 用法比较的简单看文档也就可知道了.</p>
+</blockquote>
+<h3 id="TimelineLite"><a href="#TimelineLite" class="headerlink" title="TimelineLite"></a>TimelineLite</h3><p>看这个名字凭字面上的意思是 时间线 也可以理解成 时间轴,看官方文档解释是他可以形成一个队列,就是说你可以组成一个动画列表一次播放.</p>
+<p>例子如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> TimelineLite <span class="keyword">from</span> <span class="string">"TimelineLite.min"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> tl = <span class="keyword">new</span> TimelineLite();<span class="comment">// 创建一个新实例对象</span></span><br><span class="line"></span><br><span class="line">tl.to(<span class="keyword">this</span>.node,<span class="number">2</span>,&#123;<span class="attr">x</span>:<span class="string">"+=100"</span>&#125;)</span><br><span class="line">.to(<span class="keyword">this</span>.node,<span class="number">2</span>,&#123;<span class="attr">y</span>:<span class="string">"+=100"</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这个就是创建了一个动画队列,让一个物体向x轴正方向移动100像素, 然后在向y轴正方向移动100像素.</p>
+<p>里面的参数配置和 TweenLite 里面的配置是一样的.</p>
+<p>他提供了 TweenLite对象的嵌套 同时也支持 Timeline 的嵌套 为什么这么说看下面的例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> TimelineLite <span class="keyword">from</span> <span class="string">"TimelineLite.min"</span>;</span><br><span class="line"><span class="keyword">import</span> TweenLite <span class="keyword">from</span> <span class="string">"TweenLite.min"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> tl = <span class="keyword">new</span> TimelineLite();<span class="comment">// 创建一个新实例对象</span></span><br><span class="line"></span><br><span class="line">tl.to(<span class="keyword">this</span>.node,<span class="number">2</span>,&#123;<span class="attr">x</span>:<span class="string">"+=100"</span>&#125;)</span><br><span class="line">.to(<span class="keyword">this</span>.node,<span class="number">2</span>,&#123;<span class="attr">y</span>:<span class="string">"+=100"</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> tl1 = <span class="keyword">new</span> TimelineLite();</span><br><span class="line">tl1.add(TweenLite.to(<span class="keyword">this</span>.node,<span class="number">2</span>,&#123;<span class="attr">x</span>:<span class="string">"+=100"</span>&#125;));</span><br><span class="line">tl1.add(TweenLite.to(<span class="keyword">this</span>.node,<span class="number">2</span>,&#123;<span class="attr">y</span>:<span class="string">"+=100"</span>&#125;));</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> tl2 = <span class="keyword">new</span> TimelineLite();</span><br><span class="line">tl2.to(<span class="keyword">this</span>.node,<span class="number">2</span>,&#123;<span class="attr">x</span>:<span class="string">"+=100"</span>&#125;);</span><br><span class="line"></span><br><span class="line">tl1.append(tl2);</span><br></pre></td></tr></table></figure>
+<p>这里面 to 和 add 的功能效果都是一样的 可以看到 add 里面是个 TweenLite 对象 所以 TimelineLite是维护 TweenLite每个对象进而形成 一个队列</p>
+<blockquote>
+<p>TimelineLite 还有其他的用 入 addLabel 等函数,看他们解释和代码例子很容易懂</p>
+</blockquote>
+<h3 id="TimelineMax"><a href="#TimelineMax" class="headerlink" title="TimelineMax"></a>TimelineMax</h3><p>是对 TimelineLite 进行的扩展 主要扩展 使用 加入 repeat repeatDelay yoyo  currentLabel(), addCallback(), removeCallback(), tweenTo(), tweenFromTo(), getLabelAfter(), getLabelBefore(), getActive().</p>
+<p>如果上面额功能不能满足你们项目的需求可以再去用 TimelineMax 这个更强大额 扩展包.</p>
+<h3 id="TweenMax"><a href="#TweenMax" class="headerlink" title="TweenMax"></a>TweenMax</h3><p>TweenMax 是对 TweenLite 的扩展, 也加入 repeat(), repeatDelay(), yoyo() 等等, 而且看他们未压缩的 代码 好像这个文件是可以不要依赖 其他三的,因为他把其他三个都压缩到这个文件里面了,但是相应的文件的大小也增加了,同时也集成了一些扩展插件. 你们的项目如果对 代码的大小没有太高的要求的话,你们可以去直接导入这个TweenMax.min.js 这个文件.</p>
+<p>上面讲了这么多也只是个入们吧,这个库里面还封装了一些很多有趣的东西,你们可以去多了解了解.</p>
+<p>这里使用这个库去替代 CocosCreator 的 Action 主要是 api 使用灵活, 写法简单,运行速度也很快. 也有一些 Action 所不具有的动能 入随时翻转,控制动画流程,暂停动画等等,随机点开始播放动画,时间轴交叉等.</p>
+<p>好了,今天就先到这里.<br>写作不易,且行且珍惜.</p>
+<p>我是小魏. 时间:2018年11月21日17:16:36.</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年02月19日 20:29</p>
+        <p>原始链接： <a class="post-url" href="/posts/90e70f70/" title="记录TweenLite库">https://leng521.top/posts/90e70f70/</a></p>
+        <footer>
+            <a href="https://leng521.top">
+                <img src="/head.jpg" alt="小魏">
+                小魏
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/90e70f70/&title=《记录TweenLite库》 — 小魏的博客&pic=https://leng521.tophead.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/90e70f70/&title=《记录TweenLite库》 — 小魏的博客&source=今天主要记录一下 TweenLite 这个补间动画库,他们的官方地址TweenLite官方网址
+库版本是:2.0.2
+这里面有几个文件可以使用 Tween..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/90e70f70/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《记录TweenLite库》 — 小魏的博客&url=https://leng521.top/posts/90e70f70/&via=https://leng521.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/90e70f70/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByElEQVR42u3aS47EIAwFwNz/0pn1qEXyjAOdGRWrVudDkYWFbY4jHudgjK6Onv38/1gxcHFx29zzciSgZEmfxOv3D+fCxcXdyB1NP3fPiNJ5Py4u7t/i5qFwtABcXNz/xK3mKV8OZLi4uEVuJwytqGM8kKvh4uI2uPmU634vqe/i4uJOcc/iqLZVqoXRm9lxcXG3cPOAkm99rtHVQIaLi/sebh625oqn1YbrTaUEFxd3ATdJS+aOXOQfonUIAxcXdzG3E4ZG9yRXy40cXFzcxdzOdiSfPt9CRckPLi7uFu5jr4uDVL5tauVquLi4RW41ael0cfPGzHBeXFzcjdzOgYlkYZ2S669ZcHFxN3Lz9meeICVpz8K4i4uL265SPtXe6LRVypVdXFzcjdzOUa3rpVY3SZMFU1xc3GXcfn2y2oLN34aLi7uTex285g5hzBVYb57CxcVdzD2Lo3Nco9pEwcXF/RZ3rkU6lyCVyx+d5i4uLm6bmwevPNXJueUAh4uLu5GbB5qkMNqJoDdFVVxc3Bdzq03Z/P7JqgkuLu5ruA+0RqolVFxc3I3cfgDKn00+QdRkxcXFXcada3x2mh95KGzVd3FxcWe4PxuYcbC3h/9OAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/CocosCreator/" class="color4">Cocos Creator</a>
+      
+    <a href="/tags/TweenLite/" class="color5">TweenLite</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#讲解每个文件的功能"><span class="post-toc-text">讲解每个文件的功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TweenLite"><span class="post-toc-text">TweenLite</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TimelineLite"><span class="post-toc-text">TimelineLite</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TimelineMax"><span class="post-toc-text">TimelineMax</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TweenMax"><span class="post-toc-text">TweenMax</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/posts/a2412c06/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          AndroidStudio打包Cocos2dx
+        
+      </span>
+    </a>
+  
+  
+    <a href="/posts/dd666e1a/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">QQ玩一玩打包</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNDA0MC8xMDU3OA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/js/">js</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

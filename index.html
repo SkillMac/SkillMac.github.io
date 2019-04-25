@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
+  <meta name="description" content="JOB：cocos2d-x">
+<meta name="keywords" content="前端,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder">
+<meta property="og:type" content="website">
+<meta property="og:title" content="小魏的博客">
+<meta property="og:url" content="https://leng521.top/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="JOB：cocos2d-x">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小魏的博客">
+<meta name="twitter:description" content="JOB：cocos2d-x">
+  
+  
+    <link rel="icon" href="/head.jpg">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap">
+  
+    <article id="post-一张图搞懂js原型链" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/posts/5e8fa495/">一张图搞懂js原型链</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/js/">js</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/posts/5e8fa495/">
+                
+                <img src="https://t1.picb.cc/uploads/2019/04/25/Vo9YDi.jpg" alt="一张图搞懂js原型链" title="一张图搞懂js原型链">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                </p><p>语言： js</p>
+<p>js version: v10.15.1</p>
+<p>时间： 2019.4.25 15:34</p>
+<blockquote>
+<p>这里我不说太长的话，去解释，不然会晕。<br>js 里面的原型是真的有一点的绕。记住这几句话就行了，我就不画图了，不然我感觉看图更晕。</p>
+<ol>
+<li>万物皆对象。</li>
+<li>js 对象分为 函数对象 和 普通对象。</li>
+<li>只有函数对象有 prototype ，所有的对象都有 <strong>proto</strong> 内置属性。</li>
+<li>prototype 其实是函数对象的一个实例。</li>
+<li><strong>proto</strong> 是构造函数的原型对象。</li>
+<li>Function.prototype 它既是函数对象也是不普通对象。</li>
+<li>Object.prototype.<strong>proto</strong> 是个 null。</li>
+</ol>
+</blockquote>
+            <p></p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2019-04-25</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/原型链/" class="color4">原型链</a>
+      
+    <a href="/tags/js/" class="color3">js</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/posts/5e8fa495/#more" class="article-more-link">more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-CocosCreator着色器的简单实用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/posts/e02f2181/">CocosCreator着色器的简单实用</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/CocosCreator/">Cocos Creator</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/posts/e02f2181/">
+                
+                <img src="https://leng521.top/images/banner.jpg" alt="CocosCreator着色器的简单实用" title="CocosCreator着色器的简单实用">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                </p><p>Cocos Creator 版本: 2.0.8</p>
+<p>时间: 2019年3月15日16:53:18</p>
+<p>由于Cocos 的材质系统并不是太完善 所以官方并没有推出相关 着色器的文档,但是官方给出了一个Demo, 可以更具这个进行改造一下就可以写自己的着色器了.<br>(官方给出的着色器的例子)[<a href="https://github.com/cocos-creator/heartfelt">https://github.com/cocos-creator/heartfelt</a>]<br>
+            </p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2019-03-16</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/CocosCreator/" class="color4">Cocos Creator</a>
+      
+    <a href="/tags/优化/" class="color3">优化</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/posts/e02f2181/#more" class="article-more-link">more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-CocosCreator一些简单的优化记录" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/posts/7f7eba5/">CocosCreator一些简单的优化记录</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/CocosCreator/">Cocos Creator</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/posts/7f7eba5/">
+                
+                <img src="https://leng521.top/images/banner.jpg" alt="CocosCreator一些简单的优化记录" title="CocosCreator一些简单的优化记录">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                </p><h3 id="cocos-creator-一些简单的优化记录"><a href="#cocos-creator-一些简单的优化记录" class="headerlink" title="cocos creator 一些简单的优化记录"></a>cocos creator 一些简单的优化记录</h3><p>目标: 微信小游戏<br>引擎版本: 2.0.8<br>语言: js<br>时间: 2019年2月19日15:50:29</p>
+<p>大纲:</p>
+<pre><code>- 缩小包体
+- 优化 drawcall
+- 增加游戏编译后包体的安全性(防止反编译)
+- 优化游戏的计算量
+</code></pre><p>微信小游戏对包体的大小控制的很严格只有<code>4M</code>后面又提出了分包加载的机制,但是能自己优化一些还是更好的一些做法.</p>
+            <p></p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2019-02-19</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/CocosCreator/" class="color4">Cocos Creator</a>
+      
+    <a href="/tags/优化/" class="color3">优化</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/posts/7f7eba5/#more" class="article-more-link">more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-git操作命令记录-二" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/posts/b0c8e6a5/">git操作命令记录(二)</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/git/">git</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/posts/b0c8e6a5/">
+                
+                <img src="https://leng521.top/images/banner.jpg" alt="git操作命令记录(二)" title="git操作命令记录(二)">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                </p><p>时间: 2019年1月23日18:51:03</p>
+<p>后面的格式是,在每篇文章开头都会加上时间,好比较你现在的时间和这篇博客书写的时间,你好判定你是借鉴还是可以直接用.</p>
+<p>今天主要是介绍 git 的其他命令.</p>
+<ul>
+<li>git 仓库打标签(tag)</li>
+<li>git 扩展工具 lfs(large file system)</li>
+</ul>
+            <p></p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2019-01-23</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/git/" class="color4">git</a>
+      
+    <a href="/tags/git扩展工具/" class="color4">git 扩展工具</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/posts/b0c8e6a5/#more" class="article-more-link">more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-scons自动构建工具-二" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/posts/66615451/">scons自动构建工具(二)</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/自动构建工具/">自动构建工具</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/posts/66615451/">
+                
+                <img src="https://leng521.top/images/banner.jpg" alt="scons自动构建工具(二)" title="scons自动构建工具(二)">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                </p><p>上一篇好像写的有点长了,上传不上去,所以又写了第二篇续写第一篇.</p>
+<h3 id="环境变量影响-scons-构建"><a href="#环境变量影响-scons-构建" class="headerlink" title="环境变量影响 scons 构建"></a>环境变量影响 scons 构建</h3><p>it uses the dictionary stored in the $ENV construction variable as the external environment for executing commands.<br>解释: 它使用成字典的方式存储在 ENV 的构造变量中 作为外部可执行命令的环境<br>
+            </p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-12-25</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/python/" class="color2">python</a>
+      
+    <a href="/tags/c++/" class="color4">c++</a>
+      
+    <a href="/tags/scons/" class="color1">scons</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/posts/66615451/#more" class="article-more-link">more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-scons自动构建工具" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/posts/79065537/">scons自动构建工具</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/自动构建工具/">自动构建工具</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/posts/79065537/">
+                
+                <img src="https://leng521.top/images/banner.jpg" alt="scons自动构建工具" title="scons自动构建工具">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                </p><p>这篇文章可能有点长,如果你想要学到一些知识,而不是简单入门,你要有耐心的看下去,当然在看的时候,也要自己思考,也许我写的有问题,这个时候你可以再去看看,官方文档.<br>这个教程由于内容太多,有些还没来得及写.<br>一般我这里不会太多的去,介绍它的历史,和它是干啥的,你可以自己去找度娘去了解.我这里只有逻辑和事例代码.</p>
+<p>工具版本: 3.0.1<br><a href="https://scons.org/doc/production/HTML/scons-user/">scons user guide</a></p>
+<p><a href="https://scons.org/doc/production/HTML/scons-user/">scons user guide</a></p>
+<h3 id="scons-普通简单的构建"><a href="#scons-普通简单的构建" class="headerlink" title="scons 普通简单的构建"></a>scons 普通简单的构建</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// file name main.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">namespace</span>  <span class="built_in">std</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt; <span class="string">"helloworld"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <p></p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-12-23</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/python/" class="color2">python</a>
+      
+    <a href="/tags/c++/" class="color4">c++</a>
+      
+    <a href="/tags/scons/" class="color1">scons</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/posts/79065537/#more" class="article-more-link">more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-cocos2dx-JS-OC-Java互相调用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/posts/41d43874/">cocos2dx-JS-OC-Java互相调用</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/cocos2d-x/">cocos2d-x</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/posts/41d43874/">
+                
+                <img src="https://leng521.top/images/banner.jpg" alt="cocos2dx-JS-OC-Java互相调用" title="cocos2dx-JS-OC-Java互相调用">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                </p><h4 id="cocos2dx-js-java-oc-和-js-的相互调用"><a href="#cocos2dx-js-java-oc-和-js-的相互调用" class="headerlink" title="cocos2dx js java oc 和 js 的相互调用"></a>cocos2dx js java oc 和 js 的相互调用</h4><p>引擎版本: 3.17<br>语言: js<br>Xcode: 10.1<br>AndroidStudio: 3.2.1<br>时间: 2018年12月14日16:23:47</p>
+<blockquote>
+<p>看这篇文章需要 会一些 android java oc ios 的一些知识的基础 不然看着可能有点费劲.</p>
+</blockquote>
+<h2 id="js调用java"><a href="#js调用java" class="headerlink" title="js调用java"></a>js调用java</h2><p>js 调用 java java中声名的方法需要是静态方法(static method)</p>
+            <p></p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-12-15</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/cocos2d-x/" class="color5">cocos2d-x</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/posts/41d43874/#more" class="article-more-link">more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-AndroidStudio打包Cocos2dx" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/posts/a2412c06/">AndroidStudio打包Cocos2dx</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/cocos2d-x/">cocos2d-x</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/posts/a2412c06/">
+                
+                <img src="https://leng521.top/images/banner.jpg" alt="AndroidStudio打包Cocos2dx" title="AndroidStudio打包Cocos2dx">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                </p><p>前几天闲着没事,去弄了一下AndroidStudio打包最新版 cocos2dx 系列原生平台的安装包.</p>
+<p>引擎版本: 3.17<br>AndroidStudio版本: 3.2.1<br>SDK: 27<br>NDK: android-ndk-r16b<br>gradle: 4.1</p>
+<p>首先提供这几个下载地址,有的可能需要翻墙,这个你们自己解决.</p>
+<p><a href="http://services.gradle.org/distributions/">gradle</a><br>android sdk android studio 自带有下载的管理器<br><a href="https://developer.android.com/ndk/downloads/">anroid ndk</a><br><a href="https://developer.android.com/studio/">android studio</a><br><a href="https://www.cocos.com/">cocos2dx-系列</a></p>
+            <p></p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-12-08</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/cocos2d-x/" class="color5">cocos2d-x</a>
+      
+    <a href="/tags/androidstudio/" class="color5">android studio</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/posts/a2412c06/#more" class="article-more-link">more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-记录TweenLite库" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/posts/90e70f70/">记录TweenLite库</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/CocosCreator/">Cocos Creator</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/posts/90e70f70/">
+                
+                <img src="https://leng521.top/images/banner.jpg" alt="记录TweenLite库" title="记录TweenLite库">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                </p><p>今天主要记录一下 TweenLite 这个补间动画库,他们的官方地址<br><a href="https://greensock.com">TweenLite官方网址</a></p>
+<p>库版本是:2.0.2</p>
+<p>这里面有几个文件可以使用 TweenLite TimelineLite TweenlineMax TweenMax</p>
+<p>我这里就简单说一下这几个文件都做了什么事情,说先说明一下我这里主要研究跟 <code>CocosCreator</code> 相关的功能,它里面还有一些关于h5的东西,感兴趣的可以了解一下.<br>
+            </p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-11-21</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/CocosCreator/" class="color4">Cocos Creator</a>
+      
+    <a href="/tags/TweenLite/" class="color5">TweenLite</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/posts/90e70f70/#more" class="article-more-link">more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-QQ玩一玩打包" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/posts/dd666e1a/">QQ玩一玩打包</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/QQ玩一玩/">QQ玩一玩</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/posts/dd666e1a/">
+                
+                <img src="https://leng521.top/images/banner.jpg" alt="QQ玩一玩打包" title="QQ玩一玩打包">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                </p><p>今天主要纪录最近对 QQPlay(玩一玩)打包的纪录. 然后这里只是纪录我目前使用的引擎(Cocos Creator version 2.x.x),精力有限.</p>
+<p><a href="https://hudong.qq.com/docs/access/">QQPlay官方文档</a></p>
+<h1 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a><strong>大纲</strong></h1><pre><code>1. 玩一玩包体中缺少`Utils`文件
+2. 怎么读取最新的 bricks 引擎
+3. 解决 xcode 打包到手机过程中出现的错误
+4. 空泛讲解整个玩一玩上传流程
+5. 避免上传后台而实时跟新 android 机里面的逻辑为最新
+6. 实现厘米秀大部分功能
+7. 关于获取每个游戏用户的 openkey 的获取问题
+</code></pre>
+            <p></p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-10-30</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/CocosCreator/" class="color4">Cocos Creator</a>
+      
+    <a href="/tags/QQ玩一玩/" class="color1">QQ玩一玩</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/posts/dd666e1a/#more" class="article-more-link">more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next >></a>
+  </nav>
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: true,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/js/">js</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  </div>
+</body>
+</html>

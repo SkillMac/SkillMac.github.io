@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>python_optionparser模块 | 小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
+  <meta name="description" content="本文主要是 python 对命令行的处理模块 就象是这样的">
+<meta name="keywords" content="python,optionParser">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python_optionparser模块">
+<meta property="og:url" content="https://leng521.top/posts/ce1d3b12/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="本文主要是 python 对命令行的处理模块 就象是这样的">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/ce1d3b12/1.png">
+<meta property="og:updated_time" content="2019-02-19T12:30:13.269Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python_optionparser模块">
+<meta name="twitter:description" content="本文主要是 python 对命令行的处理模块 就象是这样的">
+<meta name="twitter:image" content="https://leng521.top/posts/ce1d3b12/1.png">
+  
+  
+    <link rel="icon" href="/head.jpg">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-python-optionparser模块" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      python_optionparser模块
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/python/">python</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-04-11
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>本文主要是 python 对命令行的处理模块 就象是这样的<br><img src="/posts/ce1d3b12/1.png" title="show optionParser result}<br><a id=" more"><br>第一步: 导入模块 </p> <figure class="highlight" python><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> optparse <span class="keyword">import</span> OptionParser</span><br></pre></td></tr></table></figure> <p>第二步: 构建对象</p> <figure class="highlight" python><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">parser = OptionParser(usage:<span class="string">usage: %prog -t theme</span>)</span><br><span class="line"><span class="comment"># 里面是构建程序的相关信息.</span></span><br><span class="line"><span class="comment">#当然你也可以这样写:</span></span><br><span class="line">parser = OptionParser(usage=<span class="string">%prog -t theme</span>, version=<span class="string">%prog 1.0</span>)</span><br><span class="line"><span class="comment">## 直接输入 --version</span></span><br><span class="line"><span class="comment">## 打印 你程序名字 + 版本号</span></span><br><span class="line">&gt; -----------------------------------------</span><br><span class="line">λ python sortFilebySize.py --version</span><br><span class="line"> sortFilebySize.py <span class="number">1.0</span></span><br><span class="line">&gt; -----------------------------------------</span><br><span class="line"><span class="comment">##这里面 %prog 被直接替换成 你程序的名字 其实就是替换成 os.path.basename.(sys.argv[0]).</span></span><br></pre></td></tr></table></figure> <p>这个模块主要是对这个函数 <code>add_option</code>的使用</p> <p>第三步: 解析 add_option 函数</p> <figure class="highlight" python><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">parser.add_option(<span class="string">-v</span>,<span class="string">--version</span>,</span><br><span class="line"> action=<span class="string">store</span>,</span><br><span class="line"> dest=<span class="string">m_version</span>,</span><br><span class="line"> type=<span class="string">string</span>,</span><br><span class="line"> default=<span class="string">1.0.0</span>,</span><br><span class="line"> metavar=<span class="string">version</span>,</span><br><span class="line"> help=<span class="string">show cur version</span>)</span><br><span class="line"><span class="comment"># help 的帮助 信息里面 是可以使用 %default 传递一个默认值</span></span><br></pre></td></tr></table></figure> <blockquote> <p>1-2:前两个是你要提示的参数,长短参数.<br>action:acton 有几个值 <code>store</code> <code>store_true</code> <code>store_false</code> <code>store_const</code> <code>append</code> <code>count</code> <code>callback</code><br>如果没有指定 dest 参数，将用命令行的参数名来对 options 对象的值进行存取。<br>store 也有其它的两种形式： store_true 和 store_false ，用于处理带命令行参数后面不 带值的情况。</p> </blockquote> <figure class="highlight" python><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">parser.add_option(<span class="string">-v</span>, action=<span class="string">store_true</span>, dest=<span class="string">m_version</span>)</span><br><span class="line"><span class="comment"># 这时候你拿到的值默认会置为True</span></span><br><span class="line">parser.add_option(<span class="string">-v</span>, action=<span class="string">store_false</span>, dest=<span class="string">m_version</span>)</span><br><span class="line"><span class="comment"># 这时候你拿到的值默认会置为False</span></span><br></pre></td></tr></table></figure> <blockquote> <p>dest:设置对象存储这个值的变量名</p> </blockquote> <figure class="highlight" python><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">parser.add_option(<span class="string">-v</span>, action=<span class="string">store_true</span>, dest=<span class="string">m_version</span>)</span><br><span class="line">(options, args) = parser.parse_args()</span><br><span class="line">print(options.m_version)</span><br><span class="line">&gt; -----------------------------------------</span><br><span class="line">&gt; λ python sortFilebySize.py -v</span><br><span class="line">&gt; <span class="keyword">True</span></span><br><span class="line">&gt; -----------------------------------------</span><br></pre></td></tr></table></figure> <blockquote> <p>type:指定变量的类型<br>你也可以指定 add_option() 方法中 type 参数为其它值，如 int 或者 float 等等.</p> <p>default:设置这个变量的默认值. 也可以使用这个函数设置 set_defaults()</p> </blockquote> <figure class="highlight" python><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parser.set_defaults(m_version=<span class="string">1.0.0</span>)</span><br></pre></td></tr></table></figure> <blockquote> <p>metavar: 设置 add_option 方法中的 metavar 参数，有助于提醒用户，该命令行参数所期待的参数，如 metavar=”version”：</p> </blockquote> <p><code>注意： metavar 参数中的字符串会自动变为大写。</code></p> <figure class="highlight" python><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; -----------------------------------------</span><br><span class="line">&gt; λ python sortFilebySize.py -h</span><br><span class="line">&gt; Usage: sortFilebySize.py -t theme</span><br><span class="line">&gt; Options:</span><br><span class="line">&gt; <span class="comment"># -v VERSION, --version=VERSION show program" alt="s version number and exit</span></span><br><span class="line">&gt; -----------------------------------------</span><br></pre></td></tr></table></figure> <blockquote> <p>help:用于显示的提示信息</p> </blockquote> <p>如果程序有很多的命令行参数，你可能想为他们进行分组，这时可以使用 OptonGroup:进行分组</p> <figure class="highlight" python><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> optparse <span class="keyword">import</span> OptionGroup</span><br><span class="line">group = OptionGroup(parser, <span class="string">Custom Group Options</span>, </span><br><span class="line"> <span class="string">Custom Group show message</span></span><br><span class="line"> <span class="string">use Custom Group</span>)</span><br><span class="line">group.add_option(<span class="string">-t</span>,action=<span class="string">store</span>,help=<span class="string">Group options</span>)</span><br><span class="line">parser.add_option_group(group)</span><br></pre></td></tr></table></figure> <h2 id="处理异常"><a href="#处理异常" class="headerlink" title="处理异常:"></a><strong>处理异常:</strong></h2><blockquote> <p>指因用户输入无效的、不完整的命令行参数而引发的异常.</p> </blockquote> <figure class="highlight" python><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[-]</span><br><span class="line">(options, args) = parser.parse_args() </span><br><span class="line"><span class="keyword">if</span> options.a <span class="keyword">and</span> options.b:</span><br><span class="line"> parser.error(<span class="string">options -a and -b invalid</span>)</span><br></pre></td></tr></table></figure> <p>完整的程序例子</p> <figure class="highlight" python><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! python2</span></span><br><span class="line"><span class="comment"># coding: utf-8</span></span><br><span class="line"><span class="keyword">from</span> optparse <span class="keyword">import</span> OptionParser</span><br><span class="line"><span class="keyword">from</span> optparse <span class="keyword">import</span> OptionGroup</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line"> parser = OptionParser(usage=<span class="string">usage: %prog -t theme</span>,version=<span class="string">%prog 1.0</span>)</span><br><span class="line"> parser.add_option(<span class="string">-v</span>, action=<span class="string">store_true</span>, dest=<span class="string">m_version</span>)</span><br><span class="line"> group = OptionGroup(parser, <span class="string">Custom Group Options</span>, </span><br><span class="line"> <span class="string">Custom Group show message</span></span><br><span class="line"> <span class="string">use Custom Group</span>)</span><br><span class="line"> group.add_option(<span class="string">-t</span>,action=<span class="string">store</span>,help=<span class="string">Group options</span>)</span><br><span class="line"> parser.add_option_group(group)</span><br><span class="line"> (options, args) = parser.parse_args()</span><br><span class="line"> <span class="keyword">if</span> options.m_version:</span><br><span class="line"> parser.error(<span class="string">options m_version invalid</span>)</span><br><span class="line"> <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>"><p></p>
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年02月19日 20:30</p>
+        <p>原始链接： <a class="post-url" href="/posts/ce1d3b12/" title="python_optionparser模块">https://leng521.top/posts/ce1d3b12/</a></p>
+        <footer>
+            <a href="https://leng521.top">
+                <img src="/head.jpg" alt="小魏">
+                小魏
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/ce1d3b12/&title=《python_optionparser模块》 — 小魏的博客&pic=https://leng521.tophead.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/ce1d3b12/&title=《python_optionparser模块》 — 小魏的博客&source=本文主要是 python 对命令行的处理模块 就象是这样的" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/ce1d3b12/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《python_optionparser模块》 — 小魏的博客&url=https://leng521.top/posts/ce1d3b12/&via=https://leng521.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/ce1d3b12/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByUlEQVR42u3aQW7EIAwF0Nz/0lOpq9lA/HGgUfVYRdEMPLKwjM11lcfnd3w/f7/pvL92DFxc3Db3Mx0j7vy5MvPoE4x+g4uLe56bBq85NP1XxYCLi/tO7nwbaSjExcX9H9xh2jFNa9IAh4uL+x5u/XBSD3b1QsmWsxouLm6Du1YwffZ5e30XFxf3oa5EWtysr7W4Oi4u7hHuvAWy1mp9qnE7nBkXF/cIt0KvHIeCYNQ4OOHi4p7hdsoW9QJruu2hEBcXdzO3XhINdl8uqdTrHkGGhYuL+xC3k77MN5Yee27mxMXFPcKtlyc6bdenLm3g4uKe4a4lH5XQNl94njbh4uK+gZsWOtMLFumcw83g4uIe4aahrb5MuoHFIIuLi7uBW5+6s6W1VuuwlYKLi7uZmx6B1joa6SWwm0+Gi4u7mZs2UZ66drlYXsHFxT3ITa9NdFqtlUB50xPGxcU9wk3LpmtpSqcFG7dScHFxG9w0oKTF0/R61loDGBcXdwc3DV4ptJMq4eLi/i03LXn0g9di0MTFxX0ZNy2qxl2dyifAxcV9JTe9ZpEWXG7SKVxc3IPcdKJ9h6LHzmq4uLgHC6Zrlyr6KRQuLu4R7g9kwpWM9Mm+jgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/python/" class="color2">python</a>
+      
+    <a href="/tags/optionParser/" class="color3">optionParser</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#处理异常"><span class="post-toc-text">处理异常:</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/posts/a9ff66a6/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          记录使用hexo写博客的问题
+        
+      </span>
+    </a>
+  
+  
+    <a href="/posts/82a402af/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">git命令的记录</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNDA0MC8xMDU3OA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/js/">js</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

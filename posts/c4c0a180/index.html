@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>优化cocos2dxSpine库 | 小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
+  <meta name="description" content="对cocos2dxSpine库的升级和优化本文的大纲1.升级spine在cocos2dx-3.15的运行时库2.优化spine在创建的时候效率 在开发的时候出现的问题1.spine这个软件导出3.6新加的特效在cocos2dx3.15 不能使用2.spine在批量创建的时候帧数会下降">
+<meta name="keywords" content="spine">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优化cocos2dxSpine库">
+<meta property="og:url" content="https://leng521.top/posts/c4c0a180/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="对cocos2dxSpine库的升级和优化本文的大纲1.升级spine在cocos2dx-3.15的运行时库2.优化spine在创建的时候效率 在开发的时候出现的问题1.spine这个软件导出3.6新加的特效在cocos2dx3.15 不能使用2.spine在批量创建的时候帧数会下降">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/c4c0a180/spine-code_1.png">
+<meta property="og:image" content="https://leng521.top/posts/c4c0a180/libSpine_1.png">
+<meta property="og:image" content="https://leng521.top/posts/c4c0a180/auto_binding_2_lua_1.png">
+<meta property="og:updated_time" content="2018-05-09T02:12:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="优化cocos2dxSpine库">
+<meta name="twitter:description" content="对cocos2dxSpine库的升级和优化本文的大纲1.升级spine在cocos2dx-3.15的运行时库2.优化spine在创建的时候效率 在开发的时候出现的问题1.spine这个软件导出3.6新加的特效在cocos2dx3.15 不能使用2.spine在批量创建的时候帧数会下降">
+<meta name="twitter:image" content="https://leng521.top/posts/c4c0a180/spine-code_1.png">
+  
+  
+    <link rel="icon" href="/head.jpg">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-优化cocos2dxSpine库" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      优化cocos2dxSpine库
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/cocos2dx/">cocos2dx</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-01-22
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="对cocos2dxSpine库的升级和优化"><a href="#对cocos2dxSpine库的升级和优化" class="headerlink" title="对cocos2dxSpine库的升级和优化"></a><strong>对cocos2dxSpine库的升级和优化</strong></h1><h3 id="本文的大纲"><a href="#本文的大纲" class="headerlink" title="本文的大纲"></a><strong>本文的大纲</strong></h3><p>1.升级spine在cocos2dx-3.15的运行时库<br>2.优化spine在创建的时候效率</p>
+<p>在开发的时候出现的问题<br>1.spine这个软件导出3.6新加的特效在cocos2dx3.15 不能使用<br>2.spine在批量创建的时候帧数会下降<br><a id="more"></a></p>
+<h3 id="升级spine-gt-3-6"><a href="#升级spine-gt-3-6" class="headerlink" title="升级spine -&gt;3.6"></a><strong>升级spine -&gt;3.6</strong></h3><p><a href="https://github.com/EsotericSoftware/spine-runtimes">spine code github 地址</a><br>去这个地址clone或者是下载Zip这个你随便<br>然后会产现这个目录<br><!-- ![]() --><br><img src="/posts/c4c0a180/spine-code_1.png" title="spine的目录"><br>主要就是我使用箭头标记的这两个目录</p>
+<pre><code>spine-c/spine-c/include/spine/*.h
+spine-c/spine-c/src/spine/*.c
+spine-cocos2dx/src/spine/*.cpp  and  spine-cocos2dx/src/spine/*.h
+</code></pre><p>找到自己的工程的根目录 然后去找这个目录<br>全部放在 <code>···/frameworks/cocos2d-x/cocos/editor-support/spine</code></p>
+<p>直接全部替换<br>然后打开自己的VS去编译记住一点将你添加的C或C++的文件给添加到libSpine的工程中的源文件中</p>
+<img src="/posts/c4c0a180/libSpine_1.png" title="添加到libSpine的工程中去">
+<p>选中 Source Files 执行 <code>Shift + Alt + A</code> 添加现有项  或者是鼠标右键添加好可以</p>
+<p>然后编译,你会惊奇的发现编译成功了,但是不要高兴的太早了,因为这个在编译Android的时候会报错,当然原因也很简单，接着往下面看。</p>
+<p><strong>在Android中的实现</strong><br>你找到 这个目录里面会有 <code>···/frameworks/cocos2d-x/cocos/editor-support/spine</code><br><code>Android.mk</code>的文件<br>将你添加的写在这个配置里面 注意只写 *.h 的文件<br>然后使用 Android Studio 编译 Apk, 这里你也可以使用NDK编译,但是在Android2.？这个不记得了,就已经不在支持NDK编译了<br>所以还是使用Android Studio 吧</p>
+<p>在 ios 中的实现也是同样如此，这里就不再讲述了</p>
+<h3 id="优化spine在创建的时候效率"><a href="#优化spine在创建的时候效率" class="headerlink" title="优化spine在创建的时候效率"></a><strong>优化spine在创建的时候效率</strong></h3><p>在原先的 spine 创建的时候每次都需要解析数据,生成骷髅数据,其实这个是很消耗CPU的,导致FPS下降。<br>我的做法是保留 spine create 的原有接口,自己再从新写一个新的接口。<br>原理：创建字典<map>保留骷髅数据每次创建的时候询问这个 Map 是否存在 key 没有创建,有直接使用。</map></p>
+<p>代码的写法有很多种,我这只是参考</p>
+<p>在SkeletonAnimation.cpp 中添加如下代码<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">SkeletonAnimation* SkeletonAnimation::createFromCache(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; key_skeletonData)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (spSkeletonData* skeleton_data = SkeletonAnimation::getSkeletonDataFromCache(key_skeletonData))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> SkeletonAnimation::createWithData(skeleton_data, <span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        skeleton_data = SkeletonAnimation::loadSkeletonDataToCache(key_skeletonData, key_skeletonData + <span class="string">".json"</span>, key_skeletonData + <span class="string">".atlas"</span>);</span><br><span class="line">        <span class="keyword">if</span> (skeleton_data) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> SkeletonAnimation::createWithData(skeleton_data, <span class="literal">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br><span class="line">spSkeletonData* SkeletonAnimation::loadSkeletonDataToCache(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; key_skeletonData, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; skeletonJsonFile, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; atlasFile, <span class="keyword">float</span> scale)</span><br><span class="line">&#123;</span><br><span class="line">    iteratorSkeletonData it = _allSkeletonDataCache.find(key_skeletonData);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (it == _allSkeletonDataCache.end())</span><br><span class="line">    &#123;</span><br><span class="line">        SkeletonDataInCache skeleton_data_in_cache;</span><br><span class="line">        spAtlas* atlas = <span class="literal">nullptr</span>;</span><br><span class="line">        spAttachmentLoader* attachmentLoader = <span class="literal">nullptr</span>;</span><br><span class="line">        skeleton_data_in_cache._skeleton_data = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">        atlas = spAtlas_createFromFile(atlasFile.c_str(), <span class="number">0</span>);</span><br><span class="line">        CCASSERT(atlas, <span class="string">"loadSkeletonDataToCache Error  atlas file."</span>);</span><br><span class="line"></span><br><span class="line">        attachmentLoader = SUPER(Cocos2dAttachmentLoader_create(atlas));</span><br><span class="line"></span><br><span class="line">        spSkeletonJson* json = spSkeletonJson_createWithLoader(attachmentLoader);</span><br><span class="line">        json-&gt;scale = scale;</span><br><span class="line">        skeleton_data_in_cache._skeleton_data = spSkeletonJson_readSkeletonDataFile(json, skeletonJsonFile.c_str());</span><br><span class="line">        CCASSERT(skeleton_data_in_cache._skeleton_data, json-&gt;error ? json-&gt;error : <span class="string">"loadSkeletonDataToCache Error reading skeleton data file."</span>);</span><br><span class="line">        spSkeletonJson_dispose(json);</span><br><span class="line">        spAtlas_dispose(atlas);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (skeleton_data_in_cache._skeleton_data)</span><br><span class="line">        &#123;</span><br><span class="line">            _allSkeletonDataCache[key_skeletonData] = skeleton_data_in_cache;</span><br><span class="line">            <span class="keyword">return</span> skeleton_data_in_cache._skeleton_data;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//error release</span></span><br><span class="line">            <span class="keyword">if</span> (skeleton_data_in_cache._skeleton_data)</span><br><span class="line">            &#123;</span><br><span class="line">                spSkeletonData_dispose(skeleton_data_in_cache._skeleton_data);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br><span class="line">spSkeletonData* SkeletonAnimation::getSkeletonDataFromCache(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; key_skeletonData)</span><br><span class="line">&#123;</span><br><span class="line">    iteratorSkeletonData it = _allSkeletonDataCache.find(key_skeletonData);</span><br><span class="line">    <span class="keyword">if</span> (it != _allSkeletonDataCache.end())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> it-&gt;second._skeleton_data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">bool</span> SkeletonAnimation::removeSkeletonData(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; key_skeletonData)</span><br><span class="line">&#123;</span><br><span class="line">    iteratorSkeletonData it = _allSkeletonDataCache.find(key_skeletonData);</span><br><span class="line">    <span class="keyword">if</span> (it != _allSkeletonDataCache.end()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (it-&gt;second._skeleton_data) spSkeletonData_dispose(it-&gt;second._skeleton_data);</span><br><span class="line"></span><br><span class="line">        _allSkeletonDataCache.erase(it);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> SkeletonAnimation::removeAllSkeletonData()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (iteratorSkeletonData it = _allSkeletonDataCache.begin(); it != _allSkeletonDataCache.end(); ++it) &#123;</span><br><span class="line">        <span class="keyword">if</span> (it-&gt;second._skeleton_data) spSkeletonData_dispose(it-&gt;second._skeleton_data);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _allSkeletonDataCache.clear();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">bool</span> SkeletonAnimation::isExistSkeletonDataInCache(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; key_skeletonData)</span><br><span class="line">&#123;</span><br><span class="line">    iteratorSkeletonData it = _allSkeletonDataCache.find(key_skeletonData);</span><br><span class="line">    <span class="keyword">if</span> (it != _allSkeletonDataCache.end()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//end</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, SkeletonAnimation::SkeletonDataInCache&gt; SkeletonAnimation::_allSkeletonDataCache;</span><br></pre></td></tr></table></figure></p>
+<p>在 SkeletonAnimation.h 中添加如下代码<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> SkeletonAnimation* <span class="title">createFromCache</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; key_skeletonData)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> spSkeletonData* <span class="title">loadSkeletonDataToCache</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; key_skeletonData, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; skeletonJsonFile, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; atlasFile, <span class="keyword">float</span> scale = <span class="number">1</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> spSkeletonData* <span class="title">getSkeletonDataFromCache</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; key_skeletonData)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">removeSkeletonData</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; key_skeletonData)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">removeAllSkeletonData</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">isExistSkeletonDataInCache</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; skeletonDataKeyName)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">SkeletonDataInCache</span> &#123;</span></span><br><span class="line">        spSkeletonData* _skeleton_data; </span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, SkeletonDataInCache&gt;::iterator iteratorSkeletonData;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, SkeletonDataInCache&gt; _allSkeletonDataCache;</span><br><span class="line">    <span class="comment">//end</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Binding-to-lua"><a href="#Binding-to-lua" class="headerlink" title="Binding to lua"></a><strong>Binding to lua</strong></h3><p>既然写了这么多了,就要将这些代码绑定到lua中去</p>
+<p>找到自己工程的的libluacocos2d的工程<br><img src="/posts/c4c0a180/auto_binding_2_lua_1.png" title="绑定C++到lua"><br>这里你可以自己写代码在 <code>lua_cocos2dx_spine_auto.cpp</code> 中,但是这不是一个程序员应该做的。<br>第二种做是:既然它的文件名有 <code>auto</code> 这个单词,一看就不是人写出来的,OK,去寻找答案。</p>
+<p>到这个目录中去 <code>···/frameworks/cocos2d-x/tools/tolua/</code> 你会发现有一个<code>genbindings.py</code>的文件<br>你一运行可能报错,你去读他的 <code>README.md</code> ,发现他要你装一些python的库,那就按照说的安装吧<br>你可以 pip 命令也可以 自己下载zip 这个随意。<br>然后就是配置NDK,这个下载解压,配置 path 就完了,我就不多说了。</p>
+<p>然后你运行可能还会报错</p>
+<p>那就打开 <code>genbindings.py</code> 你会发现他需要的是NDK <strong>3.3-3.4</strong> 然而自己的NDK经过查看 是 <strong>3.5-3.6</strong> 没关系,把它这个所有相关 <strong>3.3  3.4</strong> 全部改成 <strong>3.5-3.6</strong>的就OK了。</p>
+<p>改完后运行 Prefect ^-^.</p>
+<h3 id="在lua中调用"><a href="#在lua中调用" class="headerlink" title="在lua中调用"></a><strong>在lua中调用</strong></h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sp.SkeletonAnimation: createFromCache(key)</span><br><span class="line">sp.SkeletonAnimation: isExistSkeletonDataInCache(key)</span><br><span class="line">sp.SkeletonAnimation: loadSkeletonDataToCache(key,jsonFilePath,atlasFilePath,scale =<span class="number">1</span>)      </span><br><span class="line">sp.SkeletonAnimation: getSkeletonDataFromCache(key)</span><br><span class="line">sp.SkeletonAnimation: removeSkeletonData(key)</span><br><span class="line">sp.SkeletonAnimation: removeAllSkeletonData()</span><br></pre></td></tr></table></figure>
+<p>这里面有一个问题是你会发现返回的<code>骨胳数据</code>拿不到,这个是cocos2dx在绑定的时候并没有将这个数据类型绑定lua去,我上面那么写就是为了以后留个接口,当然你也可以自己把那个返回值去掉。</p>
+<p>好了今天就到这吧。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年05月09日 10:12</p>
+        <p>原始链接： <a class="post-url" href="/posts/c4c0a180/" title="优化cocos2dxSpine库">https://leng521.top/posts/c4c0a180/</a></p>
+        <footer>
+            <a href="https://leng521.top">
+                <img src="/head.jpg" alt="小魏">
+                小魏
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/c4c0a180/&title=《优化cocos2dxSpine库》 — 小魏的博客&pic=https://leng521.tophead.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/c4c0a180/&title=《优化cocos2dxSpine库》 — 小魏的博客&source=对cocos2dxSpine库的升级和优化本文的大纲1.升级spine在cocos2dx-3.15的运行时库2.优化spine在创建的时候效率
+在开发的时..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/c4c0a180/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《优化cocos2dxSpine库》 — 小魏的博客&url=https://leng521.top/posts/c4c0a180/&via=https://leng521.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/c4c0a180/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABy0lEQVR42u3awa6DMAxEUf7/p9Ptk6qQmXGc5kk3qwoQHLoYOTbPI6/xZ7nXvB9/OhZcuHDL3PG6Zte4d/gmvt9/+gfBhQv3IHeWGLNrZg9Tzir3nx6HCxfulVwl5twXgAsX7n/n6huYrNyBCxfuPdxKDHX0MTbs1eDChVvg6o/s+93S34ULF27EHebSXyZrjC6eDhcu3CNcPVCyMUnWClkMaOHChXuE+96GyCJs78BVqrzgwoW7lesGk0KsjGalEgcuXLhtXL0Q0dud7ijFGOTAhQv3OFcJoAztFkbTV4ILF+4Rrtv6zKYelbPGXg0uXLgHufUPs9ztUynI4MKFu5Xrbmmy1mcWYXDhwr2Bq5cm2fZpQ+sELly4zVy9CZI1Vd3ySIowuHDhHuHqgZI1O/TPOxZlFly4cA9yldanC82qrUXBBBcu3INcpT3qPiZb0vgELly4bdxhriyksiEKXLhwf8XNPqdQNjB68CktEvtl4MKFW+bqoeMWKJWRqjHzgQsXbhvXHWnog1U3QRdBCRcu3Iu5ysBVQYc7Nrhw4V7JzY64BdPm3IULF67JdT/GcmPLbYtIQ1a4cOG2cSvNjmwEUimY4MKF28z9AP3CUsGZwUpMAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/spine/" class="color1">spine</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#对cocos2dxSpine库的升级和优化"><span class="post-toc-text">对cocos2dxSpine库的升级和优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#本文的大纲"><span class="post-toc-text">本文的大纲</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#升级spine-gt-3-6"><span class="post-toc-text">升级spine -&gt;3.6</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#优化spine在创建的时候效率"><span class="post-toc-text">优化spine在创建的时候效率</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Binding-to-lua"><span class="post-toc-text">Binding to lua</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在lua中调用"><span class="post-toc-text">在lua中调用</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/posts/82a402af/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          git命令的记录
+        
+      </span>
+    </a>
+  
+  
+    <a href="/posts/6743743b/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Using-Hexo</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNDA0MC8xMDU3OA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/js/">js</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

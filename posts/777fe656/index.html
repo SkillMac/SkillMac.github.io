@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>微信小游戏开发记录 | 小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
+  <meta name="description" content="刚换个新工作,是做微信小游戏的.已经好长时间没有写一些东西了,今天就在这总结一下我这个月的做的事吧,我也是刚使用 cocos creator 时间不长,以前一直用的是 cocos2dx-lua ,写的不好请多多指教,好了废话不多说. 本片文章主要是对微信小游戏开发和总结.引擎: cocos creator发布平台: 微信小游戏(微信sdk ver:2.1.1) 本文大纲  使用 cocos cre">
+<meta name="keywords" content="微信小游戏,Cocos Creator">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小游戏开发记录">
+<meta property="og:url" content="https://leng521.top/posts/777fe656/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="刚换个新工作,是做微信小游戏的.已经好长时间没有写一些东西了,今天就在这总结一下我这个月的做的事吧,我也是刚使用 cocos creator 时间不长,以前一直用的是 cocos2dx-lua ,写的不好请多多指教,好了废话不多说. 本片文章主要是对微信小游戏开发和总结.引擎: cocos creator发布平台: 微信小游戏(微信sdk ver:2.1.1) 本文大纲  使用 cocos cre">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/2.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/3.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/4.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/6.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/7.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/8.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/9.png">
+<meta property="og:image" content="https://leng521.top/posts/777fe656/10.png">
+<meta property="og:updated_time" content="2019-02-19T12:29:26.380Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信小游戏开发记录">
+<meta name="twitter:description" content="刚换个新工作,是做微信小游戏的.已经好长时间没有写一些东西了,今天就在这总结一下我这个月的做的事吧,我也是刚使用 cocos creator 时间不长,以前一直用的是 cocos2dx-lua ,写的不好请多多指教,好了废话不多说. 本片文章主要是对微信小游戏开发和总结.引擎: cocos creator发布平台: 微信小游戏(微信sdk ver:2.1.1) 本文大纲  使用 cocos cre">
+<meta name="twitter:image" content="https://leng521.top/posts/777fe656/2.png">
+  
+  
+    <link rel="icon" href="/head.jpg">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-微信小游戏开发记录" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      微信小游戏开发记录
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/微信小游戏/">微信小游戏</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-06-30
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>刚换个新工作,是做微信小游戏的.已经好长时间没有写一些东西了,今天就在这总结一下我这个月的做的事吧,我也是刚使用 <code>cocos creator</code> 时间不长,以前一直用的是 <code>cocos2dx-lua</code> ,写的不好请多多指教,好了废话不多说.</p>
+<p>本片文章主要是对微信小游戏开发和总结.<br>引擎: cocos creator<br>发布平台: 微信小游戏(微信sdk ver:2.1.1)</p>
+<p>本文大纲</p>
+<ul>
+<li>使用 <code>cocos creator</code> 引擎发布到微信上</li>
+<li>记录调用微信 API 的记录</li>
+<li>微信排行榜实现(开放数据域的使用)</li>
+<li>在开发过程中遇到的问题</li>
+</ul>
+<a id="more"></a>
+<h1 id="发布"><a href="#发布" class="headerlink" title="发布"></a><em>发布</em></h1><p>这里首先要准备的东西是:</p>
+<ul>
+<li>appid</li>
+<li>你的游戏工程</li>
+<li>微信开发工具</li>
+</ul>
+<p>appid:<br>是你注册微信小程序公众号时候能够得到的,这个是你发布的时候要用的东西,当然你也可以使用 cocos creator 提供的默认的账号,(使用这个账号的弊端是你项目相关人员没办法测试,只有你的微信账号可以做测试)<br><a href="https://developers.weixin.qq.com/minigame/introduction/index.html#%E5%BC%80%E9%80%9A%E8%99%9A%E6%8B%9F%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98">微信团队注册和接入微信小游戏的教程</a><br>在这里注册你的微信公众号账号 <a href="https://mp.weixin.qq.com/">微信公众平台</a>在这里选择小程序进行注册,然后按照流程进行注册,你可以是个体,也可以是以企业身份进行注册,(个人注册在后期发布上线的时候要做的事情比较少,企业注册就需要东西比个人多两样,后面详细介绍.)</p>
+<img src="/posts/777fe656/2.png" title="注册类型">
+<p>一般这些东西注册比较简单,这里就仔细叙述了,如果你是管理员的话,你可微信扫码直接登录,如果不是可以让管理员给你直接加一下权限.</p>
+<img src="/posts/777fe656/3.png" title="成员权限">
+<p>你需要配置的信息如下:</p>
+<img src="/posts/777fe656/4.png" title="小游戏配置信息">
+<p>这里要注意的就是我第二张图里面指向的地方, 这些你都填写完毕后就可以拿到 appid 了,有了这个id后你可以给其他的项目相关测试人员在微信后台添加 成员并给他们相应的权限,这样他们也可以进行测试你现在开发的小游戏了.</p>
+<img src="/posts/777fe656/6.png" title="小游戏的appid">
+<p>然后在 cocos creator 引擎中去填写,</p>
+<img src="/posts/777fe656/7.png" title="发布设置">
+<p>我这里指向了几个地方,这里你们要是明白的话就更好,要是不明白,先这样做,我只是不想要这篇文章篇幅过长.</p>
+<p>至于下面的 开放数据域, 服务器地址, 现在可以先不配置, 到后面我会去介绍的.</p>
+<p>在这里再说一下,在点击运行的时候需要先配置,微信开发工具,<br><a href="https://developers.weixin.qq.com/minigame/dev/devtools/download.html">微信开发工具 download</a></p>
+<img src="/posts/777fe656/8.png" title="微信开发工具配置">
+<blockquote>
+<p>那里面有配置的完整路径.^-^</p>
+</blockquote>
+<p>然后引擎会在构建完成之后,点击运行,微信开发者工具启动后,点击预览会生成一个二维码,然后在微信后台,成员管理里面的成员只要有测试权限的都可以通过这个二维码进行游戏测试.</p>
+<img src="/posts/777fe656/9.png" title="编译预览">
+<p>好了到这里你就发布成功了.</p>
+<p><a href="http://docs.cocos.com/creator/manual/zh/publish/publish-wechatgame.html">这个是 cocos creator 官方团队提供发布微信小游戏的教程</a></p>
+<p>如果运行出现错误可以到这里看看有没有<a href="http://forum.cocos.com/t/faq/54828">微信小游戏问题总汇</a></p>
+<p>#<em>微信小游戏API</em></p>
+<p><a href="https://developers.weixin.qq.com/minigame/dev/document/render/canvas/wx.createCanvas.html">微信小游戏API</a><br><a href="https://developers.weixin.qq.com/minigame/dev/">微信小游戏文档</a></p>
+<p>这里只是演示 cocos creator 是怎么调用微信小游戏的 api,复杂的调用我就先不说了.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">argument</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// CC_WECHATGAME 这个是 creator 全局宏用来判断是否在微信小游戏环境下</span></span><br><span class="line">    <span class="keyword">if</span>(CC_WECHATGAME)&#123;</span><br><span class="line">        wx.login(&#123;</span><br><span class="line">            success: <span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">                <span class="comment">// 调用成功后回调</span></span><br><span class="line">                wx.getUserInfo(&#123;</span><br><span class="line">                    success: <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">                        <span class="built_in">console</span>.log(res)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;,</span><br><span class="line">            fail: <span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">                <span class="comment">// 调用失败后回调</span></span><br><span class="line">            &#125;,</span><br><span class="line">            complete: <span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">                <span class="comment">// 成功失败都会调用</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>#<em>微信开放数据域</em></p>
+<p>微信的开放数据域要求,解释起来比较复杂,我先给你提供微信官方的解释,和creator 团队做出的解释和例子.</p>
+<p><a href="https://developers.weixin.qq.com/minigame/dev/tutorial/open-ability/open-data.html">微信的解释</a><br><a href="http://docs.cocos.com/creator/manual/zh/publish/publish-wechatgame-sub-domain.html">creator团队的解释</a></p>
+<p>相信你看完这两个解释,会有一些概念了,这里我就开始直接上代码,这个是最直接.</p>
+<p>这个是主域渲染的代码<br>sharedCanvas 是微信提供的全局变量,在微信环境下有用,当然这个是有开放数据域的工程后才行.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">cc.Class(&#123;</span><br><span class="line">    extends: cc.Component,</span><br><span class="line"></span><br><span class="line">    properties: &#123;</span><br><span class="line">        rankView: cc.Sprite,</span><br><span class="line">    &#125;,</span><br><span class="line">    onLoad() &#123;</span><br><span class="line">        <span class="keyword">if</span> (CC_WECHATGAME) &#123;</span><br><span class="line">            <span class="keyword">this</span>.tex = <span class="keyword">new</span> cc.Texture2D()</span><br><span class="line">            <span class="built_in">window</span>.sharedCanvas.width = <span class="number">720</span></span><br><span class="line">            <span class="built_in">window</span>.sharedCanvas.height = <span class="number">1280</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    update() &#123;</span><br><span class="line">        <span class="keyword">this</span>._updateSubDomainCanvas()</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 刷新子域的纹理</span></span><br><span class="line">    _updateSubDomainCanvas() &#123;</span><br><span class="line">        <span class="keyword">if</span> (CC_WECHATGAME) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">window</span>.sharedCanvas != <span class="literal">undefined</span>) &#123;</span><br><span class="line">                <span class="keyword">this</span>.tex.initWithElement(<span class="built_in">window</span>.sharedCanvas)</span><br><span class="line">                <span class="keyword">this</span>.tex.handleLoadedTexture()</span><br><span class="line">                <span class="keyword">this</span>.rankView.spriteFrame = <span class="keyword">new</span> cc.SpriteFrame(<span class="keyword">this</span>.tex)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>发送发送数据的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个是上传分数的一段代码</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* @param score_ 要上传的分数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">uploadScore(score_)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">this</span>.checkIsWeChat()) &#123;<span class="keyword">return</span>;&#125;</span><br><span class="line">    GameTools.sendMessage(&#123;</span><br><span class="line">        type: GameTools.msgType.submitScore,</span><br><span class="line">        scoreData: &#123;</span><br><span class="line">            key: cc.TB.GAME.weChatData.keyList[<span class="number">0</span>],</span><br><span class="line">            score: score_,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这类型和开放数据域那里的类型保持一致就行了.</span></span><br><span class="line">msgType: &#123;</span><br><span class="line">    clear: <span class="number">0</span>,</span><br><span class="line">    updateRank: <span class="number">1</span>,</span><br><span class="line">    submitScore: <span class="number">2</span>,</span><br><span class="line">    updateSelfRank: <span class="number">3</span>,</span><br><span class="line">    groupShare: <span class="number">4</span>,</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个是调用微信的API 给开放数据域发送数据的 API</span></span><br><span class="line">sendMessage(data) &#123;</span><br><span class="line">    <span class="keyword">if</span>(CC_WECHATGAME) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'send sub content data'</span>);</span><br><span class="line">        <span class="keyword">let</span> content = <span class="built_in">window</span>.wx.getOpenDataContext();</span><br><span class="line">        content.postMessage(data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>开放数据域的代码</p>
+<p>这里我直接放一个文件的链接,我就不接去部分代码了,你可以直接修改然后自己使用.</p>
+<p>开放数据域代码</p>
+<a href="/posts/777fe656/openContentData.txt" title="openContentData.txt">openContentData.txt</a>
+<p>这里在你发布开放数据域的工程的时候</p>
+<img src="/posts/777fe656/10.png" title="开放数据域的配置">
+<blockquote>
+<p>好了开放数据域 介绍结束 ^-^</p>
+</blockquote>
+<p>#<em>问题记录</em></p>
+<p>1.游戏包体超过4M</p>
+<blockquote>
+<p>1.将你的资源放置服务器,在微信开放平台后端配置你的服务器地址,这里注意微信是不支持直接填写ip,而且还必须是https协议.</p>
+<p>2.最近微信出现个分包加载机制,也可以突破微信不能超过4M的机制,这个我还没有实际实现过就先不写做法了,</p>
+</blockquote>
+<p>2.微信小游戏分享传参问题<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">wx.shareAppMessage(&#123;</span><br><span class="line">    title: <span class="string">'跟我一起玩'</span>,</span><br><span class="line">    query: <span class="string">'invite=1&amp;wc=2'</span>,</span><br><span class="line">    imageUrl: address + <span class="string">'share.jpg'</span>,</span><br><span class="line">    success: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'分享 成功 '</span>, res);</span><br><span class="line">        <span class="keyword">if</span> (res.shareTickets != <span class="literal">undefined</span> &amp;&amp; res.shareTickets.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 这里主要是利用 query 这个字段进行参数传递</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// **********************************************</span></span><br><span class="line"><span class="comment">// 启动</span></span><br><span class="line"><span class="keyword">let</span> option = wx.getLaunchOptionsSync();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'小游戏启动'</span>,option);</span><br><span class="line"><span class="keyword">if</span>(option.shareTicket != <span class="literal">undefined</span>) &#123;</span><br><span class="line">    cc.TB.GAME.weChatData.shareTicket = option.shareTicket;</span><br><span class="line">    <span class="keyword">this</span>.onGroupShareFunc();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 由后台切换到前台是调用的函数</span></span><br><span class="line">wx.onShow(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// shareTicket</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'切换到前台'</span>,res);</span><br><span class="line">    <span class="keyword">if</span>(res.shareTicket)&#123;</span><br><span class="line">        cc.TB.GAME.weChatData.shareTicket = res.shareTicket;</span><br><span class="line">        <span class="comment">// 显示群排行</span></span><br><span class="line">        <span class="keyword">this</span>.onGroupShareFunc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在这里 这个函数的返回值里 wx.getLaunchOptionsSync();</span></span><br><span class="line"><span class="comment">// 和 这个函数 wx.onShow() 回调里面会有刚才传进来的参数</span></span><br></pre></td></tr></table></figure></p>
+<p>微信分享主要是利用 query 字段,这个字段类型是 string 只要按照这个格式就可以在在通过分享的链接进入游戏是获取相应参数的值.</p>
+<p>好了,今天就先到这里了.</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年02月19日 20:29</p>
+        <p>原始链接： <a class="post-url" href="/posts/777fe656/" title="微信小游戏开发记录">https://leng521.top/posts/777fe656/</a></p>
+        <footer>
+            <a href="https://leng521.top">
+                <img src="/head.jpg" alt="小魏">
+                小魏
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/777fe656/&title=《微信小游戏开发记录》 — 小魏的博客&pic=https://leng521.tophead.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/777fe656/&title=《微信小游戏开发记录》 — 小魏的博客&source=刚换个新工作,是做微信小游戏的.已经好长时间没有写一些东西了,今天就在这总结一下我这个月的做的事吧,我也是刚使用 cocos creator 时间不长,以..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/777fe656/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏开发记录》 — 小魏的博客&url=https://leng521.top/posts/777fe656/&via=https://leng521.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/777fe656/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABwElEQVR42u3aQW7DMAwEQP//0+61FztLSiISYHQqEtQa57CgSF1XvO5/K/8k+fw6sXBxcZe59+t63zJ5zhPx6fnvT8DFxZ3kPm3fe3QecLkBFxf3V7i7XgAXF/fXufkBplfu4OLifg+3GkN5a6N6uNp2VsPFxV3g5l3Kc38f6e/i4uK2uHdxPW2TH2zuhYWLizvD7ZUpedj1WiEf9sXFxR3kroxay2FUHNWUCx1cXNxj3PfGZS+q1kcyuLi4p7lJfCTty5XrF4VBDi4u7gh3V8O0OvzIf47mQAUXF3cTd/3QUg2p5NvHl8fFxR3hJpei8qNRjtiWu7i4uJu4eST1LmRUy6APY11cXNwRbm/8mRdD1XCMohMXF3eEW21b5MVKdTzTbJXi4uIe4FY3ODFQyQexuLi4k9xq2dEbt+RNlg+HH1xc3BFu3trotTx6A92rmpe4uLjL3Lu4eiG1cuULFxd3nlsNl2prtXrIqV7UwMXFPcfdFV7r5VEUcLi4uIPc6khjvRnaizxcXNxv5labLJtPbLi4uF/P7Q1Xmi1UXFzcQW4eN0mh0/vf6FtcXNwRbjVK8uZpNcjyV8XFxT3G/QMlteIxOJhdaAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/微信小游戏/" class="color1">微信小游戏</a>
+      
+    <a href="/tags/CocosCreator/" class="color4">Cocos Creator</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#发布"><span class="post-toc-text">发布</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/posts/da41a120/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          微信小游戏发布流程
+        
+      </span>
+    </a>
+  
+  
+    <a href="/posts/8e17853e/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">解决运行exe时缺少dll问题</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNDA0MC8xMDU3OA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/js/">js</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 14px;">cocos2d-x</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scons/" style="font-size: 12px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/优化/" style="font-size: 12px;">优化</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 18px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
