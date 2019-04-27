@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="小魏的博客">
 <meta property="og:description" content="语言： js js version: v10.15.1 时间： 2019.4.25 15:34  这里我不说太长的话，去解释，不然会晕。js 里面的原型是真的有一点的绕。记住这几句话就行了，我就不画图了，不然我感觉看图更晕。  万物皆对象。 js 对象分为 函数对象 和 普通对象。 只有函数对象有 prototype ，所有的对象都有 proto 内置属性。 prototype 其实是函数对象的一">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://t1.picb.cc/uploads/2019/04/25/VoLuZe.jpg">
-<meta property="og:updated_time" content="2019-04-25T16:22:47.301Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/27/EuyFHI.jpg">
+<meta property="og:updated_time" content="2019-04-27T03:15:14.679Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一张图搞懂js原型链">
 <meta name="twitter:description" content="语言： js js version: v10.15.1 时间： 2019.4.25 15:34  这里我不说太长的话，去解释，不然会晕。js 里面的原型是真的有一点的绕。记住这几句话就行了，我就不画图了，不然我感觉看图更晕。  万物皆对象。 js 对象分为 函数对象 和 普通对象。 只有函数对象有 prototype ，所有的对象都有 proto 内置属性。 prototype 其实是函数对象的一">
-<meta name="twitter:image" content="https://t1.picb.cc/uploads/2019/04/25/VoLuZe.jpg">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/27/EuyFHI.jpg">
   
   
     <link rel="icon" href="/head.jpg">
@@ -174,7 +174,7 @@
 </ol>
 </blockquote>
 <a id="more"></a>
-<p><img src="https://t1.picb.cc/uploads/2019/04/25/VoLuZe.jpg" alt></p>
+<p><img src="https://s2.ax1x.com/2019/04/27/EuyFHI.jpg" alt></p>
 <h3 id="什么是函数对象？什么是普通对象？"><a href="#什么是函数对象？什么是普通对象？" class="headerlink" title="什么是函数对象？什么是普通对象？"></a>什么是函数对象？什么是普通对象？</h3><p>解释：<br>    通过 new Function 创建出来的对象是函数对象， 函数对象的实例是普通对象。<br>    Object 就是通过 new Function 创建出来的。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Object</span>); <span class="comment">// =&gt; function 这就是函数对象， 因为他们是js 内置创建出来的。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Function</span>); <span class="comment">// =&gt; function</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="什么是函数的原型-prototype"><a href="#什么是函数的原型-prototype" class="headerlink" title="什么是函数的原型(prototype)"></a>什么是函数的原型(prototype)</h3><p>原型(prototype)其实是函数对象的实例，前面说过.<br>在代码中的体现如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">A.prototype.walk = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"walk"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> A.prototype); <span class="comment">// object</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个其实和这个差不多。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">B.prototype = &#123;</span><br><span class="line">    walk:<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"walk"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> A().walk(); <span class="comment">// =&gt; walk</span></span><br><span class="line"><span class="keyword">new</span> B().walk(); <span class="comment">// =&gt; walk</span></span><br></pre></td></tr></table></figure></p>
 <p>其实函数对象A 和 函数对象 B 是拥有一样的功能的。<br>你其实就可以想象成他就是一个普通对象而已，确切的说是函数对象的一个实例。</p>
@@ -204,7 +204,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年04月26日 00:22</p>
+        <p>最后更新： 2019年04月27日 11:15</p>
         <p>原始链接： <a class="post-url" href="/posts/5e8fa495/" title="一张图搞懂js原型链">https://leng521.top/posts/5e8fa495/</a></p>
         <footer>
             <a href="https://leng521.top">
@@ -231,7 +231,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/5e8fa495/&title=《一张图搞懂js原型链》 — 小魏的博客&pic=https://t1.picb.cc/uploads/2019/04/25/Vo9YDi.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/5e8fa495/&title=《一张图搞懂js原型链》 — 小魏的博客&pic=https://s2.ax1x.com/2019/04/27/EuRqDe.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
