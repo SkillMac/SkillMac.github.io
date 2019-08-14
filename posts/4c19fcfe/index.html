@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>集成bgfx在macosx平台 | 小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
+  <meta name="description" content="这一篇实在上一篇在windows平台的基础上加上 macosx 平台的编译上一篇地址传送门  涉及的知识点,如下:  使用 xmake 构建工程, xmake 使用lua 不会可以简单的补一下语法 修复编译 bgfx 时报的错误 编译 shaderc 可执行文件 编译 glsl 到二进制, 因为bgfx 使用编译后的着色器代码 编译 glfw, bgfx, bimg, bx 库">
+<meta name="keywords" content="前端,cpp,bgfx,xmake,lua">
+<meta property="og:type" content="article">
+<meta property="og:title" content="集成bgfx在macosx平台">
+<meta property="og:url" content="https://leng521.top/posts/4c19fcfe/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="这一篇实在上一篇在windows平台的基础上加上 macosx 平台的编译上一篇地址传送门  涉及的知识点,如下:  使用 xmake 构建工程, xmake 使用lua 不会可以简单的补一下语法 修复编译 bgfx 时报的错误 编译 shaderc 可执行文件 编译 glsl 到二进制, 因为bgfx 使用编译后的着色器代码 编译 glfw, bgfx, bimg, bx 库">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-14T03:34:57.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="集成bgfx在macosx平台">
+<meta name="twitter:description" content="这一篇实在上一篇在windows平台的基础上加上 macosx 平台的编译上一篇地址传送门  涉及的知识点,如下:  使用 xmake 构建工程, xmake 使用lua 不会可以简单的补一下语法 修复编译 bgfx 时报的错误 编译 shaderc 可执行文件 编译 glsl 到二进制, 因为bgfx 使用编译后的着色器代码 编译 glfw, bgfx, bimg, bx 库">
+  
+  
+    <link rel="icon" href="/head.jpg">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-集成bgfx在macosx平台" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      集成bgfx在macosx平台
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/前端/">前端</a>
+                  
+                      <a href="/categories/bgfx/">bgfx</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-08-14
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>这一篇实在上一篇在windows平台的基础上加上 macosx 平台的编译<br><a href="http://leng521.top/posts/ea56194d/">上一篇地址传送门</a></p>
+<blockquote>
+<p>涉及的知识点,如下:</p>
+<ol>
+<li>使用 xmake 构建工程, xmake 使用lua 不会可以简单的补一下语法</li>
+<li>修复编译 bgfx 时报的错误</li>
+<li>编译 shaderc 可执行文件</li>
+<li>编译 glsl 到二进制, 因为bgfx 使用编译后的着色器代码</li>
+<li>编译 glfw, bgfx, bimg, bx 库</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+<p>这里就不在详细说之前的配置了,这里主要说明 macosx xmake的配置</p>
+<h3 id="bgfx的-xmake-配置"><a href="#bgfx的-xmake-配置" class="headerlink" title="bgfx的 xmake 配置"></a>bgfx的 xmake 配置</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">target(<span class="string">"bgfx"</span>)</span><br><span class="line">    set_kind(<span class="string">"static"</span>)</span><br><span class="line"></span><br><span class="line">    add_cxxflags(<span class="string">"-std=c++14"</span>, <span class="string">"-stdlib=libc++"</span>)</span><br><span class="line">    add_mxxflags(<span class="string">"-std=c++14"</span>, <span class="string">"-stdlib=libc++"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> is_mode(<span class="string">"debug"</span>) <span class="keyword">then</span></span><br><span class="line">        set_targetdir(<span class="string">"$(buildir)/libs/debug"</span>)</span><br><span class="line">    <span class="keyword">elseif</span> is_mode(<span class="string">"release"</span>) <span class="keyword">then</span></span><br><span class="line">        set_targetdir(<span class="string">"$(buildir)/libs/release"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    add_includedirs(BGFX_DIR .. <span class="string">"include"</span>)</span><br><span class="line">    add_includedirs(BGFX_DIR .. <span class="string">"3rdparty"</span>)</span><br><span class="line">    add_includedirs(BX_DIR .. <span class="string">"include"</span>)</span><br><span class="line">    add_includedirs(BIMG_DIR .. <span class="string">"include"</span>)</span><br><span class="line">    add_includedirs(BGFX_DIR .. <span class="string">"3rdparty/khronos"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> is_plat(<span class="string">"windows"</span>) <span class="keyword">then</span></span><br><span class="line">        add_defines(<span class="string">"__STDC_LIMIT_MACROS"</span></span><br><span class="line">                , <span class="string">"__STDC_FORMAT_MACROS"</span></span><br><span class="line">                , <span class="string">"__STDC_CONSTANT_MACROS"</span></span><br><span class="line">                , <span class="string">"NDEBUG"</span></span><br><span class="line">                , <span class="string">"WIN32"</span></span><br><span class="line">                , <span class="string">"_WIN32"</span></span><br><span class="line">                , <span class="string">"_HAS_EXCEPTIONS=0"</span></span><br><span class="line">                , <span class="string">"_HAS_ITERATOR_DEBUGGING=0"</span></span><br><span class="line">                , <span class="string">"_ITERATOR_DEBUG_LEVEL=0"</span></span><br><span class="line">                , <span class="string">"_SCL_SECURE=0"</span></span><br><span class="line">                , <span class="string">"_SECURE_SCL=0"</span></span><br><span class="line">                , <span class="string">"_SCL_SECURE_NO_WARNINGS"</span></span><br><span class="line">                , <span class="string">"_CRT_SECURE_NO_WARNINGS"</span></span><br><span class="line">                , <span class="string">"_CRT_SECURE_NO_DEPRECATE"</span>)</span><br><span class="line"></span><br><span class="line">        add_includedirs(BGFX_DIR .. <span class="string">"3rdparty/dxsdk/include"</span>)</span><br><span class="line">        add_includedirs(BX_DIR .. <span class="string">"include/compat/msvc"</span>)</span><br><span class="line"></span><br><span class="line">        add_syslinks(<span class="string">"user32"</span>, <span class="string">"gdi32"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">-- default cl complier</span></span><br><span class="line">        add_files(BGFX_DIR .. <span class="string">"src/**.cpp|amalgamated.cpp"</span>) <span class="comment">--|glcontext_glx.cpp|glcontext_egl.cpp</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">elseif</span> is_plat(<span class="string">"macosx"</span>) <span class="keyword">then</span></span><br><span class="line">        add_defines(<span class="string">"NDEBUG"</span>)</span><br><span class="line">        add_cxxflags(<span class="string">"-Wno-microsoft-enum-value"</span>, <span class="string">"-Wno-microsoft-const-init"</span>, <span class="string">"-x objective-c++"</span>)</span><br><span class="line">        <span class="comment">--add_mxxflags("-Wno-microsoft-enum-value", "-Wno-microsoft-const-init", "-x objective-c++")</span></span><br><span class="line"></span><br><span class="line">        add_mxxflags(<span class="string">"-weak_framework Metal"</span>, <span class="string">"-weak_framework MetalKit"</span>)</span><br><span class="line">        add_ldflags(<span class="string">"-weak_framework Metal"</span>, <span class="string">"-weak_framework MetalKit"</span>)</span><br><span class="line"></span><br><span class="line">        add_frameworks(<span class="string">"CoreVideo"</span>,<span class="string">"IOKit"</span>,<span class="string">"Cocoa"</span>,<span class="string">"QuartzCore"</span>,<span class="string">"OpenGL"</span>)</span><br><span class="line">        add_includedirs(BX_DIR .. <span class="string">"include/compat/osx"</span>)</span><br><span class="line"></span><br><span class="line">        add_files(BGFX_DIR .. <span class="string">"src/glcontext_**.mm"</span>)</span><br><span class="line">        add_files(BGFX_DIR .. <span class="string">"src/renderer_**.mm"</span>)</span><br><span class="line">        add_files(BGFX_DIR .. <span class="string">"src/**.cpp|amalgamated.cpp"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> is_mode(<span class="string">"debug"</span>) <span class="keyword">then</span></span><br><span class="line">        add_defines(<span class="string">"BGFX_CONFIG_DEBUG=1"</span>)</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>上面配置表的逻辑应该写的很清楚了,这里简单的说明一下.</p>
+<ol>
+<li>bgfx使用了c++14的特性但是默认编译器是c++11 所以要指定到c++14</li>
+<li>bgfx 依赖的库有: Metal, MetalKit, CoreVideo, IOKit, Cocoa, QuartzCore, OpenGL</li>
+</ol>
+<p>下面编译 bimg和 bx 库都是同样的道理,这里我就直接放置配置文件了</p>
+<h3 id="bx-的-xmake-配置"><a href="#bx-的-xmake-配置" class="headerlink" title="bx 的 xmake 配置"></a>bx 的 xmake 配置</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">target(<span class="string">"bx"</span>)</span><br><span class="line">    set_kind(<span class="string">"static"</span>)</span><br><span class="line"></span><br><span class="line">    add_cxxflags(<span class="string">"-std=c++14"</span>, <span class="string">"-stdlib=libc++"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> is_mode(<span class="string">"debug"</span>) <span class="keyword">then</span></span><br><span class="line">        set_targetdir(<span class="string">"$(buildir)/libs/debug"</span>)</span><br><span class="line">    <span class="keyword">elseif</span> is_mode(<span class="string">"release"</span>) <span class="keyword">then</span></span><br><span class="line">        set_targetdir(<span class="string">"$(buildir)/libs/release"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    add_includedirs(BX_DIR .. <span class="string">"include"</span>)</span><br><span class="line">    add_includedirs(BX_DIR .. <span class="string">"include/bx/inline"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> is_plat(<span class="string">"windows"</span>) <span class="keyword">then</span> </span><br><span class="line">        add_defines(<span class="string">"__STDC_LIMIT_MACROS"</span></span><br><span class="line">                , <span class="string">"__STDC_FORMAT_MACROS"</span></span><br><span class="line">                , <span class="string">"__STDC_CONSTANT_MACROS"</span></span><br><span class="line">                , <span class="string">"NDEBUG"</span></span><br><span class="line">                , <span class="string">"WIN32"</span></span><br><span class="line">                , <span class="string">"_WIN32"</span></span><br><span class="line">                , <span class="string">"_HAS_EXCEPTIONS=0"</span></span><br><span class="line">                , <span class="string">"_HAS_ITERATOR_DEBUGGING=0"</span></span><br><span class="line">                , <span class="string">"_ITERATOR_DEBUG_LEVEL=0"</span></span><br><span class="line">                , <span class="string">"_SCL_SECURE=0"</span></span><br><span class="line">                , <span class="string">"_SECURE_SCL=0"</span></span><br><span class="line">                , <span class="string">"_SCL_SECURE_NO_WARNINGS"</span></span><br><span class="line">                , <span class="string">"_CRT_SECURE_NO_WARNINGS"</span></span><br><span class="line">                , <span class="string">"_CRT_SECURE_NO_DEPRECATE"</span>)</span><br><span class="line"></span><br><span class="line">        add_includedirs(BX_DIR .. <span class="string">"include/compat/msvc"</span>)</span><br><span class="line">        add_includedirs(BX_DIR .. <span class="string">"3rdparty"</span>)</span><br><span class="line"></span><br><span class="line">        add_files(BX_DIR .. <span class="string">"src/**.cpp|amalgamated.cpp"</span>) <span class="comment">--|crtnone.cpp</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">elseif</span> is_plat(<span class="string">"macosx"</span>) <span class="keyword">then</span></span><br><span class="line">        add_includedirs(BX_DIR .. <span class="string">"include/compat/osx"</span>)</span><br><span class="line">        add_includedirs(BX_DIR .. <span class="string">"3rdparty"</span>)</span><br><span class="line"></span><br><span class="line">        add_files(BX_DIR .. <span class="string">"src/**.cpp|amalgamated.cpp"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h3 id="bimg-的-xmake-配置"><a href="#bimg-的-xmake-配置" class="headerlink" title="bimg 的 xmake 配置"></a>bimg 的 xmake 配置</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">target(<span class="string">"bimg"</span>)</span><br><span class="line">    set_kind(<span class="string">"static"</span>)</span><br><span class="line">    add_cxxflags(<span class="string">"-std=c++14"</span>, <span class="string">"-stdlib=libc++"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> is_mode(<span class="string">"debug"</span>) <span class="keyword">then</span></span><br><span class="line">        set_targetdir(<span class="string">"$(buildir)/libs/debug"</span>)</span><br><span class="line">    <span class="keyword">elseif</span> is_mode(<span class="string">"release"</span>) <span class="keyword">then</span></span><br><span class="line">        set_targetdir(<span class="string">"$(buildir)/libs/release"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    add_includedirs(BIMG_DIR .. <span class="string">"include"</span>)</span><br><span class="line">    add_includedirs(BIMG_DIR .. <span class="string">"3rdparty/astc-codec"</span>)</span><br><span class="line">    add_includedirs(BIMG_DIR .. <span class="string">"3rdparty/astc-codec/include"</span>)</span><br><span class="line">    add_includedirs(BX_DIR .. <span class="string">"include"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> is_plat(<span class="string">"windows"</span>) <span class="keyword">then</span> </span><br><span class="line"></span><br><span class="line">        add_defines(<span class="string">"__STDC_LIMIT_MACROS"</span></span><br><span class="line">                , <span class="string">"__STDC_FORMAT_MACROS"</span></span><br><span class="line">                , <span class="string">"__STDC_CONSTANT_MACROS"</span></span><br><span class="line">                , <span class="string">"NDEBUG"</span></span><br><span class="line">                , <span class="string">"WIN32"</span></span><br><span class="line">                , <span class="string">"_WIN32"</span></span><br><span class="line">                , <span class="string">"_HAS_EXCEPTIONS=0"</span></span><br><span class="line">                , <span class="string">"_HAS_ITERATOR_DEBUGGING=0"</span></span><br><span class="line">                , <span class="string">"_ITERATOR_DEBUG_LEVEL=0"</span></span><br><span class="line">                , <span class="string">"_SCL_SECURE=0"</span></span><br><span class="line">                , <span class="string">"_SECURE_SCL=0"</span></span><br><span class="line">                , <span class="string">"_SCL_SECURE_NO_WARNINGS"</span></span><br><span class="line">                , <span class="string">"_CRT_SECURE_NO_WARNINGS"</span></span><br><span class="line">                , <span class="string">"_CRT_SECURE_NO_DEPRECATE"</span>)</span><br><span class="line"></span><br><span class="line">        add_includedirs(BX_DIR .. <span class="string">"include/compat/msvc"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elseif</span>  is_plat(<span class="string">"macosx"</span>) <span class="keyword">then</span> </span><br><span class="line">        add_includedirs(BX_DIR .. <span class="string">"include/compat/osx"</span>)        </span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    add_files(BIMG_DIR .. <span class="string">"src/image.cpp"</span>)</span><br><span class="line">    add_files(BIMG_DIR .. <span class="string">"src/image_gnf.cpp"</span>)</span><br><span class="line">    add_files(BIMG_DIR .. <span class="string">"3rdparty/astc-codec/src/decoder/*.cc"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="glfw-的-xmake-配置"><a href="#glfw-的-xmake-配置" class="headerlink" title="glfw 的 xmake 配置"></a>glfw 的 xmake 配置</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">target(<span class="string">"glfw"</span>)</span><br><span class="line">    set_kind(<span class="string">"static"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> is_mode(<span class="string">"debug"</span>) <span class="keyword">then</span></span><br><span class="line">        set_targetdir(<span class="string">"$(buildir)/libs/debug"</span>)</span><br><span class="line">    <span class="keyword">elseif</span> is_mode(<span class="string">"release"</span>) <span class="keyword">then</span></span><br><span class="line">        set_targetdir(<span class="string">"$(buildir)/libs/release"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    add_includedirs(GLFW_DIR .. <span class="string">"include"</span>)</span><br><span class="line"></span><br><span class="line">    add_files(GLFW_DIR .. <span class="string">"src/context.c"</span>)</span><br><span class="line">    </span><br><span class="line">    add_files(GLFW_DIR .. <span class="string">"src/init.c"</span>)</span><br><span class="line">    add_files(GLFW_DIR .. <span class="string">"src/input.c"</span>)</span><br><span class="line">    add_files(GLFW_DIR .. <span class="string">"src/monitor.c"</span>)</span><br><span class="line">    add_files(GLFW_DIR .. <span class="string">"src/vulkan.c"</span>)</span><br><span class="line">    add_files(GLFW_DIR .. <span class="string">"src/window.c"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> is_plat(<span class="string">"windows"</span>) <span class="keyword">then</span></span><br><span class="line">        add_defines(<span class="string">"_GLFW_WIN32"</span>, <span class="string">"_CRT_SECURE_NO_WARNINGS"</span>, <span class="string">"_WIN64"</span>)</span><br><span class="line">        </span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/win32_*.c"</span>)</span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/wgl_context.c"</span>)</span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/egl_context.c"</span>)</span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/osmesa_context.c"</span>)</span><br><span class="line"></span><br><span class="line">        add_syslinks(<span class="string">"shell32"</span>)</span><br><span class="line">    <span class="keyword">elseif</span> is_plat(<span class="string">"linux"</span>) <span class="keyword">then</span></span><br><span class="line">        add_defines(<span class="string">"_GLFW_X11"</span>)</span><br><span class="line"></span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/glx_context.c"</span>)</span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/osmesa_context.c"</span>)</span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/linux*.c"</span>)</span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/posix*.c"</span>)</span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/x11*.c"</span>)</span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/xkb*.c"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">elseif</span> is_plat(<span class="string">"macosx"</span>) <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">        add_defines(<span class="string">"_GLFW_COCOA"</span>)</span><br><span class="line">        add_frameworks(<span class="string">"CoreVideo"</span>,<span class="string">"IOKit"</span>,<span class="string">"Cocoa"</span>,<span class="string">"CoreFoundation"</span>)</span><br><span class="line"></span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/cocoa_*.m"</span>)</span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/cocoa_time.c"</span>)</span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/posix_thread.c"</span>)</span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/nsgl_context.m"</span>)</span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/egl_context.c"</span>)</span><br><span class="line">        add_files(GLFW_DIR .. <span class="string">"src/osmesa_context.c"</span>)</span><br><span class="line"></span><br><span class="line">        add_mflags(<span class="string">"-fno-common"</span>)</span><br><span class="line">        add_cflags(<span class="string">"-fno-common"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里面加了linux版本的配置但是没有实测,这里你们注意一下.<br>这里主要的问题就是 你要正确的过滤出每个平台的需要加入编译的文件, 具体你可以参考 glfw的cmake 配置</p>
+</blockquote>
+<h3 id="链接到工程里面"><a href="#链接到工程里面" class="headerlink" title="链接到工程里面"></a>链接到工程里面</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">target(<span class="string">"vkEngine"</span>)</span><br><span class="line"></span><br><span class="line">    add_cxxflags(<span class="string">"-std=c++14"</span>, <span class="string">"-stdlib=libc++"</span>)</span><br><span class="line">    add_mxxflags(<span class="string">"-std=c++14"</span>, <span class="string">"-stdlib=libc++"</span>)</span><br><span class="line">    </span><br><span class="line">    add_deps(<span class="string">"bgfx"</span>)</span><br><span class="line">    add_deps(<span class="string">"bx"</span>)</span><br><span class="line">    add_deps(<span class="string">"bimg"</span>)</span><br><span class="line">    add_deps(<span class="string">"glfw"</span>)</span><br><span class="line"></span><br><span class="line">    set_kind(<span class="string">"binary"</span>)</span><br><span class="line"></span><br><span class="line">    add_includedirs(BGFX_DIR .. <span class="string">"include"</span>)</span><br><span class="line">    add_includedirs(BGFX_DIR .. <span class="string">"3rdparty"</span>)</span><br><span class="line">    </span><br><span class="line">    add_includedirs(BGFX_DIR .. <span class="string">"3rdparty/khronos"</span>)</span><br><span class="line">    add_includedirs(BX_DIR .. <span class="string">"include"</span>)</span><br><span class="line">    </span><br><span class="line">    add_includedirs(BIMG_DIR .. <span class="string">"include"</span>)</span><br><span class="line">    add_includedirs(GLFW_DIR .. <span class="string">"include"</span>)</span><br><span class="line">    add_includedirs(GLM_DIR)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> is_plat(<span class="string">"windows"</span>) <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">        add_includedirs(BGFX_DIR .. <span class="string">"3rdparty/dxsdk/include"</span>)</span><br><span class="line">        add_includedirs(BX_DIR .. <span class="string">"include/compat/msvc"</span>)</span><br><span class="line"></span><br><span class="line">        add_ldflags(<span class="string">"/SUBSYSTEM:CONSOLE"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">elseif</span> is_plat(<span class="string">"macosx"</span>) <span class="keyword">then</span></span><br><span class="line">        add_includedirs(BX_DIR .. <span class="string">"include/compat/osx"</span>)</span><br><span class="line">        add_frameworks(<span class="string">"CoreVideo"</span>,<span class="string">"IOKit"</span>,<span class="string">"Cocoa"</span>,<span class="string">"CoreFoundation"</span>, <span class="string">"Foundation"</span>, <span class="string">"QuartzCore"</span>, <span class="string">"OpenGL"</span>)</span><br><span class="line">        add_mxxflags(<span class="string">"-weak_framework Metal"</span>, <span class="string">"-weak_framework MetalKit"</span>)</span><br><span class="line">        add_ldflags(<span class="string">"-weak_framework Metal"</span>, <span class="string">"-weak_framework MetalKit"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    add_includedirs(<span class="string">"src/"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> is_mode(<span class="string">"debug"</span>) <span class="keyword">then</span> </span><br><span class="line">        add_linkdirs(<span class="string">"$(buildir)/libs/debug"</span>)</span><br><span class="line">        add_links(<span class="string">"glfw"</span>, <span class="string">"bgfx"</span>, <span class="string">"bx"</span>, <span class="string">"bimg"</span>)</span><br><span class="line">    <span class="keyword">elseif</span> is_mode(<span class="string">"release"</span>) <span class="keyword">then</span></span><br><span class="line">        add_linkdirs(<span class="string">"$(buildir)/libs/release"</span>)</span><br><span class="line">        add_links(<span class="string">"glfw"</span>, <span class="string">"bgfx"</span>, <span class="string">"bx"</span>, <span class="string">"bimg"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    add_files(<span class="string">"src/**.cpp|mesh.cpp|bounds.cpp"</span>)</span><br></pre></td></tr></table></figure>
+<p>这里你们看看也就是应该知道这里都做了什么了,</p>
+<h3 id="编译shader-metal版"><a href="#编译shader-metal版" class="headerlink" title="编译shader metal版"></a>编译shader metal版</h3><p>默认 macosx上使用 metal 图形库<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./shaderc -f ../../examples/cubes/vs_cubes.sc -o ../../examples/cubes/shaders/metal/vs_cubes.bin --varyingdef ../../examples/cubes/varying.def.sc --platform osx -i ../../examples/common/sh/ -p metal --type vertex</span><br><span class="line">./shaderc -f ../../examples/cubes/fs_cubes.sc -o ../../examples/cubes/shaders/metal/fs_cubes.bin --varyingdef ../../examples/cubes/varying.def.sc --platform osx -i ../../examples/common/sh/ -p metal --type fragment</span><br></pre></td></tr></table></figure></p>
+<p>具体每个参数是什么用可以去看上一篇文章有介绍这些东西.</p>
+<h3 id="编译好的可执行文件"><a href="#编译好的可执行文件" class="headerlink" title="编译好的可执行文件"></a>编译好的可执行文件</h3><p>我这里放上我编译好的 macosx平台 Release 版的工具<br>里面包含 <code>geometryc</code>     <code>geometryv</code> <code>texturec</code> <code>texturev</code> <code>shaderc</code></p>
+<p><a href="https://www.lanzous.com/i5kf5af">下载地址</a></p>
+<h3 id="ending"><a href="#ending" class="headerlink" title="ending"></a>ending</h3><p>这里我就不放代码了,,, 需要你们自己动手去做,,, 我可以把构建配置发给你们<br>我也只是用了一点, 后面会继续深入,,, 大家一块学习,,, 讨论交流.<br>这个官方的文档比较的少, 不全面, 需要自己多看看他们的例子和源码.</p>
+<p>xmake.lua 配置<br><a href="/posts/4c19fcfe/xmake.lua" title="xmake.lua">xmake.lua</a></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年08月14日 11:34</p>
+        <p>原始链接： <a class="post-url" href="/posts/4c19fcfe/" title="集成bgfx在macosx平台">https://leng521.top/posts/4c19fcfe/</a></p>
+        <footer>
+            <a href="https://leng521.top">
+                <img src="/head.jpg" alt="小魏">
+                小魏
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/4c19fcfe/&title=《集成bgfx在macosx平台》 — 小魏的博客&pic=https://leng521.tophead.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/4c19fcfe/&title=《集成bgfx在macosx平台》 — 小魏的博客&source=这一篇实在上一篇在windows平台的基础上加上 macosx 平台的编译上一篇地址传送门
+
+涉及的知识点,如下:
+
+使用 xmake 构建工程, xma..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/4c19fcfe/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《集成bgfx在macosx平台》 — 小魏的博客&url=https://leng521.top/posts/4c19fcfe/&via=https://leng521.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/4c19fcfe/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABuklEQVR42u3aQY7DIBAEQP//097rSpHjHiZMHKk4rbIOKS4taHwc8Thfxv/PX5+5+u7r58eOgYuL2+aeb0f/mStidX5cXNx57lVi5KGzFnC5ARcX98ncahglC8DFxf117vvjUP4MLi7u87l5DCWVx47DFS4u7iQ3byn3/b2l38XFxV3insVRnbNajN78Oi4u7gi3WoZWa461KuRmC4WLizvCXSP2dx152B39BMXFxf0Q931xufYDedi10Li4uG1uP2LyC5V8+3IZoLi4uJu51Soz2bJUr04Lc+Li4g5yq69W5HXGWtlxs7nBxcXdzC3sg+IatBpY1XDExcWd5PaPKNWyI48wXFzceW4nnpKl5t+NZsbFxR3k5lcdyZEmWXy52cXFxR3nVi9Hk+WtlSw3c+Li4n6J27liyUvPxSsZXFzcQW6nCqkuu3MNg4uLu5t7Fkc1pPItUbQYXFzcEW4+qqVqXqNUwxEXF3eGm4fX2uVHtS65CThcXNxB7lrQrF2ptubBxcV9JDd56Sp/MWvxxIaLi/sj3E7AFYS4uLiD3B1hlL94UfgvLi7uCHft4vNTVWm/lsXFxf0o9w9ZGnuKcuEamgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/前端/" class="color3">前端</a>
+      
+    <a href="/tags/cpp/" class="color4">cpp</a>
+      
+    <a href="/tags/bgfx/" class="color5">bgfx</a>
+      
+    <a href="/tags/xmake/" class="color1">xmake</a>
+      
+    <a href="/tags/lua/" class="color4">lua</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#bgfx的-xmake-配置"><span class="post-toc-text">bgfx的 xmake 配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#bx-的-xmake-配置"><span class="post-toc-text">bx 的 xmake 配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#bimg-的-xmake-配置"><span class="post-toc-text">bimg 的 xmake 配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#glfw-的-xmake-配置"><span class="post-toc-text">glfw 的 xmake 配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#链接到工程里面"><span class="post-toc-text">链接到工程里面</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编译shader-metal版"><span class="post-toc-text">编译shader metal版</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编译好的可执行文件"><span class="post-toc-text">编译好的可执行文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ending"><span class="post-toc-text">ending</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/posts/ea56194d/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">集成bgfx开源的渲染器</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNDA0MC8xMDU3OA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/js/">js</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/前端/WebGL/">WebGL</a><a class="category-link" href="/categories/前端/bgfx/">bgfx</a><a class="category-link" href="/categories/后端/">后端</a><a class="category-link" href="/categories/后端/nodejs/">nodejs</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bgfx/" style="font-size: 12.5px;">bgfx</a> <a href="/tags/c/" style="font-size: 12.5px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 15px;">cocos2d-x</a> <a href="/tags/cpp/" style="font-size: 12.5px;">cpp</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/js/" style="font-size: 12.5px;">js</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/scons/" style="font-size: 12.5px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/xmake/" style="font-size: 12.5px;">xmake</a> <a href="/tags/优化/" style="font-size: 12.5px;">优化</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 20px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bgfx/" style="font-size: 12.5px;">bgfx</a> <a href="/tags/c/" style="font-size: 12.5px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 15px;">cocos2d-x</a> <a href="/tags/cpp/" style="font-size: 12.5px;">cpp</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/js/" style="font-size: 12.5px;">js</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/scons/" style="font-size: 12.5px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/xmake/" style="font-size: 12.5px;">xmake</a> <a href="/tags/优化/" style="font-size: 12.5px;">优化</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 20px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

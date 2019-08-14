@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>CocosCreator一些简单的优化记录 | 小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
+  <meta name="description" content="cocos creator 一些简单的优化记录目标: 微信小游戏引擎版本: 2.0.8语言: js时间: 2019年2月19日15:50:29 大纲: - 缩小包体 - 优化 drawcall - 增加游戏编译后包体的安全性(防止反编译) - 优化游戏的计算量 微信小游戏对包体的大小控制的很严格只有4M后面又提出了分包加载的机制,但是能自己优化一些还是更好的一些做法.">
+<meta name="keywords" content="Cocos Creator,优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CocosCreator一些简单的优化记录">
+<meta property="og:url" content="https://leng521.top/posts/7f7eba5/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="cocos creator 一些简单的优化记录目标: 微信小游戏引擎版本: 2.0.8语言: js时间: 2019年2月19日15:50:29 大纲: - 缩小包体 - 优化 drawcall - 增加游戏编译后包体的安全性(防止反编译) - 优化游戏的计算量 微信小游戏对包体的大小控制的很严格只有4M后面又提出了分包加载的机制,但是能自己优化一些还是更好的一些做法.">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://leng521.top/posts/7f7eba5/sp6.jpg">
+<meta property="og:image" content="https://leng521.top/posts/7f7eba5/module.png">
+<meta property="og:image" content="https://leng521.top/posts/7f7eba5/sp8.jpg">
+<meta property="og:updated_time" content="2019-08-14T03:22:53.961Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CocosCreator一些简单的优化记录">
+<meta name="twitter:description" content="cocos creator 一些简单的优化记录目标: 微信小游戏引擎版本: 2.0.8语言: js时间: 2019年2月19日15:50:29 大纲: - 缩小包体 - 优化 drawcall - 增加游戏编译后包体的安全性(防止反编译) - 优化游戏的计算量 微信小游戏对包体的大小控制的很严格只有4M后面又提出了分包加载的机制,但是能自己优化一些还是更好的一些做法.">
+<meta name="twitter:image" content="https://leng521.top/posts/7f7eba5/sp6.jpg">
+  
+  
+    <link rel="icon" href="/head.jpg">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-CocosCreator一些简单的优化记录" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      CocosCreator一些简单的优化记录
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/CocosCreator/">Cocos Creator</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-02-19
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="cocos-creator-一些简单的优化记录"><a href="#cocos-creator-一些简单的优化记录" class="headerlink" title="cocos creator 一些简单的优化记录"></a>cocos creator 一些简单的优化记录</h3><p>目标: 微信小游戏<br>引擎版本: 2.0.8<br>语言: js<br>时间: 2019年2月19日15:50:29</p>
+<p>大纲:</p>
+<pre><code>- 缩小包体
+- 优化 drawcall
+- 增加游戏编译后包体的安全性(防止反编译)
+- 优化游戏的计算量
+</code></pre><p>微信小游戏对包体的大小控制的很严格只有<code>4M</code>后面又提出了分包加载的机制,但是能自己优化一些还是更好的一些做法.</p>
+<a id="more"></a>
+<h1 id="缩小包体"><a href="#缩小包体" class="headerlink" title="缩小包体"></a>缩小包体</h1><h2 id="压缩纹理"><a href="#压缩纹理" class="headerlink" title="压缩纹理"></a>压缩纹理</h2><p>这里提供的第一个方法是压缩纹理,这个是比较的直接有效果.</p>
+<p>1.压缩纹理使用 <a href="https://tinypng.com/">TinyPng</a>, <a href="https://pngquant.org/">pngquant</a>, 等等压缩纹理的工具.</p>
+<blockquote>
+<p>这里有一个使用脚本进行压缩的工具,最近在看了一下 <code>gulp</code>,发现有个png压缩的插件,于是就写了一个批量用脚本压缩的工具吧,很简陋用法也很简单.<br>如果你想看懂的具体的细节的话,需要去阅读以下<a href="https://gulpjs.com/">gulp</a>的基本知识点吧. 其实 gulp 还是相对比较的简单易用的.<br>这些依赖的包你就自己安装,如果不会的话,你可以去阅读<code>nodejs</code>的<code>npm</code> (对包管理的一个工具) 相关知识点吧.</p>
+</blockquote>
+<p><a href="https://www.npmjs.com/package/gulp-tinypng-nokey">插件地址</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 配置projectPath =&gt; &#123;你的工程根路径/build&#125;</span></span><br><span class="line"><span class="keyword">var</span> projectPath = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);</span><br><span class="line"><span class="keyword">var</span> tinypng_nokey = <span class="built_in">require</span>(<span class="string">'gulp-tinypng-nokey'</span>);</span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">'default'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">cb</span>) </span>&#123;</span><br><span class="line">    gulp.src([projectPath + <span class="string">"/res/raw-assets/**/*.&#123;png,jpg,jpeg&#125;"</span>])</span><br><span class="line">        .pipe(tinypng_nokey())</span><br><span class="line">        .pipe(gulp.dest(projectPath + <span class="string">"/res/dest/"</span>))</span><br><span class="line">        .on(<span class="string">"end"</span>, cb);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>注意</code>： <ul>
+<li>如果执行<code>gulp</code>命令时提示”不是内部或外部命令，也不是可运行的程序或批处理文件”，则需要执行<code>npm i -g gulp</code>命令重新安装，完成后再执行<code>gulp</code>命令。</li>
+<li>成功安装过一次之后，下一个项目在操作时不用再次安装。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>进入命令行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gulp</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>这个操作执行完会在 <code>{projectPath/res/dest}</code> 当然你也可以直接输出到本目录,它会直接进行替换的.(或者更改成你想要的目录)<br>大概纹理会减小 30% ~ 40%.</p>
+<img src="/posts/7f7eba5/sp6.jpg" title="x">
+<p>2.这里你可以使用<a href="https://www.codeandweb.com/texturepacker">TexturePacker</a>这些第三方的辅助工具进行纹理压缩,你也可以使用<code>CocosCreator</code>内置的<code>auto atlas</code>(自动图集)的工具进行合图.</p>
+<ul>
+<li>做第二步的目的是:<ul>
+<li>可以减少总体的透明像素,也会有一定的体积减少</li>
+<li>能够<code>和批</code>优化游戏的性能</li>
+</ul>
+</li>
+</ul>
+<p>3.如果做原生的游戏的话你可以使用 <code>*.webp</code> 这种后缀的图片是 png 的物理体积的 1/10 倍. 你可直接在百度搜索 png 转 webp 应该有相关的脚本文件, 依赖之间的工作经验的话, 你可以写 python 去做这件事情, 当然也可以是其他的语言.</p>
+<ul>
+<li><code>注意</code><ul>
+<li>这种做法只是物理体积的减小,如果是你又资源是需要在远端下载的本地的需求那这将是一个不错的选择,但是他并不能优化的运行时所占用的内存.意思就是说你 png 占用的内存在 webp 这种格式 他同样占用这么多.</li>
+<li>由于微信不允许这种纹理后缀名字,所以这种做法不适用于微信小游戏.</li>
+<li>png 如果压缩过图片是不能进行 png 到 webp 的转换的 会出错, 解决方案是让你们的美术人员将这张图片导入 ps 以不压缩的方式从新导出.</li>
+<li>这里面贴出代码, 感兴趣的你也可以自己去实现一下.</li>
+</ul>
+</li>
+</ul>
+<h2 id="移除不需要的模块"><a href="#移除不需要的模块" class="headerlink" title="移除不需要的模块"></a>移除不需要的模块</h2><p>在打包前，找到项目设置–&gt;模块设置，将项目中没有用到的模块移除（取消勾选状态），如下图所示。<br><img src="/posts/7f7eba5/module.png" title="x"></p>
+<ul>
+<li><code>注意</code><ul>
+<li>这个也许不能优化游戏的运行速度但是能有效的减少你的包体大小.</li>
+<li>尤其是你游戏中有好友排行榜,这个会含有两个 Creator 的引擎库文件是极其占用包体资源的.</li>
+</ul>
+</li>
+</ul>
+<h1 id="优化-drawcall"><a href="#优化-drawcall" class="headerlink" title="优化 drawcall"></a>优化 drawcall</h1><blockquote>
+<p>游戏中 drawcall 是游戏性能比较重要的一个指标, drawcall 越低,证明 cpu 给 gpu 传递次数越少, 每次 cpu 通知 gpu 是需要性能开销的如果能一次传递过去,就能优化游戏的运行效率的.</p>
+</blockquote>
+<h2 id="自动合图"><a href="#自动合图" class="headerlink" title="自动合图"></a>自动合图</h2><ul>
+<li>尽量让你相同的精灵帧是挨在一起的.</li>
+</ul>
+<p>类似下面这样:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">A A A B 这样就会只有2个`drawcall`</span><br><span class="line">A B A A 这样的设计时很糟糕的. =&gt; 3 个 drawcall</span><br><span class="line"></span><br><span class="line">- Node</span><br><span class="line">    - A</span><br><span class="line">- Node</span><br><span class="line">    - A</span><br><span class="line">// 这种排列不影响 和批 1 个 drawcall</span><br><span class="line"></span><br><span class="line">- Node</span><br><span class="line">    - A</span><br><span class="line">    - B</span><br><span class="line">- Node</span><br><span class="line">    - A</span><br><span class="line">    - B</span><br><span class="line">// 这种的排列布局 不能和批 4 个 drawcall</span><br><span class="line"></span><br><span class="line">相同的预制件不能 和批</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><code>注意</code><ul>
+<li>这个只针对于cocos creator 的渲染机制, 不同的引擎他的和批策略可能不相同.</li>
+</ul>
+</li>
+</ul>
+<h2 id="将碎图进行合图"><a href="#将碎图进行合图" class="headerlink" title="将碎图进行合图"></a>将碎图进行合图</h2><p>这里面有将多个碎图合成一个大图, 这样也可以实现 和批 处理,</p>
+<ul>
+<li><code>这里有两种实现合图</code>:<ul>
+<li><a href="https://www.codeandweb.com/texturepacker">TexturePacker</a></li>
+<li>auto atlas 这个是<code>Cocos Creator</code>内置的合图工具.</li>
+</ul>
+</li>
+</ul>
+<p>下面说一下这两种工具在开发的过程中的优缺点.</p>
+<p>1.TexturePacker 的 drawcall的优化在浏览器中可以直接看到, 后者需要打包后才能看到.<br>2.在开发过程中如果纹理更换的频繁,前者需要不停的打包,开发效率低下,后者则不用管(因为是在打包后才能看的见合图的图集).</p>
+<h2 id="fnt的图片-和-游戏资源进行合图"><a href="#fnt的图片-和-游戏资源进行合图" class="headerlink" title="fnt的图片 和 游戏资源进行合图"></a>fnt的图片 和 游戏资源进行合图</h2><p><a href="https://docs.cocos.com/creator/manual/zh/advanced-topics/ui-auto-batch.html">官方描述</a></p>
+<img src="/posts/7f7eba5/sp8.jpg" title="x">
+<ul>
+<li>将需要自动合图的图片放在同一个目录下，并在此目录下创建一个<code>自动图集配置（AutoAtlas）</code></li>
+<li><p>可以勾选不包含未引用的资源 要管理好自己的资源目录避免一些没用的资源也打包到一个图集里面.</p>
+</li>
+<li><p><code>注意</code></p>
+<ul>
+<li>系统字体会打断和批 做倒计时尽量避免使用系统字体,效率没有 fnt 的搞笑, 因为一个系统字体是包含中文和英文的, 在没有必要的情况下, 尽量就不要使用.</li>
+<li>做和批测试的时候尽量使用 <code>Google Chrome 浏览器</code>,其他浏览器在和批效果上好像没有效果.但是小游戏其实算是属于一个原生的游戏,所以这些都会微信小游戏还是生效的.</li>
+</ul>
+</li>
+</ul>
+<h2 id="动态合图"><a href="#动态合图" class="headerlink" title="动态合图"></a>动态合图</h2><p><a href="https://docs.cocos.com/creator/manual/zh/advanced-topics/dynamic-atlas.html">官方描述</a></p>
+<p>这个特性是 <code>Cocos Creator</code> 2.x 更换渲染层提供的机制.更大的提高游戏性能一种机制.</p>
+<p>动态合图功能使用更简单，只需要在代码中开启动态合图功能即可，也可以更改相关属性。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cc.dynamicAtlasManager.enabled = <span class="literal">true</span>;      <span class="comment">// 开启动态合图</span></span><br><span class="line"><span class="comment">//cc.dynamicAtlasManager.maxAtlasCount = 5;   // 最大合图数量</span></span><br><span class="line"><span class="comment">//cc.dynamicAtlasManager.textureSize = 1024;  // 创建的图集的宽高</span></span><br><span class="line"><span class="comment">//cc.dynamicAtlasManager.maxFrameSize = 512;  // 可以添加进图集的图片的最大尺寸</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><code>注意</code><ul>
+<li>动态合图时，目前发现除了Chrome浏览器上<code>DrawCall</code>次数正常以外，其他浏览器的<code>DrawCall</code>次数并非预期结果。</li>
+</ul>
+</li>
+</ul>
+<h1 id="增加游戏编译后包体的安全性-防止反编译"><a href="#增加游戏编译后包体的安全性-防止反编译" class="headerlink" title="增加游戏编译后包体的安全性(防止反编译)"></a>增加游戏编译后包体的安全性(防止反编译)</h1><p>由于js动态运行时语言,所以你开发的项目可能很容易被别人给反编译,窃取了你的劳动成果.</p>
+<p>这里只是有效的让代码进行混合,并不能保证一定不能被反编译.</p>
+<p>这里还是用 <code>gulp</code> 提供的插件 <code>gulp-javascript-obfuscator</code><br><a href="https://www.npmjs.com/package/gulp-javascript-obfuscator">插件的介绍地址</a><br><a href="https://github.com/javascript-obfuscator/javascript-obfuscator">插件github地址</a></p>
+<p>里面的option(设置)很多</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">compact: true,</span><br><span class="line">controlFlowFlattening: false,</span><br><span class="line">controlFlowFlatteningThreshold: 0.75,</span><br><span class="line">deadCodeInjection: false,</span><br><span class="line">deadCodeInjectionThreshold: 0.4,</span><br><span class="line">debugProtection: false,</span><br><span class="line">debugProtectionInterval: false,</span><br><span class="line">disableConsoleOutput: false,</span><br><span class="line">domainLock: [],</span><br><span class="line">identifierNamesGenerator: &apos;hexadecimal&apos;,</span><br><span class="line">identifiersPrefix: &apos;&apos;,</span><br><span class="line">inputFileName: &apos;&apos;,</span><br><span class="line">log: false,</span><br><span class="line">renameGlobals: false,</span><br><span class="line">reservedNames: [],</span><br><span class="line">reservedStrings: [],</span><br><span class="line">rotateStringArray: true,</span><br><span class="line">seed: 0,</span><br><span class="line">selfDefending: false,</span><br><span class="line">sourceMap: false,</span><br><span class="line">sourceMapBaseUrl: &apos;&apos;,</span><br><span class="line">sourceMapFileName: &apos;&apos;,</span><br><span class="line">sourceMapMode: &apos;separate&apos;,</span><br><span class="line">stringArray: true,</span><br><span class="line">stringArrayEncoding: false,</span><br><span class="line">stringArrayThreshold: 0.75,</span><br><span class="line">target: &apos;browser&apos;,</span><br><span class="line">transformObjectKeys: false,</span><br><span class="line">unicodeEscapeSequence: false</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> projectPath = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> javascriptObfuscator = <span class="built_in">require</span>(<span class="string">"gulp-javascript-obfuscator"</span>)</span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">"js"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">cb</span>) </span>&#123;</span><br><span class="line">    gulp.src([projectPath + <span class="string">"/src/project.js"</span>])</span><br><span class="line">        .pipe(javascriptObfuscator(&#123;</span><br><span class="line">            <span class="comment">// compact: true, //类型：boolean默认：true</span></span><br><span class="line">            mangle: <span class="literal">true</span>, <span class="comment">//短标识符的名称，如a，b，c</span></span><br><span class="line">            stringArray: <span class="literal">true</span>,</span><br><span class="line">            target: <span class="string">"browser"</span>,</span><br><span class="line">        &#125;))</span><br><span class="line">        .pipe(gulp.dest(projectPath + <span class="string">"/js-dst"</span>)</span><br><span class="line">        .on(<span class="string">"end"</span>, cb));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>注意</code><ul>
+<li>可能会使包体增大一点点,这个你可以在几去做权衡.</li>
+</ul>
+</li>
+</ul>
+<h1 id="优化游戏的计算量"><a href="#优化游戏的计算量" class="headerlink" title="优化游戏的计算量"></a>优化游戏的计算量</h1><ul>
+<li>减少对粒子的使用,或者是减少总共的粒子数.</li>
+<li>游戏的数据配置,尽量使用数据简洁,紧凑的数据格式(json),读取速度快.</li>
+<li>尽量减少混合,混合是逐像素进行计算的,计算量较大.</li>
+<li>减少 <code>富文本</code> 和 <code>mask</code> 占用 drawcall 的数量比较多.</li>
+<li>尽量少使用 系统字体(ttf) 不能和批, 效率没有 游戏项目里面的 fnt 效率高.</li>
+<li>图片不符合尺寸尽量然美术进行调整,不然虽然效果一致的,但是运行时占用的内存是不一样的.游戏是(物理缩放), ps(本质的缩放).</li>
+</ul>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年08月14日 11:22</p>
+        <p>原始链接： <a class="post-url" href="/posts/7f7eba5/" title="CocosCreator一些简单的优化记录">https://leng521.top/posts/7f7eba5/</a></p>
+        <footer>
+            <a href="https://leng521.top">
+                <img src="/head.jpg" alt="小魏">
+                小魏
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/7f7eba5/&title=《CocosCreator一些简单的优化记录》 — 小魏的博客&pic=https://leng521.tophead.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/7f7eba5/&title=《CocosCreator一些简单的优化记录》 — 小魏的博客&source=cocos creator 一些简单的优化记录目标: 微信小游戏引擎版本: 2.0.8语言: js时间: 2019年2月19日15:50:29
+大纲:
+-..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/7f7eba5/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CocosCreator一些简单的优化记录》 — 小魏的博客&url=https://leng521.top/posts/7f7eba5/&via=https://leng521.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/7f7eba5/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABw0lEQVR42u3aQY6DQAwEwPz/06y01yxse4wnRKo5RQlMCg6WafN6xev4XWffJ7++H3N21g0LFxe3zT0u1/vW139zdm6y//UxuLi4+7nXxSvZqHqpyS3AxcV9PrfTxJxdPC4u7rdzkwal0wbh4uI+jXvXw0n+zfizGi4uboNbDUwnPg/mu7i4uEXuUVz5bv0g9Y9/x8XF3cLNm5Jqs7JWHKN9cHFxh7lJxJkEHHlPUo1TCyUMFxf3Jm6f2Ik88hJ2eo9xcXEHuMlp1bHHXSOWf+ouLi7uGLfajlSL0dr4NopacHFxx7jVsLJ6D/LIdbF44eLiDnDXWpP812ozFEWuuLi4W7hrjzRr49XqkYWxCi4u7k3cfNTRKUZrL3bg4uI+gXtXkVobvUSvfeDi4m7h5n1QIbaIC9/iKyC4uLjD3E4g0i9/5SENLi7uRm7nlazqg1O1COLi4n6KuzZqTSKPalxSsOPi4o5xqwUljzz2xCW4uLhz3H7xqpbLvEmKUhxcXNwxbudRp/qiRrVo4uLiPpl7zeoEK/noBRcX97u4+Ug1Gpyc2XBxcTdy+xslxK2xCC4u7sbA9PrC+oFpVM5wcXGnuD96riULXClz3wAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/CocosCreator/" class="color4">Cocos Creator</a>
+      
+    <a href="/tags/优化/" class="color3">优化</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cocos-creator-一些简单的优化记录"><span class="post-toc-text">cocos creator 一些简单的优化记录</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#缩小包体"><span class="post-toc-text">缩小包体</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#压缩纹理"><span class="post-toc-text">压缩纹理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#移除不需要的模块"><span class="post-toc-text">移除不需要的模块</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#优化-drawcall"><span class="post-toc-text">优化 drawcall</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自动合图"><span class="post-toc-text">自动合图</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#将碎图进行合图"><span class="post-toc-text">将碎图进行合图</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#fnt的图片-和-游戏资源进行合图"><span class="post-toc-text">fnt的图片 和 游戏资源进行合图</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#动态合图"><span class="post-toc-text">动态合图</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#增加游戏编译后包体的安全性-防止反编译"><span class="post-toc-text">增加游戏编译后包体的安全性(防止反编译)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#优化游戏的计算量"><span class="post-toc-text">优化游戏的计算量</span></a>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/posts/e02f2181/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          CocosCreator着色器的简单实用
+        
+      </span>
+    </a>
+  
+  
+    <a href="/posts/b0c8e6a5/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">git操作命令记录(二)</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNDA0MC8xMDU3OA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/js/">js</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/前端/WebGL/">WebGL</a><a class="category-link" href="/categories/前端/bgfx/">bgfx</a><a class="category-link" href="/categories/后端/">后端</a><a class="category-link" href="/categories/后端/nodejs/">nodejs</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bgfx/" style="font-size: 12.5px;">bgfx</a> <a href="/tags/c/" style="font-size: 12.5px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 15px;">cocos2d-x</a> <a href="/tags/cpp/" style="font-size: 12.5px;">cpp</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/js/" style="font-size: 12.5px;">js</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/scons/" style="font-size: 12.5px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/xmake/" style="font-size: 12.5px;">xmake</a> <a href="/tags/优化/" style="font-size: 12.5px;">优化</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 20px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bgfx/" style="font-size: 12.5px;">bgfx</a> <a href="/tags/c/" style="font-size: 12.5px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 15px;">cocos2d-x</a> <a href="/tags/cpp/" style="font-size: 12.5px;">cpp</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/js/" style="font-size: 12.5px;">js</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/scons/" style="font-size: 12.5px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/xmake/" style="font-size: 12.5px;">xmake</a> <a href="/tags/优化/" style="font-size: 12.5px;">优化</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 20px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>微信小游戏开发问题总结 | 小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
+  <meta name="description" content="最近一个月有点忙呵,都没有时间写博客,今天就抽出一点时间记录一下这一个月中我开发过程遇到的问题,顺便记录一下微信小游戏开发过程中遇到的问题.">
+<meta name="keywords" content="微信小游戏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小游戏开发问题总结">
+<meta property="og:url" content="https://leng521.top/posts/4ec7de9/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="最近一个月有点忙呵,都没有时间写博客,今天就抽出一点时间记录一下这一个月中我开发过程遇到的问题,顺便记录一下微信小游戏开发过程中遇到的问题.">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-14T03:22:53.946Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信小游戏开发问题总结">
+<meta name="twitter:description" content="最近一个月有点忙呵,都没有时间写博客,今天就抽出一点时间记录一下这一个月中我开发过程遇到的问题,顺便记录一下微信小游戏开发过程中遇到的问题.">
+  
+  
+    <link rel="icon" href="/head.jpg">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-微信小游戏开发问题总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      微信小游戏开发问题总结
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/微信小游戏/">微信小游戏</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-08-11
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>最近一个月有点忙呵,都没有时间写博客,今天就抽出一点时间记录一下这一个月中我开发过程遇到的问题,顺便记录一下微信小游戏开发过程中遇到的问题.<br><a id="more"></a></p>
+<p>今天就接着,上面写的发布流程,接着写会面临的问题吧.</p>
+<h2 id="更新新版本问题"><a href="#更新新版本问题" class="headerlink" title="更新新版本问题"></a><strong>更新新版本问题</strong></h2><p>你的游戏上线后,首先面临的一个问题就是,游戏更新逻辑问题,比如提示玩家更新游戏到最新的游戏版本.这里就直接使用小游戏提供的API.</p>
+<p>我这里废话不多说直接给你们参考代码.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">checkNewVersion() &#123;</span><br><span class="line">            <span class="keyword">if</span> (CC_WECHATGAME &amp;&amp; <span class="keyword">typeof</span> wx.getUpdateManager === <span class="string">'function'</span>) &#123;</span><br><span class="line">                <span class="keyword">const</span> updateManager = wx.getUpdateManager()</span><br><span class="line"> </span><br><span class="line">                updateManager.onCheckForUpdate(<span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;&#125;)</span><br><span class="line"> </span><br><span class="line">                updateManager.onUpdateReady(<span class="function"><span class="keyword">function</span> (<span class="params"> res </span>) </span>&#123;</span><br><span class="line">                    wx.showModal(&#123;</span><br><span class="line">                        title: <span class="string">'更新提示'</span>,</span><br><span class="line">                        content: <span class="string">'新版本来袭，是否重启应用？'</span>,</span><br><span class="line">                        success: <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">                          <span class="keyword">if</span> (res.confirm) &#123;</span><br><span class="line">                            updateManager.applyUpdate()</span><br><span class="line">                          &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                      &#125;)</span><br><span class="line">                &#125;)</span><br><span class="line"> </span><br><span class="line">                updateManager.onUpdateFailed(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;)</span><br><span class="line">              &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>这里主要是用到了微信交互控件中的 showModal . 这个函数 直接就是在启动应用的时候直接调用.检测是否有新版本.</p>
+<h2 id="微信用户拒绝授权问题"><a href="#微信用户拒绝授权问题" class="headerlink" title="微信用户拒绝授权问题"></a><strong>微信用户拒绝授权问题</strong></h2><p>还是直接上代码,说的多,不如自己看明白是怎么回事.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">getUserInfo(func_) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="keyword">this</span>.checkIsWeChat()) &#123;<span class="keyword">return</span>;&#125;</span><br><span class="line">        wx.getUserInfo(&#123;</span><br><span class="line">            withCredentials : <span class="literal">false</span>,</span><br><span class="line">            success: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> userInfo = res.userInfo</span><br><span class="line">                <span class="comment">// 授权成功</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">// avatarUrl</span></span><br><span class="line">                <span class="comment">// nickName</span></span><br><span class="line">                <span class="comment">// gender //性别 0：未知、1：男、2：女</span></span><br><span class="line">                <span class="comment">// province 省</span></span><br><span class="line">                <span class="comment">// city</span></span><br><span class="line">                <span class="comment">// country</span></span><br><span class="line">            &#125;,</span><br><span class="line">            fail: <span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">                <span class="comment">// 未授权 处理</span></span><br><span class="line">                wx.showModal(&#123;</span><br><span class="line">                    title: <span class="string">'温馨提示'</span>,</span><br><span class="line">                    content: <span class="string">'为了良好的体验,请开启用户信息授权'</span>,</span><br><span class="line">                    success: <span class="function"><span class="params">res</span> =&gt;</span>&#123;</span><br><span class="line">                        <span class="keyword">if</span>(res.confirm || res.cancel) &#123;</span><br><span class="line">                            <span class="keyword">let</span> button = wx.createOpenSettingButton(&#123;</span><br><span class="line">                                type: <span class="string">'text'</span>,</span><br><span class="line">                                text: <span class="string">'打开设置页面'</span>,</span><br><span class="line">                                style: &#123;</span><br><span class="line">                                    left: <span class="number">10</span>,</span><br><span class="line">                                    top: <span class="number">76</span>,</span><br><span class="line">                                    width: <span class="number">170</span>,</span><br><span class="line">                                    height: <span class="number">40</span>,</span><br><span class="line">                                    lineHeight: <span class="number">40</span>,</span><br><span class="line">                                    backgroundColor: <span class="string">'#4b6881'</span>,</span><br><span class="line">                                    color: <span class="string">'#ffffff'</span>,</span><br><span class="line">                                    textAlign: <span class="string">'center'</span>,</span><br><span class="line">                                    fontSize: <span class="number">16</span>,</span><br><span class="line">                                    borderRadius: <span class="number">4</span></span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;)</span><br><span class="line">                            button.show()</span><br><span class="line">                            button.onTap(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                                wx.getSetting(&#123;</span><br><span class="line">                                    success: <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">                                        button.destroy()</span><br><span class="line">                                        <span class="keyword">if</span>(res.authSetting[<span class="string">'scope.userInfo'</span>]) &#123;</span><br><span class="line">                                            wx.getUserInfo(&#123;</span><br><span class="line">                                                withCredentials : <span class="literal">false</span>,</span><br><span class="line">                                                success: <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">                                                    <span class="keyword">let</span> info = res.userInfo</span><br><span class="line">                                                    KUN.Server.uploadUserData(<span class="built_in">JSON</span>.stringify(info),res=&gt;&#123;</span><br><span class="line">                                                        <span class="keyword">if</span>(res == <span class="string">'1'</span>) &#123;</span><br><span class="line">                                                            func_()</span><br><span class="line">                                                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                                            <span class="comment">// 暂时不做处理</span></span><br><span class="line">                                                        &#125;</span><br><span class="line">                                                    &#125;)</span><br><span class="line">                                                &#125;</span><br><span class="line">                                            &#125;)</span><br><span class="line">                                        &#125;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;)</span><br><span class="line">                            &#125;)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure></p>
+<p>这里面就随便讲解一下,主要是用到了这个api<code>wx.createOpenSettingButton</code>,在现在的微信小游戏的文档里面没有 按钮事件响应的方法名,我这里处理的方法是在模拟器中把button打印出来然后看里面的详细属性和方法,我这里发现了一个叫 <code>onTap</code>.</p>
+<p>主要的思路是</p>
+<p>首次进入游戏 -&gt; 用户拒绝授权 -&gt; 获取用户信息失败 -&gt; 创建打开时设置的按钮 -&gt; 绑定监听事件(onTap) -&gt; 再次处理获取用户信息的逻辑.</p>
+<h2 id="小游戏跳转功能"><a href="#小游戏跳转功能" class="headerlink" title="小游戏跳转功能"></a><strong>小游戏跳转功能</strong></h2><p>最近小游戏又更新了一下,出现了一个小程序跳转功能,主要的API 是<br><a href="https://developers.weixin.qq.com/minigame/dev/document/open-api/miniprogram-navigate/wx.navigateToMiniProgram.html">wx.navigateToMiniProgram</a></p>
+<p>这里面你主要去填写 appid 和要跳转的发行版本 ,,, 其他的你可以去选择也可以不用选择.</p>
+<p>还是老样子直接上代码<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span>(wx.navigateToMiniProgram) != <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    wx.navigateToMiniProgram(&#123;</span><br><span class="line">        appId: <span class="string">'xxxx'</span>,</span><br><span class="line">        path: <span class="string">''</span>, <span class="comment">// 这个可以填写个空.</span></span><br><span class="line">        <span class="comment">// extarData: &#123;</span></span><br><span class="line">        <span class="comment">//   open: ''</span></span><br><span class="line">        <span class="comment">// &#125;,</span></span><br><span class="line">        envVersion: <span class="string">'release'</span>,</span><br><span class="line">        success(res) &#123;</span><br><span class="line">            <span class="comment">// 打开成功</span></span><br><span class="line">        &#125;,</span><br><span class="line">        fail(res) &#123;</span><br><span class="line">            <span class="comment">// 打开失败</span></span><br><span class="line">        &#125;                                         </span><br><span class="line">    </span><br><span class="line">    &#125;)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">// 提示用户微信版本过低</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="小游戏推广中遇到的错误"><a href="#小游戏推广中遇到的错误" class="headerlink" title="小游戏推广中遇到的错误"></a><strong>小游戏推广中遇到的错误</strong></h2><p>在我这篇博客没有写完之前就收到了 boss 的微信消息,说用户进不去了,黑屏了,我是一脸蒙蔽,测试完全没有问题,去推广的时候就出现问题了, </p>
+<p>主要是以下几个问题(我只是记录我遇到问题,希望能够对你有帮助,只是说作参考吧,我也是一点点去采坑,一点点去记录.o(<em>￣︶￣</em>)o(持续更新中))</p>
+<p>1.用户的微信小游戏版本太低,导致你使用微信最新api时候报错.</p>
+<pre><code>只要在调用该API的时候 加一个判断 typeof(你要调用的小游戏的函数) != undefined,即可
+</code></pre><p>2.服务器地址配置 https协议只能是 443 吗?</p>
+<pre><code>经过我测试,不是的只要你在小程序后台配置 类似这样的格式其实也是可以的 这样就可以去访问 服务器其他的端口了 https://xxx.com:8080
+</code></pre><blockquote>
+<p>我这里说明一下,我没有去测试 websocket 因为现在业务还没有这方面的业务.有的小伙伴可去测试一下,可以告诉我一声.谢谢.</p>
+</blockquote>
+<p>暂时先写到这里,后面这个我会持续更新的,如有不对欢迎指正.</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年08月14日 11:22</p>
+        <p>原始链接： <a class="post-url" href="/posts/4ec7de9/" title="微信小游戏开发问题总结">https://leng521.top/posts/4ec7de9/</a></p>
+        <footer>
+            <a href="https://leng521.top">
+                <img src="/head.jpg" alt="小魏">
+                小魏
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/4ec7de9/&title=《微信小游戏开发问题总结》 — 小魏的博客&pic=https://leng521.tophead.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/4ec7de9/&title=《微信小游戏开发问题总结》 — 小魏的博客&source=最近一个月有点忙呵,都没有时间写博客,今天就抽出一点时间记录一下这一个月中我开发过程遇到的问题,顺便记录一下微信小游戏开发过程中遇到的问题." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/4ec7de9/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小游戏开发问题总结》 — 小魏的博客&url=https://leng521.top/posts/4ec7de9/&via=https://leng521.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/4ec7de9/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxElEQVR42u3aQQ6DMAwEQP7/aSr1WgFrhwQqTU6VSmHowbI32bZ47d+1Fdf+s8bviYuLu4a7n66jWx99e/Tb5P7n1+Di4q7nnhevpBglr5p8vrDh4uK+jHte1MaLHS4u7j9yD9uOuDDh4uL+F7c6nCRDUV74psxquLi4A9xqYDrj88R8FxcXt8jdiysvQ3lbU3g6Li7uEm7elPQClGpxjO6Di4s7mZsHE3n02Tt+EZVFXFzchdx8c/TeViYvYRcdGS4u7q3caiNSHX4KfVbxT8HFxZ3NTVqQXhs0vn170ejg4uJO4FYPQFRHoLyCRlfi4uIu5PaOPvSikDxqwcXFfYo7cuYhn0d6kUrzBXBxcYe5vUIzUraqdFxc3Ddwe8ezyg/uDWC4uLhLuOPHrcYjj+QFcHFxV3LHg85806V3sAMXF/cpbj7wRC1I8co8lMHFxV3JzVc1Wq2WsGZ2i4uLeyu3WlCqw1K+TduLS3Bxcedx83g0D0TyolYewHBxcRdy88KUbKv0Sls0SuHi4r6Mm49P+ZGO8iYNLi7u67nVJqmwcXL0XFxc3IXc6o3yYSb/7c2xCC4u7qOBaW/sya/HxcVdyP0AiWG+VWZOiOwAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/微信小游戏/" class="color1">微信小游戏</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更新新版本问题"><span class="post-toc-text">更新新版本问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#微信用户拒绝授权问题"><span class="post-toc-text">微信用户拒绝授权问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#小游戏跳转功能"><span class="post-toc-text">小游戏跳转功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#小游戏推广中遇到的错误"><span class="post-toc-text">小游戏推广中遇到的错误</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/posts/967bbd27/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          微信小游戏接入广告
+        
+      </span>
+    </a>
+  
+  
+    <a href="/posts/da41a120/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">微信小游戏发布流程</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNDA0MC8xMDU3OA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/js/">js</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/前端/WebGL/">WebGL</a><a class="category-link" href="/categories/前端/bgfx/">bgfx</a><a class="category-link" href="/categories/后端/">后端</a><a class="category-link" href="/categories/后端/nodejs/">nodejs</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bgfx/" style="font-size: 12.5px;">bgfx</a> <a href="/tags/c/" style="font-size: 12.5px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 15px;">cocos2d-x</a> <a href="/tags/cpp/" style="font-size: 12.5px;">cpp</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/js/" style="font-size: 12.5px;">js</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/scons/" style="font-size: 12.5px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/xmake/" style="font-size: 12.5px;">xmake</a> <a href="/tags/优化/" style="font-size: 12.5px;">优化</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 20px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bgfx/" style="font-size: 12.5px;">bgfx</a> <a href="/tags/c/" style="font-size: 12.5px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 15px;">cocos2d-x</a> <a href="/tags/cpp/" style="font-size: 12.5px;">cpp</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/js/" style="font-size: 12.5px;">js</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/scons/" style="font-size: 12.5px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/xmake/" style="font-size: 12.5px;">xmake</a> <a href="/tags/优化/" style="font-size: 12.5px;">优化</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 20px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
