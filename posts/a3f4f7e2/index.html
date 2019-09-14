@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>golang语法外的知识点 | 小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
+  <meta name="description" content="上一盘还在讨论游戏引擎这一篇又开始讨论 后台语言 跳度有点大.最近游戏的后台服务语言从 nodejs 换成了 golang,这里也记录一下 golang 语法外的知识点吧.如果你是 golang 的新手你可以从头看看 有助于你换个角度学习golang 这些只是我个人的观点, 不喜勿碰.  设计的知识点如下:  golang 的命令 golang 的环境 关于包的问题 罗列几个golang 的包吧">
+<meta name="keywords" content="golang">
+<meta property="og:type" content="article">
+<meta property="og:title" content="golang语法外的知识点">
+<meta property="og:url" content="https://leng521.top/posts/a3f4f7e2/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="上一盘还在讨论游戏引擎这一篇又开始讨论 后台语言 跳度有点大.最近游戏的后台服务语言从 nodejs 换成了 golang,这里也记录一下 golang 语法外的知识点吧.如果你是 golang 的新手你可以从头看看 有助于你换个角度学习golang 这些只是我个人的观点, 不喜勿碰.  设计的知识点如下:  golang 的命令 golang 的环境 关于包的问题 罗列几个golang 的包吧">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-09-14T13:05:17.565Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="golang语法外的知识点">
+<meta name="twitter:description" content="上一盘还在讨论游戏引擎这一篇又开始讨论 后台语言 跳度有点大.最近游戏的后台服务语言从 nodejs 换成了 golang,这里也记录一下 golang 语法外的知识点吧.如果你是 golang 的新手你可以从头看看 有助于你换个角度学习golang 这些只是我个人的观点, 不喜勿碰.  设计的知识点如下:  golang 的命令 golang 的环境 关于包的问题 罗列几个golang 的包吧">
+  
+  
+    <link rel="icon" href="/head.jpg">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-golang语法外的知识点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      golang语法外的知识点
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/后端/">后端</a>
+                  
+                      <a href="/categories/golang/">golang</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-09-14
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>上一盘还在讨论游戏引擎这一篇又开始讨论 后台语言 跳度有点大.<br>最近游戏的后台服务语言从 nodejs 换成了 golang,这里也记录一下 golang 语法外的知识点吧.<br>如果你是 golang 的新手你可以从头看看 有助于你换个角度学习golang</p>
+<p>这些只是我个人的观点, 不喜勿碰.</p>
+<blockquote>
+<p>设计的知识点如下:</p>
+<ol>
+<li>golang 的命令</li>
+<li>golang 的环境</li>
+<li>关于包的问题</li>
+<li>罗列几个golang 的包吧</li>
+<li>golang 开发工具</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+<p><a href="https://golang.google.cn/">golang官网</a><br>里面优质的文章不多, 但是也可以参考, 也许是我没有找到.<br><a href="https://studygolang.com/">golang中文社区</a><br><a href="https://github.com/golang/go">golang github 库地址</a></p>
+<h3 id="golang-的命令"><a href="#golang-的命令" class="headerlink" title="golang 的命令"></a>golang 的命令</h3><p>golang中比较常见的命令如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">go run &lt;go文件&gt; // 用于执行 go 脚本 主要用在调试环境</span><br><span class="line">go build &lt;go文件&gt; // 用于构建 go 脚本 主要在生产环境中使用</span><br><span class="line"></span><br><span class="line">go get -u &lt;要拉取库的地址&gt; // 下载这个库文件到 你的 `GOPATH` 目录中的src目录中 -u 不获取依赖</span><br><span class="line">go install // 编译你下载的库 到 `GOPATH/pkg/&lt;你的平台&gt;`这个目录下 可以是 可执行文件, 也可以是库文件</span><br><span class="line"></span><br><span class="line">go env // 打印当前 go 中的环境变量的值 这个些变量可以在 电脑的环境变量中配置</span><br><span class="line"></span><br><span class="line">go list // 罗列出你安装的包</span><br><span class="line"></span><br><span class="line">go version // 打印当前的版本</span><br><span class="line"></span><br><span class="line">go test // 测试单元 ,,, 用于测试你的逻辑</span><br><span class="line"></span><br><span class="line">go clean // 清楚构建缓存</span><br><span class="line"></span><br><span class="line">// 其余的后面更新</span><br><span class="line">go mod</span><br><span class="line">go tool</span><br><span class="line">go fmt // go 的格式化工具</span><br><span class="line">go fix</span><br></pre></td></tr></table></figure></p>
+<h3 id="golang-的环境"><a href="#golang-的环境" class="headerlink" title="golang 的环境"></a>golang 的环境</h3><p>这里主要讲解一些 <code>GOPATH</code> <code>GOROOT</code> <code>GOPROXY</code></p>
+<h4 id="GOPATH"><a href="#GOPATH" class="headerlink" title="GOPATH"></a>GOPATH</h4><blockquote>
+<p>这个可以说是在 golang 源码之外的工作空间<br>golang 会搜索 GOPATH/src 这个目录中的包和代码<br>一般 go get 的库都是放在这个目录下面<br>你可以自定义框架 放在这个目录下面<br>但是自己看法的工程就不要放在这个目录下面了,,, 可以在 GOPATH 之外创建工程 这样不用局限于 GOAPTH src目录下<br>GOAPTH 如果是 Windows平台 尽量不要定义在 C盘 因为可能会出现权限问题</p>
+</blockquote>
+<h4 id="GOROOT"><a href="#GOROOT" class="headerlink" title="GOROOT"></a>GOROOT</h4><blockquote>
+<p>这个是 golang 的 自身包的路径 和 可执行文件都在这里面</p>
+</blockquote>
+<h4 id="GOPROXY"><a href="#GOPROXY" class="headerlink" title="GOPROXY"></a>GOPROXY</h4><blockquote>
+<p>这个是 golang 的代理用的 因为 golang 有些包需要科学上网, 或者网速特别的慢, 你需要使用一个镜像 提升下载速度</p>
+</blockquote>
+<p>这是网上搜索的地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">阿里： https://mirrors.aliyun.com/goproxy/</span><br><span class="line">官方： https://goproxy.io/</span><br><span class="line">中国：https://goproxy.cn</span><br><span class="line">其他：https://gocenter.io</span><br></pre></td></tr></table></figure></p>
+<p>配置 GOPROXY 的值为这个地址, 配置应该很简单, 就是配置你的环境变量</p>
+<p>mac 配置临时变量</p>
+<blockquote>
+<p>export GOPROXY=<a href="https://mirrors.aliyun.com/goproxy/">https://mirrors.aliyun.com/goproxy/</a></p>
+</blockquote>
+<h3 id="关于包的问题"><a href="#关于包的问题" class="headerlink" title="关于包的问题"></a>关于包的问题</h3><p>这里主要讲一下 golang 下载包总是 timeout 这个是很烦人的, 有的时候你科学上网都不管用</p>
+<h4 id="超时原因"><a href="#超时原因" class="headerlink" title="超时原因"></a>超时原因</h4><blockquote>
+<p>你安装的包里面有 golang.org 地址下面的包, 这个是golang 之前的地址, 现在移交到了 github上了,, 举个例子吧</p>
+</blockquote>
+<blockquote>
+<p>golang.org/x/sys/unix 超时<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone http://github.com/golang/sys.git $GOPATH/src/golang.org/x/sys // 这里要克隆岛你的GOPATH里面</span><br><span class="line"></span><br><span class="line">如果我们需要sys包里面的unix包，执行上述操作后，继续操作</span><br><span class="line"></span><br><span class="line">go install golang.org/x/sys/unix</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="罗列几个golang-的包吧"><a href="#罗列几个golang-的包吧" class="headerlink" title="罗列几个golang 的包吧"></a>罗列几个golang 的包吧</h3><p>在开始写游戏后台框架的时候我也参考几个框架这里有记录一下几个游戏框架<br>我不会去评判这个框架的好坏<br>这里都有描述我就不做过多的介绍了</p>
+<table>
+<thead>
+<tr>
+<th>包名</th>
+<th>地址</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sonyflake</td>
+<td><a href="https://github.com/sony/sonyflake">https://github.com/sony/sonyflake</a></td>
+<td>A distributed unique ID generator inspired by Twitter’s Snowflake</td>
+</tr>
+<tr>
+<td>pmgo</td>
+<td><a href="https://github.com/struCoder/pmgo">https://github.com/struCoder/pmgo</a></td>
+<td>golang   进程管理工具</td>
+</tr>
+<tr>
+<td>gin</td>
+<td><a href="https://github.com/gin-gonic/gin">https://github.com/gin-gonic/gin</a></td>
+<td>a http web framework</td>
+</tr>
+<tr>
+<td>cellent</td>
+<td><a href="https://github.com/davyxu/cellnet">https://github.com/davyxu/cellnet</a></td>
+<td>High performance, simple, extensible golang open source network library</td>
+</tr>
+<tr>
+<td>websocket</td>
+<td><a href="https://github.com/gorilla/websocket">https://github.com/gorilla/websocket</a></td>
+<td>A WebSocket implementation for Go.   docs: <a href="https://godoc.org/github.com/gorilla/websocket">https://godoc.org/github.com/gorilla/websocket</a></td>
+</tr>
+<tr>
+<td>gonet</td>
+<td><a href="https://github.com/bobohume/gonet">https://github.com/bobohume/gonet</a></td>
+<td>go分布式服务器，基于内存mmo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="golang-基础语法学习网站"><a href="#golang-基础语法学习网站" class="headerlink" title="golang 基础语法学习网站"></a>golang 基础语法学习网站</h3><p>// golang 的基础语法, 还有些高级几用法 如反射, CGO, 汇编, 如果不是框架人员, 这个些可以先不用看, 因为你用不到. 不过后面你可以了解了解, 对你也没坏处<br><a href="https://books.studygolang.com/gopl-zh/">go语言圣经(中文版)</a><br>// 涉及基础的 web 开发, RPC, 分布式<br><a href="https://chai2010.cn/advanced-go-programming-book/">go高级编程</a></p>
+<h3 id="golang-开发工具"><a href="#golang-开发工具" class="headerlink" title="golang 开发工具"></a>golang 开发工具</h3><p>这里我推荐使用 GOLAND 这工具相对来说, 写起来比较的舒服, 这里提供一个 破解版本, 有钱人事可以购买正版<br><a href="https://pan.baidu.com/s/1G9xWVS41WR2GhJi3qPJkFA">GOLANG 2019.2</a> 密码:n56v<br><a href="https://pan.baidu.com/s/1idKJKsnYairVYy5ddVDyKA">补丁</a> 密码:itkh</p>
+<p>怎么破解自己百度搜索 一搜一大把.</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>golang 是编译型的语言, 所以热更新比较的麻烦,</li>
+<li>游戏相关的开发框架比较的少, 都得自己开发框架, 门槛较高, 需要了解的知识点比较多</li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年09月14日 21:05</p>
+        <p>原始链接： <a class="post-url" href="/posts/a3f4f7e2/" title="golang语法外的知识点">https://leng521.top/posts/a3f4f7e2/</a></p>
+        <footer>
+            <a href="https://leng521.top">
+                <img src="/head.jpg" alt="小魏">
+                小魏
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/a3f4f7e2/&title=《golang语法外的知识点》 — 小魏的博客&pic=https://s2.ax1x.com/2019/09/14/n67V8H.jpg)](https://imgchr.com/i/n67V8H" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/a3f4f7e2/&title=《golang语法外的知识点》 — 小魏的博客&source=上一盘还在讨论游戏引擎这一篇又开始讨论 后台语言 跳度有点大.最近游戏的后台服务语言从 nodejs 换成了 golang,这里也记录一下 golang ..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/a3f4f7e2/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《golang语法外的知识点》 — 小魏的博客&url=https://leng521.top/posts/a3f4f7e2/&via=https://leng521.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/a3f4f7e2/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxElEQVR42u3aO3LDMAwFQN//0krrFFIeCBKxZ5ZVJonIZYPBh69XvK63lfz1ulnJbhsWLi5um3s9rvf/ed4h363zFS4u7iQ3RySxJf99bsDFxf187nN4WrsALi7uN3Kfj8wvhouL+y3ctUZGXiCttVFwcXH/i5sfcO7nI/1dXFzcJe61tO4O29UevT0XFxd3hFsNOtVRazUKRaURLi7uCDdvdybbVcPZ2vAGFxd3hlsdk+QFUueBV6Eaw8XF3cStDjPygceuEujXV7i4uCPcJNWoPqrII2ir4MHFxT3GzY/sl0AbLoyLizvCzZ9H9Fur+fXKI1hcXNwD3GSjauDLWzB58xQXF3eGm8e2tdFpv3yKELi4uCPczlilXyzdCnFxcUe4awOSTkul/8ALFxf3NLcaSvJSpxoiowIMFxd3hLuG6CRG1XZtef6Di4vb5l7FlY9eql+Vhyi4uLjHuGvBJW+h5k3YqCGCi4s7yK0+nMofYFWLn0JzBBcXd4RbDTTbjo9TH1xc3M/kdlKcqBma5GK4uLgfxq2mRMnItjVqxcXFPcztPKmsJi7JBf4YsuLi4h7m5g3TahLTGcBs6O/i4uKucH8AXx3dRO5rkDoAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/golang/" class="color2">golang</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#golang-的命令"><span class="post-toc-text">golang 的命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#golang-的环境"><span class="post-toc-text">golang 的环境</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#GOPATH"><span class="post-toc-text">GOPATH</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#GOROOT"><span class="post-toc-text">GOROOT</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#GOPROXY"><span class="post-toc-text">GOPROXY</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关于包的问题"><span class="post-toc-text">关于包的问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#超时原因"><span class="post-toc-text">超时原因</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#罗列几个golang-的包吧"><span class="post-toc-text">罗列几个golang 的包吧</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#golang-基础语法学习网站"><span class="post-toc-text">golang 基础语法学习网站</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#golang-开发工具"><span class="post-toc-text">golang 开发工具</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/posts/4c19fcfe/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">集成bgfx在macosx平台</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNDA0MC8xMDU3OA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/js/">js</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/前端/WebGL/">WebGL</a><a class="category-link" href="/categories/前端/bgfx/">bgfx</a><a class="category-link" href="/categories/后端/">后端</a><a class="category-link" href="/categories/后端/golang/">golang</a><a class="category-link" href="/categories/后端/nodejs/">nodejs</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bgfx/" style="font-size: 12.5px;">bgfx</a> <a href="/tags/c/" style="font-size: 12.5px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 15px;">cocos2d-x</a> <a href="/tags/cpp/" style="font-size: 12.5px;">cpp</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/js/" style="font-size: 12.5px;">js</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/scons/" style="font-size: 12.5px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/xmake/" style="font-size: 12.5px;">xmake</a> <a href="/tags/优化/" style="font-size: 12.5px;">优化</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 20px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bgfx/" style="font-size: 12.5px;">bgfx</a> <a href="/tags/c/" style="font-size: 12.5px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 15px;">cocos2d-x</a> <a href="/tags/cpp/" style="font-size: 12.5px;">cpp</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/js/" style="font-size: 12.5px;">js</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/scons/" style="font-size: 12.5px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/xmake/" style="font-size: 12.5px;">xmake</a> <a href="/tags/优化/" style="font-size: 12.5px;">优化</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 20px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
