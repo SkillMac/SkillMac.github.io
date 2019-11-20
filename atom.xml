@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://leng521.top/"/>
-  <updated>2019-09-14T13:08:00.866Z</updated>
+  <updated>2019-11-20T06:44:02.304Z</updated>
   <id>https://leng521.top/</id>
   
   <author>
@@ -15,6 +15,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>golang-protobuf记录</title>
+    <link href="https://leng521.top//posts/353f2255/"/>
+    <id>https://leng521.top//posts/353f2255/</id>
+    <published>2019-11-20T03:30:42.000Z</published>
+    <updated>2019-11-20T06:44:02.304Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>记录 golang protobuf 的使用 和 遇到的一些问题, 为什么使用这个东西, 我就不说了.</p><blockquote><p>涉及的知识点如下:</p><ol><li>golang protobuf 使用方法</li><li>proto3 语法规则记录</li><li>一些使用中遇到的问题</li></ol></blockquote><a id="more"></a><h3 id="golang-protobuf-使用方法"><a href="#golang-protobuf-使用方法" class="headerlink" title="golang protobuf 使用方法"></a>golang protobuf 使用方法</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p><a href="https://www.jianshu.com/p/c1a29a099ab2">参考链接 简书</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">下载protoc</span><br><span class="line">可以去https://github.com/google/protobuf/releases下载源码自己编译</span><br><span class="line">或者https://github.com/google/protobuf/releases去下载编译好的二进制文件</span><br><span class="line"></span><br><span class="line">2. 安装protoc-gen-go</span><br><span class="line">go get github.com/golang/protobuf/protoc-gen-go</span><br><span class="line">安装好了之后, 在$GOPATH/bin下面会找到protoc-gen-go.exe</span><br><span class="line"></span><br><span class="line">3. 使用protoc.exe 和 protoc-gen-go.exe 生成协议代码</span><br><span class="line">protoc --proto_path=./proto  --go_out=./src_gen/go/    scoreserver/score_info.proto</span><br><span class="line">注意使用的时候, protoc.exe和protoc-gen-go.exe要放在同一个目录下，或者二者的路径都放入环境变量PATH里面</span><br><span class="line"></span><br><span class="line">简化命令 ==&gt; protoc --go_out . test.proto</span><br><span class="line"></span><br><span class="line">4. 安装protobuf库</span><br><span class="line">go get github.com/golang/protobuf/proto</span><br></pre></td></tr></table></figure><h3 id="proto3-语法规则记录"><a href="#proto3-语法规则记录" class="headerlink" title="proto3 语法规则记录"></a>proto3 语法规则记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">开头:</span><br><span class="line"></span><br><span class="line">syntax = &quot;proto3&quot;</span><br><span class="line">package pb;</span><br><span class="line"></span><br><span class="line">========================</span><br><span class="line"></span><br><span class="line">消息体:</span><br><span class="line"></span><br><span class="line">message Login &#123;</span><br><span class="line">string NickName = 1;</span><br><span class="line">string HeadUrl  = 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">========================</span><br><span class="line"></span><br><span class="line">嵌套消息体:</span><br><span class="line"></span><br><span class="line">message vec2 &#123;</span><br><span class="line">float X = 1;</span><br><span class="line">float Y = 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message Fight &#123;</span><br><span class="line">vec2 pos = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">========================</span><br><span class="line"></span><br><span class="line">使用数组:</span><br><span class="line"></span><br><span class="line">message Fight &#123;</span><br><span class="line">repeated vec2 pos = 5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>暂时只用到这几个语法, 暂时就记录这么多, 后面有更复杂的需求时, 会再次更新的</p><h3 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h3><h4 id="关于-omitempty-问题"><a href="#关于-omitempty-问题" class="headerlink" title="关于 omitempty 问题"></a>关于 omitempty 问题</h4><p>在 protoc 编译的时候 会在最后面 默认添加这个字段, 这个字段的意思是, 如果这个字段的值 是默认值, 就会在这个 发包中 省略这个字段,</p><p>举个例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">发送:</span><br><span class="line">&#123;</span><br><span class="line">name: &quot;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">接收: </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>name 字段丢失.</p><h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">全局查找这个字段 在这个文件中 protoc-gen-go/generator/generator.go</span><br><span class="line">omitempty</span><br><span class="line"></span><br><span class="line">tag := fmt.Sprintf(“protobuf:%s json:%q”, g.goTag(message, field, wiretype), jsonName+”,omitempty”)</span><br><span class="line"></span><br><span class="line">替换为 ag := fmt.Sprintf(“protobuf:%s json:%q”, g.goTag(message, field, wiretype), jsonName)</span><br><span class="line"></span><br><span class="line">重新编译文件</span><br><span class="line">go install github.com/golang/protobuf/protoc-gen-go</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录 golang protobuf 的使用 和 遇到的一些问题, 为什么使用这个东西, 我就不说了.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;涉及的知识点如下:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;golang protobuf 使用方法&lt;/li&gt;
+&lt;li&gt;proto3 语法规则记录&lt;/li&gt;
+&lt;li&gt;一些使用中遇到的问题&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="后端" scheme="https://leng521.top/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+      <category term="golang" scheme="https://leng521.top/categories/%E5%90%8E%E7%AB%AF/golang/"/>
+    
+      <category term="protobuf" scheme="https://leng521.top/categories/%E5%90%8E%E7%AB%AF/golang/protobuf/"/>
+    
+    
+      <category term="golang" scheme="https://leng521.top/tags/golang/"/>
+    
+      <category term="protobuf" scheme="https://leng521.top/tags/protobuf/"/>
+    
+  </entry>
   
   <entry>
     <title>golang语法外的知识点</title>
@@ -162,9 +198,9 @@
       <category term="WebGL" scheme="https://leng521.top/categories/%E5%89%8D%E7%AB%AF/WebGL/"/>
     
     
-      <category term="WebGL" scheme="https://leng521.top/tags/WebGL/"/>
-    
       <category term="js" scheme="https://leng521.top/tags/js/"/>
+    
+      <category term="WebGL" scheme="https://leng521.top/tags/WebGL/"/>
     
       <category term="前端" scheme="https://leng521.top/tags/%E5%89%8D%E7%AB%AF/"/>
     
@@ -238,9 +274,9 @@
       <category term="js" scheme="https://leng521.top/categories/js/"/>
     
     
-      <category term="js" scheme="https://leng521.top/tags/js/"/>
-    
       <category term="原型链" scheme="https://leng521.top/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE/"/>
+    
+      <category term="js" scheme="https://leng521.top/tags/js/"/>
     
   </entry>
   
