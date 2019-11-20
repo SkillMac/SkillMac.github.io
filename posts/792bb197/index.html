@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>golang-使用第三方包记录 | 小魏的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Vker,Vker's Blog">
+  
+  <meta name="description" content="由于 golang 使用时间长了之后 你所面临的需求开始变的复杂 功能会变得越来越多, 所以在这个过程中 积累了一些 第三方库这个记录一下这一片文章 可能会有点长, 耐心看吧, 少年.">
+<meta name="keywords" content="golang">
+<meta property="og:type" content="article">
+<meta property="og:title" content="golang-使用第三方包记录">
+<meta property="og:url" content="https://leng521.top/posts/792bb197/index.html">
+<meta property="og:site_name" content="小魏的博客">
+<meta property="og:description" content="由于 golang 使用时间长了之后 你所面临的需求开始变的复杂 功能会变得越来越多, 所以在这个过程中 积累了一些 第三方库这个记录一下这一片文章 可能会有点长, 耐心看吧, 少年.">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-11-20T08:03:44.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="golang-使用第三方包记录">
+<meta name="twitter:description" content="由于 golang 使用时间长了之后 你所面临的需求开始变的复杂 功能会变得越来越多, 所以在这个过程中 积累了一些 第三方库这个记录一下这一片文章 可能会有点长, 耐心看吧, 少年.">
+  
+  
+    <link rel="icon" href="/head.jpg">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2eaff0c5326867354b0d3469d507d209";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Vker&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/head.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Vker&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 游戏研发 的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Vker" target="_blank" href="//leng521.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-golang-使用第三方包记录" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      golang-使用第三方包记录
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/后端/">后端</a>
+                  
+                      <a href="/categories/golang/">golang</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-11-20
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>由于 golang 使用时间长了之后 你所面临的需求开始变的复杂 功能会变得越来越多, 所以在这个过程中 积累了一些 第三方库这个记录一下<br>这一片文章 可能会有点长, 耐心看吧, 少年.</p>
+<a id="more"></a>
+<h3 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h3><h4 id="发送邮件"><a href="#发送邮件" class="headerlink" title="发送邮件"></a>发送邮件</h4><p>url: github.com/go-gomail/gomail</p>
+<p>用途: 服务器发送邮件给你的邮箱</p>
+<p>简单的封装:</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> hCommon</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"custom/happy/hLog"</span></span><br><span class="line">	<span class="string">"github.com/go-gomail/gomail"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> EmailParam <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// ServerHost 邮箱服务器地址，如腾讯企业邮箱为smtp.exmail.qq.com</span></span><br><span class="line">	ServerHost <span class="keyword">string</span></span><br><span class="line">	<span class="comment">// ServerPort 邮箱服务器端口，如腾讯企业邮箱为465</span></span><br><span class="line">	ServerPort <span class="keyword">int</span></span><br><span class="line">	<span class="comment">// FromEmail　发件人邮箱地址</span></span><br><span class="line">	FromEmail <span class="keyword">string</span></span><br><span class="line">	<span class="comment">// FromPasswd 发件人邮箱密码（注意，这里是明文形式）</span></span><br><span class="line">	FromPasswd <span class="keyword">string</span></span><br><span class="line">	<span class="comment">// Toers 接收者邮件，如有多个，则以英文逗号(“,”)隔开，不能为空</span></span><br><span class="line">	Toers <span class="keyword">string</span></span><br><span class="line">	<span class="comment">// CCers 抄送者邮件，如有多个，则以英文逗号(“,”)隔开，可以为空</span></span><br><span class="line">	CCers <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> AutoEmail <span class="keyword">struct</span> &#123;</span><br><span class="line">	ep *EmailParam</span><br><span class="line">	m  *gomail.Message</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> gAutoEmail *AutoEmail</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewAutoEmail</span><span class="params">(ep *EmailParam)</span> *<span class="title">AutoEmail</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> gAutoEmail == <span class="literal">nil</span> &#123;</span><br><span class="line">		hLog.Info(<span class="string">"Init Email"</span>)</span><br><span class="line">		gAutoEmail = &amp;AutoEmail&#123;</span><br><span class="line">			ep: ep,</span><br><span class="line">			m:  gomail.NewMessage(),</span><br><span class="line">		&#125;</span><br><span class="line">		gAutoEmail.Init()</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> gAutoEmail</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SendEmail</span><span class="params">(subject, body <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> gAutoEmail == <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	gAutoEmail.SendEmail(subject, body)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *AutoEmail)</span> <span class="title">Init</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(this.ep.Toers) == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	toers := []<span class="keyword">string</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> _, tmp := <span class="keyword">range</span> strings.Split(this.ep.Toers, <span class="string">","</span>) &#123;</span><br><span class="line">		toers = <span class="built_in">append</span>(toers, strings.TrimSpace(tmp))</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	this.m.SetHeader(<span class="string">"To"</span>, toers...)</span><br><span class="line">	toers = []<span class="keyword">string</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(this.ep.CCers) != <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> _, tmp := <span class="keyword">range</span> strings.Split(this.ep.CCers, <span class="string">","</span>) &#123;</span><br><span class="line">			toers = <span class="built_in">append</span>(toers, strings.TrimSpace(tmp))</span><br><span class="line">		&#125;</span><br><span class="line">		this.m.SetHeader(<span class="string">"Cc"</span>, toers...)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	this.m.SetAddressHeader(<span class="string">"From"</span>, this.ep.FromEmail, <span class="string">"小魏"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *AutoEmail)</span> <span class="title">SendEmail</span><span class="params">(subject, body <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	this.m.SetHeader(<span class="string">"Subject"</span>, subject)</span><br><span class="line">	this.m.SetBody(<span class="string">"text/html"</span>, body)</span><br><span class="line"></span><br><span class="line">	d := gomail.NewDialer(this.ep.ServerHost, this.ep.ServerPort, this.ep.FromEmail, this.ep.FromPasswd)</span><br><span class="line"></span><br><span class="line">	err := d.DialAndSend(this.m)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		hLog.Error(<span class="string">"邮件发送失败 \n subject ===&gt; "</span>, subject, <span class="string">"\n body ===&gt; "</span>, body, <span class="string">"\n [Error] ===&gt; "</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用法:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hCommon.NewAutoEmail(<span class="comment">/*初始化参数*/</span>);</span><br><span class="line"></span><br><span class="line">hCommon.SendEmail(<span class="string">"邮件标题"</span>, <span class="string">"你要发送的邮件内容"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// body 的两种写法</span></span><br><span class="line">hCommon.SendEmail(<span class="string">"邮件标题"</span>, fmt.Sprintf(<span class="string">`IP %s &lt;br&gt;</span></span><br><span class="line"><span class="string">	Role: %s`</span>, <span class="string">"123.123.123.123"</span>, <span class="string">"master"</span>))</span><br></pre></td></tr></table></figure></p>
+<h4 id="获取-linux-cpu-和-使用内存"><a href="#获取-linux-cpu-和-使用内存" class="headerlink" title="获取 linux cpu 和 使用内存"></a>获取 linux cpu 和 使用内存</h4><p>url: github.com/struCoder/pidusage</p>
+<p>用途: 标题说的很清楚, 主要用于项目的负载均衡算法中一个(根据 cpu 和 内存 计算出一个负载 比较低额服务器地址)</p>
+<p>这个不用封装, 安装即可使用,</p>
+<blockquote>
+<p>现在只能用于 linux, window 暂时不支持</p>
+</blockquote>
+<p>用法:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemInfo, err := pidusage.GetStat(os.Getpid())</span><br><span class="line"></span><br><span class="line">fmt.Println(systemInfo.CPU, systemInfo.Memory)</span><br></pre></td></tr></table></figure></p>
+<h4 id="生成-唯一ID"><a href="#生成-唯一ID" class="headerlink" title="生成 唯一ID"></a>生成 唯一ID</h4><p>url: github.com/bwmarrin/snowflake</p>
+<p>用途: 比如生成 房间ID , </p>
+<blockquote>
+<p>为啥不用时间戳, 如果在高并发的情况下, 可能一毫秒 有好几个请求, 这个时间戳 就可能不准确</p>
+</blockquote>
+<p>简单封装:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// work id 是在集群中 可能有好几个 服务节点 运行同一个服务, 每个节点都有他自己的 id, 将他自己的id 传进俩, 比如房间服务器, </span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GenId</span><span class="params">(workId <span class="keyword">int64</span>)</span> <span class="title">int64</span></span> &#123;</span><br><span class="line">	node, err := snowflake.NewNode(workId)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> node.Generate().Int64()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>用法:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GenId(<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
+<h4 id="服务器节点间的数据传输协议-protobuf"><a href="#服务器节点间的数据传输协议-protobuf" class="headerlink" title="服务器节点间的数据传输协议 protobuf"></a>服务器节点间的数据传输协议 protobuf</h4><p>url: github.com/protobuf/proto<br>url: github.com/protobuf/protoc-gen-go</p>
+<p>用法: 这里就不介绍了, 上一篇文章有介绍.</p>
+<h4 id="在内存中实现-排行榜功能"><a href="#在内存中实现-排行榜功能" class="headerlink" title="在内存中实现 排行榜功能"></a>在内存中实现 排行榜功能</h4><p>url: github.com/XanthusL/zset</p>
+<p>用途: 实现如世界排行榜<br>起因: 如果人员太多, 导致服务器的 排行 查询效率, 低下, 这里你可以 只排前 1000 或者是 前 10000 名用户.</p>
+<p>用法:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据 用户等级 进行排名</span></span><br><span class="line"></span><br><span class="line">this.zSet = zset.New()</span><br><span class="line"></span><br><span class="line">lv  := <span class="number">10</span></span><br><span class="line">key := <span class="string">"vker"</span> <span class="comment">// 唯一标识</span></span><br><span class="line">this.zSet.Set(<span class="keyword">float64</span>(lv), key, <span class="string">"用户数据"</span>) <span class="comment">// 储存在内存中</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 排序 前 100</span></span><br><span class="line">this.zSet.RevRange(<span class="number">0</span>, <span class="number">99</span>, <span class="function"><span class="keyword">func</span><span class="params">( _ <span class="keyword">float64</span>, _ <span class="keyword">int64</span>, item <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 找到 最后一名</span></span><br><span class="line">this.zSet.RevRange(this.zSet.Length()<span class="number">-1</span>, this.zSet.Length()<span class="number">-1</span>, <span class="function"><span class="keyword">func</span><span class="params">( _ <span class="keyword">float64</span>, _ <span class="keyword">int64</span>, item <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除</span></span><br><span class="line">this.zSet.Delete(key)</span><br></pre></td></tr></table></figure></p>
+<h4 id="负载均衡算法"><a href="#负载均衡算法" class="headerlink" title="负载均衡算法"></a>负载均衡算法</h4><p>url: github.com/lafikl/liblb</p>
+<p>用法: 这个用法暂时 先不写, 如果你想了解, 你可以去看 它这个包里面的 测试用用例, 以及里面的源码, 就基本上可以知道怎么使用了. </p>
+<blockquote>
+<p>主要是这个演示有点麻烦.</p>
+</blockquote>
+<h4 id="日志输出"><a href="#日志输出" class="headerlink" title="日志输出"></a>日志输出</h4><p>url: github.com/op/go-logging<br>url: github.com/natefinch/lumberjack</p>
+<p>用途: 服务器日志 输出, 提供了时间, 第二个包提供了 将日志 使用时间划分, </p>
+<p>简单封装:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> hLog</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"github.com/natefinch/lumberjack"</span></span><br><span class="line">	<span class="string">"github.com/op/go-logging"</span></span><br><span class="line">	<span class="string">"os"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">type Password string</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">func (p Password) Redacted() interface&#123;&#125; &#123;</span></span><br><span class="line"><span class="comment">	return logging.Redact(string(p))</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 0 - 5  C-D</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> log = logging.MustGetLogger(<span class="string">"happyyLog"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> format = logging.MustStringFormatter(</span><br><span class="line">	<span class="string">`%&#123;color&#125;%&#123;time:15:04:05.000&#125; %&#123;shortfile&#125; %&#123;longfunc&#125; &gt; %&#123;level:.4s&#125; %&#123;id:03x&#125;%&#123;color:reset&#125; %&#123;message&#125;`</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">InitLogger</span><span class="params">(fileName <span class="keyword">string</span>, fileSize <span class="keyword">int</span>, fileMax <span class="keyword">int</span>, logLv <span class="keyword">int</span>, LogConsolePrint <span class="keyword">bool</span>)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	backendFile := logging.NewLogBackend(&amp;lumberjack.Logger&#123;</span><br><span class="line">		Filename: <span class="string">"./logs/"</span> + fileName + <span class="string">".log"</span>,</span><br><span class="line">		MaxSize:  fileSize, <span class="comment">// megabytes</span></span><br><span class="line">		Compress: <span class="literal">true</span>,     <span class="comment">// disabled by default</span></span><br><span class="line"></span><br><span class="line">		MaxAge:     <span class="number">7</span>,</span><br><span class="line">		MaxBackups: fileMax,</span><br><span class="line">		LocalTime:  <span class="literal">true</span>,</span><br><span class="line">	&#125;, <span class="string">""</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">	backendFileErr := logging.NewLogBackend(&amp;lumberjack.Logger&#123;</span><br><span class="line">		Filename: <span class="string">"./logs/"</span> + fileName + <span class="string">"-error.log"</span>,</span><br><span class="line">		MaxSize:  fileSize, <span class="comment">// megabytes</span></span><br><span class="line">		Compress: <span class="literal">false</span>,    <span class="comment">// disabled by default</span></span><br><span class="line"></span><br><span class="line">		MaxAge:     <span class="number">7</span>,</span><br><span class="line">		MaxBackups: fileMax,</span><br><span class="line">		LocalTime:  <span class="literal">true</span>,</span><br><span class="line">	&#125;, <span class="string">""</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">	backendFileFormatter := logging.NewBackendFormatter(backendFile, format)</span><br><span class="line">	backendFileErrFormatter := logging.NewBackendFormatter(backendFileErr, format)</span><br><span class="line"></span><br><span class="line">	backendFileLeveled := logging.AddModuleLevel(backendFileFormatter)</span><br><span class="line">	backendFileLeveled.SetLevel(logging.Level(logLv), <span class="string">""</span>)</span><br><span class="line">	backendFileErrLeveled := logging.AddModuleLevel(backendFileErrFormatter)</span><br><span class="line">	backendFileErrLeveled.SetLevel(logging.ERROR, <span class="string">""</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> backend2 *logging.LogBackend = <span class="literal">nil</span></span><br><span class="line">	<span class="keyword">var</span> backend2Formatter logging.Backend</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> LogConsolePrint &#123;</span><br><span class="line">		backend2 = logging.NewLogBackend(os.Stdout, <span class="string">""</span>, <span class="number">0</span>)</span><br><span class="line">		backend2Formatter = logging.NewBackendFormatter(backend2, format)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> backend2 == <span class="literal">nil</span> &#123;</span><br><span class="line">		logging.SetBackend(backendFileLeveled, backendFileErrLeveled)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		logging.SetBackend(backendFileLeveled, backendFileErrLeveled, backend2Formatter)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Debug = log.Debug</span><br><span class="line"><span class="keyword">var</span> Debugf = log.Debugf</span><br><span class="line"><span class="keyword">var</span> Info = log.Info</span><br><span class="line"><span class="keyword">var</span> Infof = log.Infof</span><br><span class="line"><span class="keyword">var</span> Notice = log.Notice</span><br><span class="line"><span class="keyword">var</span> Noticef = log.Noticef</span><br><span class="line"><span class="keyword">var</span> Warn = log.Warning</span><br><span class="line"><span class="keyword">var</span> Warnf = log.Warningf</span><br><span class="line"><span class="keyword">var</span> Error = log.Error</span><br><span class="line"><span class="keyword">var</span> Errorf = log.Errorf</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Critical = log.Error</span><br><span class="line"><span class="keyword">var</span> Criticalf = log.Criticalf</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Fatal = log.Fatal</span><br><span class="line"><span class="keyword">var</span> Fatalf = log.Fatalf</span><br><span class="line"><span class="keyword">var</span> Panic = log.Panic</span><br><span class="line"><span class="keyword">var</span> Panicf = log.Panicf</span><br></pre></td></tr></table></figure></p>
+<p>用法:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hLog.InitLogger(<span class="string">"Default"</span>, <span class="number">10</span>, <span class="number">7</span>, <span class="number">4</span>, <span class="literal">true</span>) <span class="comment">// 这个配置 可以存储 7天服务器日志输出, 每个日志文件 10M, 使用控制台输出. 创建一个 Default 的文件, 过滤 Info 以上的 信息. 这个4 其实是个枚举,</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h4><p>url: github.com/robfig/cron</p>
+<p>用途: 比如服务器要 在每天十二点 实行一个事情等这个样的东西, 或者在服务器启动后 每 1个小时 采集一次数据等.</p>
+<p>用法:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 比如实现一个 过多少秒后 执行一次 任务 然后移除的例子, 这个是截取 服务器中 微信小游戏订阅的例子.</span></span><br><span class="line"><span class="comment">// 相信聪明的你 一定是可以看得懂的</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> TimerTaskJob <span class="keyword">struct</span> &#123;</span><br><span class="line">	ProjName   <span class="keyword">string</span></span><br><span class="line">	Platform   <span class="keyword">string</span></span><br><span class="line">	Openid     <span class="keyword">string</span></span><br><span class="line">	Appid      <span class="keyword">string</span></span><br><span class="line">	AppSecret  <span class="keyword">string</span></span><br><span class="line">	TemplateId <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">	ID   *cron.EntryID</span><br><span class="line">	Cron *cron.Cron</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *TimerTaskJob)</span> <span class="title">Run</span><span class="params">()</span></span> &#123;</span><br><span class="line">	d := &amp;common.WechatSubscribeRetMap&#123;&#125;</span><br><span class="line">	sTime := time.Now()</span><br><span class="line">	err := common.SendSubscribeWechat(this.Appid, this.AppSecret, this.ProjName, this.Platform, &amp;sendSubscribeWechatDataS&#123;</span><br><span class="line">		Touser:     this.Openid,</span><br><span class="line">		TemplateId: this.TemplateId,</span><br><span class="line">		Page:       <span class="string">""</span>,</span><br><span class="line">		Data: sendSubscribeWechatInnerDataS&#123;</span><br><span class="line">			Phrase1: snedSubscribeWechatInnerValueS&#123;</span><br><span class="line">				Value: <span class="string">"任务完成"</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">			Date2: snedSubscribeWechatInnerValueS&#123;</span><br><span class="line">				Value: sTime.Format(<span class="string">"2006年01月02日"</span>),</span><br><span class="line">			&#125;,</span><br><span class="line">			Time3: snedSubscribeWechatInnerValueS&#123;</span><br><span class="line">				Value: sTime.Format(<span class="string">"15:04"</span>),</span><br><span class="line">			&#125;,</span><br><span class="line">			Thing4: snedSubscribeWechatInnerValueS&#123;</span><br><span class="line">				Value: <span class="string">"定时任务完成了"</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;, d)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		hLog.Errorf(<span class="string">"订阅消息消息发送失败 err ===&gt; %s"</span>, err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> d.Errcode != <span class="number">0</span> &#123;</span><br><span class="line">		hLog.Errorf(<span class="string">"订阅消息消息发送失败 errCode ===&gt; %d,  err ===&gt; %s"</span>, d.Errcode, d.ErrMsg)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		hLog.Info(<span class="string">"订阅消息发送成功"</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 执行一次 直接从调度中移除</span></span><br><span class="line">	this.Cron.Remove(*this.ID)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *TimerTaskJob)</span> <span class="title">SetData</span><span class="params">(id *cron.EntryID, cron *cron.Cron)</span></span> &#123;</span><br><span class="line">	this.ID = id</span><br><span class="line">	this.Cron = cron</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	timerTaskJob := &amp;TimerTaskJob&#123;</span><br><span class="line">		ProjName:   data.ProjName,</span><br><span class="line">		Platform:   data.ProjName,</span><br><span class="line">		Openid:     data.Sign,</span><br><span class="line">		Appid:      gameConfig.AppId,</span><br><span class="line">		AppSecret:  gameConfig.AppSecret,</span><br><span class="line">		TemplateId: data.TemplateId,</span><br><span class="line">	&#125;</span><br><span class="line">	id, err := this.cronSecond.AddJob(fmt.Sprintf(<span class="string">"*/%d * * * * *"</span>, data.Time), timerTaskJob)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		hLog.Errorf(<span class="string">"添加定时任务失败  err ===&gt; %s"</span>, err.Error())</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	timerTaskJob.SetData(&amp;id, this.cronSecond)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="http"><a href="#http" class="headerlink" title="http"></a>http</h4><p>url: github.com/gin-gonic/gin</p>
+<p>用途: 既然是 服务器 就得支持 http, webSocket, tcp, udp, 这几个常用的连接方式<br>使用这个库, 只是可以让你 实现一个 http,请求 用更少的代码.</p>
+<p>用法:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	router := gin.New()</span><br><span class="line">	router.Use(gin.Recovery())</span><br><span class="line">	router.Use(hCommon.Cors()) <span class="comment">// 跨域设置</span></span><br><span class="line">	router.GET(<span class="string">"/"</span>, home)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">home</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">	r := ctx.Request</span><br><span class="line">	w := ctx.Writer</span><br><span class="line">	hLog.Debug(<span class="string">"Url ==&gt; home"</span>)</span><br><span class="line">	<span class="keyword">if</span> r.URL.Path != <span class="string">"/"</span> &#123;</span><br><span class="line">		http.Error(w, <span class="string">"Api not found"</span>, http.StatusNotFound)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> r.Method != <span class="string">"GET"</span> &#123;</span><br><span class="line">		http.Error(w, <span class="string">"Post type is not GET"</span>, http.StatusMethodNotAllowed)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	_, err := w.WriteString(<span class="string">"happy server framework"</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		hLog.Error(<span class="string">"No Status Gate &#123;home&#125; WriteString fail, ERROR =&gt; "</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意: 使用 gin时候在每个绑定的函数里面 不要使用 在开启一个协程 然后在协程 响应用户, 不然会一直报一个 你写的数据 大于 Content-Length</p>
+</blockquote>
+<h4 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h4><p>url: github.com/gorilla/websocket</p>
+<p>用法:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这里我 配合 gin 和 webscoket 一块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> upgrader = websocket.Upgrader&#123;</span><br><span class="line">	<span class="comment">//HandshakeTimeout:  0,</span></span><br><span class="line">	<span class="comment">//ReadBufferSize:    0,</span></span><br><span class="line">	<span class="comment">//WriteBufferSize:   0,</span></span><br><span class="line">	<span class="comment">//WriteBufferPool:   nil,</span></span><br><span class="line">	<span class="comment">//Subprotocols:      nil,</span></span><br><span class="line">	<span class="comment">//Error:             nil,</span></span><br><span class="line">	CheckOrigin: <span class="function"><span class="keyword">func</span><span class="params">(r *http.Request)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">//EnableCompression: false,</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gin.SetMode(gin.ReleaseMode)</span><br><span class="line">router := gin.New()</span><br><span class="line">router.Use(gin.Recovery())</span><br><span class="line">router.GET(<span class="string">"/"</span>, home)</span><br><span class="line">router.GET(<span class="string">"[表情]"</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">	conn, err := upgrader.Upgrade(ctx.Writer, ctx.Request, <span class="literal">nil</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		_, _ = ctx.Writer.WriteString(<span class="string">"Server internal error"</span>)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	_, pkg, err := conn.ReadMessage()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里 只是只是 一个简单的 不能直接使用, 当然也可以使用, 需要自己 进行二次修改, 调整成自己想要的样子.</span></span><br></pre></td></tr></table></figure></p>
+<p>今天就先暂时补充这个多, 后面再继续添加.  时间不够用了, 哈哈哈 .</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年11月20日 16:03</p>
+        <p>原始链接： <a class="post-url" href="/posts/792bb197/" title="golang-使用第三方包记录">https://leng521.top/posts/792bb197/</a></p>
+        <footer>
+            <a href="https://leng521.top">
+                <img src="/head.jpg" alt="小魏">
+                小魏
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://leng521.top/posts/792bb197/&title=《golang-使用第三方包记录》 — 小魏的博客&pic=https://leng521.tophead.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://leng521.top/posts/792bb197/&title=《golang-使用第三方包记录》 — 小魏的博客&source=由于 golang 使用时间长了之后 你所面临的需求开始变的复杂 功能会变得越来越多, 所以在这个过程中 积累了一些 第三方库这个记录一下这一片文章 可能..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://leng521.top/posts/792bb197/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《golang-使用第三方包记录》 — 小魏的博客&url=https://leng521.top/posts/792bb197/&via=https://leng521.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://leng521.top/posts/792bb197/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABvElEQVR42u3aQW7DMAwEwPz/0ynQUwrU8ZKyGLcYnQwnsMY+LCRSj0c8nt/j9fr1zsr9x46Bi4u7zH2+HUfc99fJk48+wdF/cHFx57l5eOUB1HvtExsuLu7NuHk8JVBcXNz/wU02MEnk4eLi/hVuvjnJgykvlGzZq+Hi4i5wewXTa6+313dxcXEv6kokYZRPXA2vX2bHxcUd4b7fwCRTriRor1CCi4u7m9sLrORlVqLwJMJwcXFHuL2GaK9xUi24/LiDi4s7zk2CqXoUo7DOSoIVFxd3hFvdwFzV/FhpuuDi4s5w89bpSrGjF5rlrg4uLu5F3OpximqbpLr0wcXF/Sy3uhyptmGqy6CTIgsuLu4I96pFSdKC7dFxcXHnuflk10Zb/isuLu48twftNVd6n+PkzAguLu4GbvX4VBWdL1+iwxm4uLiD3Hwhsl7a6DVmcHFx57n5SBohedGk2VjFxcXdzF05VFE9SLGjXIKLi7uPm4dXL5KS5+Di4t6TWy1erBdDe80YXFzcu3Gri5j8E+StF1xc3Htyy9FTXEidzIuLizvIzR+08p/RsgguLu5gwbTXnuktoXBxcce5XyKJlYxpt93rAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/golang/" class="color2">golang</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装包"><span class="post-toc-text">安装包</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#发送邮件"><span class="post-toc-text">发送邮件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#获取-linux-cpu-和-使用内存"><span class="post-toc-text">获取 linux cpu 和 使用内存</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#生成-唯一ID"><span class="post-toc-text">生成 唯一ID</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#服务器节点间的数据传输协议-protobuf"><span class="post-toc-text">服务器节点间的数据传输协议 protobuf</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在内存中实现-排行榜功能"><span class="post-toc-text">在内存中实现 排行榜功能</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#负载均衡算法"><span class="post-toc-text">负载均衡算法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#日志输出"><span class="post-toc-text">日志输出</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#定时任务"><span class="post-toc-text">定时任务</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#http"><span class="post-toc-text">http</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#WebSocket"><span class="post-toc-text">WebSocket</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/posts/353f2255/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">golang-protobuf记录</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNDA0MC8xMDU3OA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 小魏<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://leng521.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Cocos-Creator/">Cocos Creator</a><a class="category-link" href="/categories/QQ玩一玩/">QQ玩一玩</a><a class="category-link" href="/categories/cocos2d-x/">cocos2d-x</a><a class="category-link" href="/categories/cocos2dx/">cocos2dx</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/js/">js</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/前端/WebGL/">WebGL</a><a class="category-link" href="/categories/前端/bgfx/">bgfx</a><a class="category-link" href="/categories/后端/">后端</a><a class="category-link" href="/categories/后端/golang/">golang</a><a class="category-link" href="/categories/后端/golang/protobuf/">protobuf</a><a class="category-link" href="/categories/后端/nodejs/">nodejs</a><a class="category-link" href="/categories/微信小游戏/">微信小游戏</a><a class="category-link" href="/categories/插件/">插件</a><a class="category-link" href="/categories/自动构建工具/">自动构建工具</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bgfx/" style="font-size: 12.5px;">bgfx</a> <a href="/tags/c/" style="font-size: 12.5px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 15px;">cocos2d-x</a> <a href="/tags/cpp/" style="font-size: 12.5px;">cpp</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/golang/" style="font-size: 15px;">golang</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/js/" style="font-size: 12.5px;">js</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/protobuf/" style="font-size: 10px;">protobuf</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/scons/" style="font-size: 12.5px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/xmake/" style="font-size: 12.5px;">xmake</a> <a href="/tags/优化/" style="font-size: 12.5px;">优化</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 20px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/9宫格/" style="font-size: 10px;">9宫格</a> <a href="/tags/Cocos-Creator/" style="font-size: 20px;">Cocos Creator</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/QQ玩一玩/" style="font-size: 10px;">QQ玩一玩</a> <a href="/tags/TweenLite/" style="font-size: 10px;">TweenLite</a> <a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bgfx/" style="font-size: 12.5px;">bgfx</a> <a href="/tags/c/" style="font-size: 12.5px;">c++</a> <a href="/tags/cocos2d-x/" style="font-size: 15px;">cocos2d-x</a> <a href="/tags/cpp/" style="font-size: 12.5px;">cpp</a> <a href="/tags/gcc/" style="font-size: 10px;">gcc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-扩展工具/" style="font-size: 10px;">git 扩展工具</a> <a href="/tags/github-page/" style="font-size: 10px;">github page</a> <a href="/tags/git命令/" style="font-size: 10px;">git命令</a> <a href="/tags/golang/" style="font-size: 15px;">golang</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/js/" style="font-size: 12.5px;">js</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/optionParser/" style="font-size: 10px;">optionParser</a> <a href="/tags/protobuf/" style="font-size: 10px;">protobuf</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/scons/" style="font-size: 12.5px;">scons</a> <a href="/tags/spine/" style="font-size: 10px;">spine</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/xmake/" style="font-size: 12.5px;">xmake</a> <a href="/tags/优化/" style="font-size: 12.5px;">优化</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/微信小游戏/" style="font-size: 20px;">微信小游戏</a> <a href="/tags/缺少dll/" style="font-size: 10px;">缺少dll</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
